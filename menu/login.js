@@ -28,8 +28,7 @@ function loginUser(event) {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function (userCredential) {
       announce("Logged in successfully");
-      window.location.href = "https://blindtechagent.github.io/web/";
-    })
+      window.location.href = "https://blindtechagent.github.io/";    })
     .catch(function (error) {
       // Handle login errors
       switch (error.code) {

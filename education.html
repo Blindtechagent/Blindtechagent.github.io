@@ -14,7 +14,7 @@
   <meta property="og:description"
     content="Explore a variety of educational resources across different subjects, all available for free.">
   <meta property="og:image" content="https://te.legra.ph/file/1456591743bc08490d50c.jpg">
-  <meta property="og:url" content="https://blindtechagent.github.io/web/education.html">
+  <meta property="og:url" content="https://blindtechagent.github.io/education.html">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -51,56 +51,7 @@
       list-style-type: square;
       padding-left: 20px;
     }
-
-    .box {
-      background-color: lightgreen;
-      color: black;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 6px;
-      margin: 50px auto;
-      text-align: center;
-      width: 85vw;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: block;
-    }
-
-    .box button {
-      background: #800080;
-      /* Purple background color */
-      color: #FFFF00;
-      /* Yellow text color */
-      font-size: 1em;
-      text-decoration: none;
-      display: inline-block;
-            border: 1px solid #000;
-      padding: 4px;
-      margin: 0 10px;
-      /* Adjust margin for spacing */
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .box button:hover {
-      background: #FFA07A;
-      /* Light Salmon background color */
-      color: #800080;
-      /* Purple text color */
-    }
-.about-this {
-  background-color: cornflowerblue;
-  color: ghostwhite;
-}
-    @media (min-width: 768px) {
-.about-this {
-  background-color: tomato;
-  color: ghostwhite;
-}
-    }
-
-
-      </style>
+  </style>
 </head>
 
 <body>
@@ -179,6 +130,7 @@
       <img src="https://te.legra.ph/file/1456591743bc08490d50c.jpg" alt="logo of Blind Tech Agent" width="100px"
         height="100px" class="logo">
       <button onclick="openDialog()" class="language-button">Translate page</button>
+  </div>
   <dialog id="dialog" role="dialog" aria-modal="true">
     <div class="dialog-content">
       <h2>Change the Language of Our Website</h2>
@@ -208,28 +160,21 @@
     <a role="tab" href="./games.html" target="_self" class="tab">Games</a>
   </nav>
   <main id="main">
-      <h2>Education</h2>
-      <div class="about-this">
-  <p>Welcome to the Education Tab</p>
-  <p>Discover a wealth of educational resources at your fingertips,
-all offered to you completely free of charge.</p>
-  <q><strong>Education is the most powerful weapon which you can use to change the world.</strong></q>
-  </div>
-<div class="box">
-    <p>Here we provide useful content for learning in both audio and text formats to make education accessible for everyone.</p>
-  <p>Whether you prefer to listen or read, our materials are designed for easy understanding and effective learning.</p>
-
-  <label for="contentType">Select Content Type:</label><br>
-  <select id="contentType">
-    <option value="" disabled>select content type</option>
-    <option value="education/audioEducation.html">Audio Content</option>
-    <option value="education/textEducation.html">Text Content</option>
-  </select>
-<br>
-    <button id="startBtn">Start Learning</button>
-</div>
-<hr>
-        <p><strong>Do you know that?</strong> Our features need money to keep going, and your help is super important. No
+    <h2>Education</h2>
+    <p>Discover a wealth of educational resources at your fingertips,</p>
+    <p>all offered to you completely free of charge.</p>
+    <h3>Categories</h3>
+    <ul>
+      <li>
+        <a class="mainLink" href="./education/computer.html">Computers</a>
+        <p>Dive into the world of computers and technology.</p>
+      </li>
+      <li>
+        <a class="mainLink" href="./education/english.html">English</a>
+        <p>Enhance your language skills and fluency in English.</p>
+      </li>
+    </ul>
+    <p><strong>Do you know that?</strong> Our features need money to keep going, and your help is super important. No
       matter how much you donate, it really helps us out. Your support means these features stay around for everyone to
       use.</p>
 
@@ -237,21 +182,7 @@ all offered to you completely free of charge.</p>
       these features available for everyone. Thanks a bunch for thinking about donating and for being a part of our
       team!</p>
     <a href="./menu/donateUs.html">Donate us</a>
-<script>
-  const selectEl = document.getElementById('contentType');
-  let selectedMethod;
-  selectEl.addEventListener('change', function () {
-    selectedMethod = selectEl.value;
-  });
 
-  document.getElementById('startBtn').addEventListener('click', function () {
-  if (!selectedMethod == "") {
-window.location.href = selectedMethod;
-  } else{
-    alert('please select any method of learning first!');
-  }
-  });
-</script>
   </main>
   <footer class="footer">
     <h2>Footer</h2>
@@ -265,7 +196,7 @@ window.location.href = selectedMethod;
     <p class="text-center">&copy; 2023 Blind Tech Agent. All Rights Reserved.</p>
   </footer>
   </div>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <script src="./others/firebase.js"></script>

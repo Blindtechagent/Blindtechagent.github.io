@@ -4,59 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="./educationalContent.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <title>Text, educational content</title>
+  <title>English, educational content</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="../others/loading.js"></script>
-  <style>
-    .mainLink {
-      background: #800080;
-      /* Purple background color */
-      color: #FFFF00;
-      /* Yellow text color */
-      font-size: 1em;
-      display: block;
-      text-decoration: none;
-      border: 1px solid #000;
-      margin: auto;
-      padding: 4px;
-      margin: 10px;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .mainLink:hover {
-      background: #FFA07A;
-      /* Light Salmon background color */
-      color: #800080;
-      /* Purple text color */
-    }
-
-    ul {
-      list-style-type: square;
-      padding-left: 20px;
-    }
-
-    .box {
-      background-color: cornflowerblue;
-      color: black;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 6px;
-      margin: 50px auto;
-      text-align: center;
-      width: 85vw;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: block;
-    }
-
-      </style>
 </head>
 
 <body>
@@ -75,9 +31,6 @@
         <ul class="drawer w3-sidebar w3-bar-block w3-animate-left" id="menuItems" aria-orientation="vertical" role="navigation">
           <li><a id="loginBtn" role="menuitem" href="../menu/login.html" class="menuLinks w3-bar-item">Log in</a></li>
           <li><a id="accountBtn" role="menuitem" href="../menu/createAccount.html" class="menuLinks w3-bar-item">Create Account</a></li>
-                    <li>
-            <a role="menuitem" href="./text/adminPanel.html" class="menuLinks w3-bar-item">Admin Pannel</a>
-          </li>
           <li>
             <a role="menuitem" href="./menu/joinUs.html" class="menuLinks w3-bar-item">Join our team</a>
           </li>
@@ -116,16 +69,39 @@
       <a role="tab" href="../features.html" target="_self" class="tab">FEATURES</a>
       <a role="tab" href="../education.html" target="_self" aria-label="Selected, education" class="tab w3-yellow">EDUCATION</a>
       <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
     </nav>
     <main id="main">
-<h2>Text Education</h2>
-<p>Explore our educational content in text format for easy and accessible learning.</p>
-<p>Dive in and start learning right away.</p>
-    <h3>Subjects</h3>
-    <p>Please select a subject from the categories below to start learning.</p>
-    <ul id="subjects-container"></ul>
-    </main>
+      <div id="heading-box" tabindex="0" role="heading" aria-level="2">
+        <h2>English Grammar</h2>
+      </div>
+      <p>here you will find various topics related to English grammar.</p>
+
+      <div class="box">
+        <h3>Introduction to Parts of Speech</h3>
+        <p>This audio provides an introduction to parts of speech, teaching the fundamentals of what parts of speech are and how they function in language.</p>
+        <p>Recorded by: <strong>Vivek kumar yadav</strong></p>
+        <button onclick="playAudio('https://drive.google.com/file/d/1egC33exZKMZmBHgoK95HEuvorVjfWJsn/preview?usp=sharing', this)">Play Audio</button>
+      </div>
+
+    <div class="box">
+<h3>Nouns in Modern English</h3>
+<p>This audio provides a comprehensive overview of nouns according to modern English, including their definition, usage, and the various types of nouns and their functions in sentences.</p>
+        <p>Recorded by: <strong>Vivek kumar yadav</strong></p>
+        <button onclick="playAudio('https://drive.google.com/file/d/1gRsucveI0TKo0o2F_0Zz7mlNd2uJQPxH/preview?usp=sharing', this)">Play Audio</button>
+      </div>
+    <div class="box">
+<h3>Nouns in Ancient English</h3>
+<p>This audio provides a comprehensive overview of nouns according to Ancient English, including their definition, usage, and the various types of nouns and their functions in sentences.</p>
+        <p>Recorded by: <strong>Vivek kumar yadav</strong></p>
+        <button onclick="playAudio('https://drive.google.com/file/d/1m75eqYilaMHVDZIOJA3GUBBt4JxXGhb6/preview?usp=sharing', this)">Play Audio</button>
+      </div>
+    <div class="box">
+<h3>Collective Nouns</h3>
+<p>This audio provides a detailed exploration of collective nouns, covering their definition, usage, and various examples illustrating their roles in sentences.</p>
+        <p>Recorded by: <strong>Vivek kumar yadav</strong></p>
+        <button onclick="playAudio('https://drive.google.com/file/d/1lR5ykAMH2ucdfhEzCGMg-t8Oy2sSOT4U/preview?usp=sharing', this)">Play Audio</button>
+      </div>
+</main>
     <footer class="footer">
       <h2>Footer</h2>
       <h3 class="footer-heading">Connect with us</h3>
@@ -145,40 +121,6 @@
   <script src="./educationalContent.js"></script>
   <script src="../others/translate.js"></script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script>
-        const db = firebase.database().ref('education');
-        const subjectsContainer = document.getElementById('subjects-container');
-
-        db.on('value', (snapshot) => {
-            subjectsContainer.innerHTML = '';
-            if (snapshot.exists()) {
-                snapshot.forEach((childSnapshot) => {
-                    const subjectKey = childSnapshot.key;
-                    const subjectData = childSnapshot.val();
-                    const subjectName = subjectData.subjectName;
-
-                    const subjectLink = document.createElement('a');
-                    subjectLink.className = 'mainLink';
-                    subjectLink.href = `./text/subject.html?subject=${subjectKey}`;
-                    subjectLink.textContent = subjectName;
-
-                    const subjectDescription = document.createElement('p');
-                    subjectDescription.textContent = `Learn about ${subjectName}.`;
-
-                    const subjectItem = document.createElement('li');
-                    subjectItem.appendChild(subjectLink);
-                    subjectItem.appendChild(subjectDescription);
-
-                    subjectsContainer.appendChild(subjectItem);
-                });
-            } else {
-                // Show message inside a <li> for valid HTML
-                const noSubjectsItem = document.createElement('li');
-                noSubjectsItem.textContent = 'No subjects found.';
-                subjectsContainer.appendChild(noSubjectsItem);
-            }
-        });
-    </script>
 </body>
 
 </html>

@@ -44,24 +44,23 @@ document.getElementById('form').addEventListener('submit', function (event) {
 1. Researcher: Gathers detailed, up-to-date, and relevant information and data on the topic to support the article.
 2. Idea Generator: Provides creative ideas, angles, and fresh perspectives to enrich the article content.
 3. Writer: Writes the main article clearly, using input from the researcher and idea generator.
-4. Content Developer: Expands and elaborate the content for easy understanding with additional examples, explanations, and supporting details.
+4. Content Developer: Expands on key points with additional examples, explanations, and supporting details.
 5. Fact-checker: Ensures all information is factually correct, based on current data.
 6. Language Expert: Fixes grammatical errors and writes effectively.
 7. Simplifier: Explains difficult ideas in simple words so everyone can easily understand.
-8. Audience Expert: Helps make the article easy to understand for readers who are very beginner and not have so much technical knowledge.
+8. Audience Expert: Helps make the article easy to understand for readers.
 9. Engagement Expert: Adds stories or examples to make it interesting and keep readers engaged until the end.
-10. Human Editor: Removes anything that sounds robotic or AI-generated, things that are so facinating, so it feels natural and alive like written by a human.
+10. Human Editor: Removes anything that sounds robotic or AI-generated, so it feels natural and alive like written by a human.
 11. HTML Expert: Handles the article’s HTML structure and formatting.
-12. Final Reviewer: Checks all members had done their works properly or not and if force members to work hard in their job.
+12. Final Reviewer: Checks everything to make sure it’s good and ready for publishing.
  
 Task:
 Your team must write a well-organized article about this topic: ${inputMsg}
  
 Instructions for creating the article (must be followed exactly):
 Step 1: Introduction
-• Begin with a strong and interesting opening—a surprising fact or a shocking question.
-• include a brief overview of the topic.
-• make the introduction section in 250 words..
+• Begin with a strong and interesting opening—a surprising fact or an amazing question.
+• make the introduction section in 200 words..
 • Clearly explain what readers will learn throughout the article.
 Step 2: Writing style and tone
 • Use only simple, easy-to-understand words. Avoid hard words, slang, or robotic language.
@@ -131,13 +130,9 @@ function appendMessage(sender, text, messageClass, senderClass, parentElement) {
         msgContainer.appendChild(codeCopyBtn);
     }
 
-    // Remove any existing msgContainer from the parentElement before adding new one
-    const existingMsgContainers = parentElement.querySelectorAll('.' + messageClass);
-    existingMsgContainers.forEach(container => parentElement.removeChild(container));
     parentElement.appendChild(msgContainer);
-    return msgContainer;  // Return the message container for further manipulation if needed
 
-    
+    return msgContainer;  // Return the message container to remove loading indicator later
 }
 
 
