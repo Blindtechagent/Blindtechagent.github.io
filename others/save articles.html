@@ -58,9 +58,6 @@
             <label for="content">Content:</label>
             <textarea id="content" name="content" placeholder="Content" required></textarea>
             
-            <label for="meta-title">Meta Title:</label>
-            <input type="text" id="meta-title" name="meta-title" placeholder="Meta Title" required>
-            
             <label for="meta-description">Meta Description:</label>
             <textarea id="meta-description" name="meta-description" placeholder="Meta Description" required></textarea>
             
@@ -84,7 +81,6 @@
         const publishDateInput = document.getElementById('publish-date');
         const categoryInput = document.getElementById('category');
         const contentInput = document.getElementById('content');
-        const metaTitleInput = document.getElementById('meta-title');
         const metaDescriptionInput = document.getElementById('meta-description');
         const metaKeywordsInput = document.getElementById('meta-keywords');
 
@@ -97,7 +93,7 @@
             const publishDate = publishDateInput.value;
             const category = categoryInput.value;
             const content = contentInput.value;
-            const metaTitle = metaTitleInput.value;
+            const metaTitle = title; // Use title as meta title
             const metaDescription = metaDescriptionInput.value;
             const metaKeywords = metaKeywordsInput.value;
 
