@@ -23,12 +23,7 @@ function displayArticles() {
   const paginatedArticles = sortedArticles.slice(start, end);
 
   if (paginatedArticles.length === 0) {
-    articlesList.innerHTML = `
-      <div class="no-articles">
-        <h2>No articles found</h2>
-        <p>Sorry, we couldn't find any articles matching your criteria. Please try a different search or check back later.</p>
-      </div>
-    `;
+    articlesList.innerHTML = `<p>Loading Articles...</p>`;
     return;
   }
 
@@ -61,7 +56,7 @@ function viewArticle(id) {
   db.child(id).once('value', (snapshot) => {
     const article = snapshot.val();
     // Redirect or load the full article
-    window.location.href = `articles/article.html?id=${id}`;
+    window.location.href = `articles_system/article.html?id=${id}`;
   });
 }
 
