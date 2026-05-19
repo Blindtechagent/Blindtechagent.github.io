@@ -33,10 +33,10 @@ articleRef.once('value', (snapshot) => {
             <p><strong>Category: ${article.category}</strong></p>
             <article>${article.content}</article>
             <span style="margin:20px; padding:16px; background: darkblue; color:ghostwhite;">
-                <strong>Views: ${article.viewCount}</strong>
+                <strong>Views: <span id="view-count">${article.viewCount || 0}</span></strong>
             </span>
             <span style="margin:20px; padding:16px; background: darkblue; color:ghostwhite;">
-                <strong>Shares: ${article.shareCount}</strong>
+                <strong>Shares: <span id="share-count">${article.shareCount || 0}</span></strong>
             </span>
             <span style="margin:20px; padding:16px; background: darkblue; color:ghostwhite;">
                 <strong>Comments: <span id="comment-count">0</span></strong>
@@ -146,14 +146,19 @@ function incrementViewCount(articleId) {
 
     if (!hasViewed) {
         // Increment view count in Firebase if it's the user's first view
-        articleRef.transaction((article) => {
-            if (article) {
-                article.viewCount = (article.viewCount || 0) + 1;
+        articleRef.transaction((currentArticle) => {
+            if (currentArticle) {
+                currentArticle.viewCount = (currentArticle.viewCount || 0) + 1;
             }
-            return article;
-        }).then(() => {
-            // Store a flag in localStorage to indicate the article has been viewed
-            localStorage.setItem(viewedKey, 'true');
+            return currentArticle;
+        }).then((result) => {
+            if (result.committed) {
+                const updatedArticle = result.snapshot.val();
+                article.viewCount = updatedArticle.viewCount;
+                document.getElementById('view-count').textContent = article.viewCount;
+                // Store a flag in localStorage to indicate the article has been viewed
+                localStorage.setItem(viewedKey, 'true');
+            }
         }).catch((error) => {
             console.error("Error updating view count:", error);
         });
@@ -247,12 +252,17 @@ function loadComments() {
 }
 
 function incrementShareCount(articleId) {
-    const articleRef = firebase.database().ref('articles/' + articleId);
-    articleRef.transaction((article) => {
-        if (article) {
-            article.shareCount = (article.shareCount || 0) + 1;
+    articleRef.transaction((currentArticle) => {
+        if (currentArticle) {
+            currentArticle.shareCount = (currentArticle.shareCount || 0) + 1;
         }
-        return article;
+        return currentArticle;
+    }).then((result) => {
+        if (result.committed) {
+            const updatedArticle = result.snapshot.val();
+            article.shareCount = updatedArticle.shareCount;
+            document.getElementById('share-count').textContent = article.shareCount;
+        }
     }).catch((error) => {
         console.error("Error updating share count:", error);
     });
@@ -263,15 +273,19 @@ function incrementLikeCount(articleId) {
     const hasLiked = localStorage.getItem(likeID);
 
     if (!hasLiked) {
-        articleRef.transaction((article) => {
-            if (article) {
-                article.likeCount = (article.likeCount || 0) + 1;
+        articleRef.transaction((currentArticle) => {
+            if (currentArticle) {
+                currentArticle.likeCount = (currentArticle.likeCount || 0) + 1;
             }
-            return article;
-        }).then(() => {
-            localStorage.setItem(likeID, 'true');
-            announce('you liked this article!');
-            document.getElementById('like-count').innerHTML = (article.likeCount || 0);
+            return currentArticle;
+        }).then((result) => {
+            if (result.committed) {
+                const updatedArticle = result.snapshot.val();
+                article.likeCount = updatedArticle.likeCount;
+                localStorage.setItem(likeID, 'true');
+                announce('you liked this article!');
+                document.getElementById('like-count').textContent = article.likeCount;
+            }
         }).catch((error) => {
             console.error("Error updating like count:", error);
         });
@@ -286,15 +300,19 @@ function incrementDislikeCount(articleId) {
     const hasDisliked = localStorage.getItem(dislikeId);
 
     if (!hasDisliked) {
-        articleRef.transaction((article) => {
-            if (article) {
-                article.dislikeCount = (article.dislikeCount || 0) + 1;
+        articleRef.transaction((currentArticle) => {
+            if (currentArticle) {
+                currentArticle.dislikeCount = (currentArticle.dislikeCount || 0) + 1;
             }
-            return article;
-        }).then(() => {
-            localStorage.setItem(dislikeId, 'true');
-            announce('you disliked this article!');
-            document.getElementById('dislike-count').innerHTML = (article.dislikeCount || 0);
+            return currentArticle;
+        }).then((result) => {
+            if (result.committed) {
+                const updatedArticle = result.snapshot.val();
+                article.dislikeCount = updatedArticle.dislikeCount;
+                localStorage.setItem(dislikeId, 'true');
+                announce('you disliked this article!');
+                document.getElementById('dislike-count').textContent = article.dislikeCount;
+            }
         }).catch((error) => {
             console.error("Error updating dislike count:", error);
         });
