@@ -56,7 +56,7 @@ function viewArticle(id) {
   db.child(id).once('value', (snapshot) => {
     const article = snapshot.val();
     // Redirect or load the full article
-    window.location.href = `articles_system/article.html?id=${id}`;
+    window.location.href = `articles/article.html?id=${id}`;
   });
 }
 
