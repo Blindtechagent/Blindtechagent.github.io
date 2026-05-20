@@ -90,7 +90,7 @@ function displayArticle(id, title, author, publishDate, category, viewCount) {
 
 // Handle viewing full article
 function viewArticle(id) {
-  window.location.href = `articles/article.html?id=${id}`;
+  window.location.href = `articles_system/article.html?id=${id}`;
 }
 
 // Next page
