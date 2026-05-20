@@ -1,29 +1,64 @@
 const articlesList = document.getElementById('articles');
+const totalArticlesElement = document.getElementById('totalArticles');
+const paginationContainer = document.getElementById('pagination');
 const db = firebase.database().ref('articles');
 
 let currentPage = 0; // Start on the first page
 const articlesPerPage = 7; // Number of articles per page
 let totalArticles = 0;
 let sortedArticles = [];
+let isLoaded = false; // Flag to track if data has been fetched
+
+// Initial setup for pagination buttons - moved up to avoid race conditions
+if (paginationContainer) {
+  paginationContainer.innerHTML = `
+    <button id="previousBtn" onclick="prevPage()" style="display: none;">Previous 7 days</button>
+    <button id="nextBtn" onclick="nextPage()">Next 7 days</button>
+  `;
+}
 
 // Load and sort articles initially
 db.orderByKey().on('value', (snapshot) => {
   const articles = snapshot.val();
-  sortedArticles = Object.entries(articles).sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
-  totalArticles = sortedArticles.length;
-  document.getElementById('totalArticles').innerHTML = `Total articles: ${totalArticles}`;
+  isLoaded = true;
+  
+  if (articles) {
+    sortedArticles = Object.entries(articles).sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
+    totalArticles = sortedArticles.length;
+    if (totalArticlesElement) {
+      totalArticlesElement.innerHTML = `Total articles: ${totalArticles}`;
+    }
+  } else {
+    sortedArticles = [];
+    totalArticles = 0;
+    if (totalArticlesElement) {
+      totalArticlesElement.innerHTML = `Total articles: 0`;
+    }
+  }
   displayArticles();
+}, (error) => {
+  console.error("Firebase error:", error);
+  isLoaded = true;
+  if (articlesList) {
+    articlesList.innerHTML = `<p>Error loading articles: ${error.message}</p>`;
+  }
 });
 
 // Function to display articles for the current page
 function displayArticles() {
+  if (!articlesList) return;
+  
   articlesList.innerHTML = ''; // Clear the list
   const start = currentPage * articlesPerPage;
   const end = start + articlesPerPage;
   const paginatedArticles = sortedArticles.slice(start, end);
 
   if (paginatedArticles.length === 0) {
-    articlesList.innerHTML = `<p>Loading Articles...</p>`;
+    if (isLoaded) {
+      articlesList.innerHTML = `<p>No articles found.</p>`;
+    } else {
+      articlesList.innerHTML = `<p>Loading Articles...</p>`;
+    }
     return;
   }
 
@@ -32,8 +67,10 @@ function displayArticles() {
   });
 
   // Update button visibility
-  document.getElementById('previousBtn').style.display = currentPage === 0 ? 'none' : 'inline';
-  document.getElementById('nextBtn').style.display = end >= totalArticles ? 'none' : 'inline';
+  const previousBtn = document.getElementById('previousBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  if (previousBtn) previousBtn.style.display = currentPage === 0 ? 'none' : 'inline';
+  if (nextBtn) nextBtn.style.display = end >= totalArticles ? 'none' : 'inline';
 }
 
 // Display each article
@@ -53,11 +90,7 @@ function displayArticle(id, title, author, publishDate, category, viewCount) {
 
 // Handle viewing full article
 function viewArticle(id) {
-  db.child(id).once('value', (snapshot) => {
-    const article = snapshot.val();
-    // Redirect or load the full article
-    window.location.href = `articles/article.html?id=${id}`;
-  });
+  window.location.href = `articles/article.html?id=${id}`;
 }
 
 // Next page
@@ -77,51 +110,68 @@ function prevPage() {
 }
 
 // Search functionality
-document.getElementById('searchform').addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent form submission
-  const searchText = document.getElementById('searchBox').value.toLowerCase();
-  db.orderByKey().once('value', (snapshot) => {
-    const articles = snapshot.val();
-    const filteredArticles = Object.entries(articles)
-      .filter(([key, article]) =>
-        article.title.toLowerCase().includes(searchText) ||
-        article.category.toLowerCase().includes(searchText) ||
-        article.author.toLowerCase().includes(searchText) ||
-        article.content?.toLowerCase().includes(searchText) // Check content safely
-      )
-      .sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
+const searchForm = document.getElementById('searchform');
+if (searchForm) {
+  searchForm.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent form submission
+    const searchText = document.getElementById('searchBox').value.toLowerCase();
+    
+    db.orderByKey().once('value', (snapshot) => {
+      const articles = snapshot.val();
+      if (!articles) {
+        sortedArticles = [];
+        totalArticles = 0;
+        currentPage = 0;
+        displayArticles();
+        return;
+      }
+      
+      const filteredArticles = Object.entries(articles)
+        .filter(([key, article]) =>
+          (article.title && article.title.toLowerCase().includes(searchText)) ||
+          (article.category && article.category.toLowerCase().includes(searchText)) ||
+          (article.author && article.author.toLowerCase().includes(searchText)) ||
+          (article.content && article.content.toLowerCase().includes(searchText))
+        )
+        .sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
 
-    sortedArticles = filteredArticles; // Update the sortedArticles array with filtered results
-    totalArticles = sortedArticles.length; // Update totalArticles count for pagination
-    currentPage = 0; // Reset to first page
-    displayArticles();
+      sortedArticles = filteredArticles; // Update the sortedArticles array with filtered results
+      totalArticles = sortedArticles.length; // Update totalArticles count for pagination
+      currentPage = 0; // Reset to first page
+      displayArticles();
+    });
+    document.getElementById('searchBox').value = ''; // Clear search input
   });
-  document.getElementById('searchBox').value = ''; // Clear search input
-});
+}
 
 // Filter by category
-document.getElementById('filter-by').addEventListener('change', function () {
-  const selectedCategory = this.value;
-  db.orderByKey().once('value', (snapshot) => {
-    const articles = snapshot.val();
-    const filteredArticles = selectedCategory === 'all'
-      ? Object.entries(articles)
-      : Object.entries(articles).filter(([key, article]) => article.category === selectedCategory);
+const filterBy = document.getElementById('filter-by');
+if (filterBy) {
+  filterBy.addEventListener('change', function () {
+    const selectedCategory = this.value;
+    db.orderByKey().once('value', (snapshot) => {
+      const articles = snapshot.val();
+      if (!articles) {
+        sortedArticles = [];
+        totalArticles = 0;
+        currentPage = 0;
+        displayArticles();
+        return;
+      }
+      
+      const filteredArticles = selectedCategory === 'all'
+        ? Object.entries(articles)
+        : Object.entries(articles).filter(([key, article]) => article.category === selectedCategory);
 
-    const sortedFilteredArticles = filteredArticles.sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
+      const sortedFilteredArticles = filteredArticles.sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
 
-    sortedArticles = sortedFilteredArticles; // Update the sortedArticles array with filtered results
-    totalArticles = sortedArticles.length; // Update totalArticles count for pagination
-    currentPage = 0; // Reset to first page
-    displayArticles();
+      sortedArticles = sortedFilteredArticles; // Update the sortedArticles array with filtered results
+      totalArticles = sortedArticles.length; // Update totalArticles count for pagination
+      currentPage = 0; // Reset to first page
+      displayArticles();
+    });
   });
-});
-
-// Initial setup for pagination buttons
-document.getElementById('pagination').innerHTML = `
-  <button id="previousBtn" onclick="prevPage()" style="display: none;">Previous 7 days</button>
-  <button id="nextBtn" onclick="nextPage()">Next 7 days</button>
-`;
+}
 
 function sortArticles(sortOption) {
   switch (sortOption) {
@@ -146,8 +196,11 @@ function sortArticles(sortOption) {
 // Initial display
 displayArticles();
 
-
 // sort articles
-document.getElementById('sort-by').addEventListener('change', function () {
-  sortArticles(this.value);
-});
+const sortBy = document.getElementById('sort-by');
+if (sortBy) {
+  sortBy.addEventListener('change', function () {
+    sortArticles(this.value);
+  });
+}
+

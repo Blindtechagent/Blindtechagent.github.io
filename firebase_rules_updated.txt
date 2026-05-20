@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "articles": {
+      ".read": true,
+      "$articleId": {
+        // Allows the admin to create, edit, or delete articles
+        ".write": "auth != null && auth.uid === 'q9ejRGtiBjSHoukHBKQGunVIHXB2'",
+        
+        // Allows anyone (even not logged in) to update these specific fields
+        "viewCount": {
+          ".write": true
+        },
+        "likeCount": {
+          ".write": true
+        },
+        "dislikeCount": {
+          ".write": true
+        },
+        "shareCount": {
+          ".write": true
+        },
+        "comments": {
+          // Allows anyone to post comments
+          ".write": true
+        }
+      }
+    },
+    // Default fallback: Everyone can read, but only the admin can write to other nodes
+    ".read": true,
+    ".write": "auth != null && auth.uid === 'q9ejRGtiBjSHoukHBKQGunVIHXB2'"
+  }
+}
