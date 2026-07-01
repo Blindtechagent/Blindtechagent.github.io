@@ -95,8 +95,17 @@
             margin-top: 2rem;
         }
     </style>
+  <script src="../others/loading.js"></script>
 </head>
 <body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+
+  <div class="body">
     <h1 tabindex="0">Join Us</h1>
 
 <div class="container">
@@ -146,7 +155,7 @@
         <p class="success" id="successMessage" style="display: none;">Thank you for your application! keep checking your email and whatsapp time to time as we will contact you soon.</p>
     </form>
 </div>
-
+  </div>
 <script src="./joinUs.js"></script>
 
 </body>

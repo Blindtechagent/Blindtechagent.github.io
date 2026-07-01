@@ -1,38 +1,70 @@
-// Function to fetch AI response from the server/API
+let API_KEY = null;
+
+// Fetch API key from Firebase Realtime Database
+firebase.database().ref('config/api_keys/openrouter').on('value', (snapshot) => {
+    API_KEY = snapshot.val();
+}, (error) => {
+    console.error("Error fetching API key:", error);
+});
+
+// Function to fetch AI response from OpenRouter
 async function fetchAIResponse(userMsg, tb, loadingIndicator) {
     try {
-        const response = await fetch("https://backend.buildpicoapps.com/aero/run/llm-api?pk=v1-Z0FBQUFBQm5IZkJDMlNyYUVUTjIyZVN3UWFNX3BFTU85SWpCM2NUMUk3T2dxejhLSzBhNWNMMXNzZlp3c09BSTR6YW1Sc1BmdGNTVk1GY0liT1RoWDZZX1lNZlZ0Z1dqd3c9PQ==", {
+        if (!API_KEY) {
+            throw new Error('API key is not loaded yet. Please wait a moment or ensure it is set in the database.');
+        }
+
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${API_KEY}`,
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ prompt: userMsg })
+            body: JSON.stringify({
+                model: "openrouter/auto",
+                messages: [
+                    { 
+                        role: "system", 
+                        content: `You are Blind Tech Agent AI, a helpful, versatile, and professional assistant created by Pawan Kumar. Your goal is to provide clear, effective, and supportive assistance on a wide range of general topics.
+
+STRICT RESPONSE RULES:
+1. Respond ONLY using raw semantic HTML tags (e.g., <p>, <strong>, <ul>, <li>, <code>).
+2. DO NOT use Markdown (no backticks, #, or **).
+3. DO NOT include <html>, <head>, <body>, <script>, or <style> tags.
+4. ALL text must be wrapped in appropriate tags. Do not provide text outside of HTML tags.
+5. Identify as 'Blind Tech Agent AI' and mention your creator, Pawan Kumar, if asked.
+6. Keep responses concise, supportive, and highly accessible for screen readers.
+7. Since your response will be read aloud via Speech Synthesis, avoid complex symbols or long strings of special characters.
+8. Focus exclusively on general-purpose assistance and conversation; do not provide information about specific platform features or tools unless specifically asked about your identity or creator.`
+                    },
+                    { role: "user", content: userMsg }
+                ]
+            })
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch response');
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || 'Failed to fetch response');
         }
 
         const data = await response.json();
+        const answerValue = data.choices[0].message.content;
 
         tb.removeChild(loadingIndicator); // Remove loading indicator after response is received
 
-        if (data.status === "success") {
-            const answerValue = data.text;
-            // Append the AI's response to the chat
-            appendMessage('BTA AI said:', answerValue, 'msg1', 'sender-ai', tb);
-            // Auto-scroll the chat window to show the new message
-            tb.scrollTop = tb.scrollHeight;
-            // Announce AI response (for screen readers)
-            announce("Blind Tech Agent AI replied");
-        } else {
-            // Error handling for failed AI response
-            announce("Error retrieving AI response, please try again.");
-        }
+        // Append the AI's response to the chat
+        appendMessage('BTA AI said:', answerValue, 'msg1', 'sender-ai', tb);
+        // Auto-scroll the chat window to show the new message
+        tb.scrollTop = tb.scrollHeight;
+        // Announce AI response (for screen readers)
+        announce("Blind Tech Agent AI replied");
+
     } catch (error) {
         console.error("Error:", error);
-        tb.removeChild(loadingIndicator); // Ensure loading indicator is removed on error
-        announce("There was an error fetching the response. Please check your internet connection and try again.");
+        if (loadingIndicator && loadingIndicator.parentNode === tb) {
+            tb.removeChild(loadingIndicator); // Ensure loading indicator is removed on error
+        }
+        announce("There was an error fetching the response: " + error.message);
     }
 }
 
@@ -40,7 +72,6 @@ async function fetchAIResponse(userMsg, tb, loadingIndicator) {
 document.getElementById('form').addEventListener('submit', function (event) {
     event.preventDefault();
     const inputMsg = document.getElementById('msg_text').value.trim();
-    const prompt = `you are Blind Tech Agent AI created by Pawan Kumar, reply on: ${inputMsg}`;
     const tb = document.getElementById('tb');
 
     if (inputMsg !== '') {
@@ -57,7 +88,7 @@ document.getElementById('form').addEventListener('submit', function (event) {
         const loadingIndicator = appendMessage('BTA AI is typing...', '...', 'msg1', 'loading', tb);
 
         // Fetch AI response
-        fetchAIResponse(prompt, tb, loadingIndicator);
+        fetchAIResponse(inputMsg, tb, loadingIndicator);
     }
 });
 
@@ -71,15 +102,23 @@ function appendMessage(sender, text, messageClass, senderClass, parentElement) {
     heading.className = senderClass;
 
     const msgText = document.createElement('span');
-    msgText.textContent = text;
+    msgText.innerHTML = text;
 
     msgContainer.appendChild(heading);
     msgContainer.appendChild(msgText);
-    let lineBreak = document.createElement('br');;
+    let lineBreak = document.createElement('br');
     msgContainer.appendChild(lineBreak);
-    // Add "Listen" and "copy" button for AI messages
-    if (messageClass === 'msg1') {
-        const listenButton = createListenButton(text);
+    // Add "Listen" and "copy" button for AI messages (but not for the loading indicator)
+    if (messageClass === 'msg1' && senderClass !== 'loading') {
+        // Pre-load Google TTS Audio immediately when AI replies
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = text;
+        const plainText = (tempDiv.textContent || tempDiv.innerText || "").substring(0, 3000);
+        const ttsUrl = `https://googletexttospeech-apihubforblind.onrender.com/?text=${encodeURIComponent(plainText)}&lang=en-IN`;
+        const preloadedAudio = new Audio(ttsUrl);
+        preloadedAudio.preload = "auto";
+
+        const listenButton = createListenButton(text, preloadedAudio, plainText);
         msgContainer.appendChild(listenButton);
         const copyButton = createCopyButton(text);
         msgContainer.appendChild(copyButton);
@@ -91,18 +130,61 @@ function appendMessage(sender, text, messageClass, senderClass, parentElement) {
 }
 
 // Function to create the "Listen" button and add voice functionality
-function createListenButton(text) {
+function createListenButton(text, preloadedAudio, plainText) {
     const listenButton = document.createElement('button');
     listenButton.className = 'btn listen-btn';
     listenButton.setAttribute('aria-label', 'Listen');
-    // Adding the icon for Listen button
+    
+    // Initial content
     const icon = document.createElement('i');
-    icon.className = 'fas fa-volume-up';  // Font Awesome icon for volume up
+    icon.className = 'fas fa-volume-up';
     listenButton.appendChild(icon);
+    const btnText = document.createTextNode(' Listen');
+    listenButton.appendChild(btnText);
+
+    // Audio Event Listeners for UI state
+    preloadedAudio.onplay = () => {
+        icon.className = 'fas fa-pause';
+        btnText.textContent = ' Pause';
+        announce("Playing audio");
+    };
+    preloadedAudio.onpause = () => {
+        icon.className = 'fas fa-volume-up';
+        btnText.textContent = ' Listen';
+        announce("Audio paused");
+    };
+    preloadedAudio.onended = () => {
+        icon.className = 'fas fa-volume-up';
+        btnText.textContent = ' Listen';
+        announce("Audio finished");
+    };
+
     listenButton.addEventListener('click', function () {
-        const speech = new SpeechSynthesisUtterance(text);
-        speech.lang = 'en-US';
-        window.speechSynthesis.speak(speech);
+        if (window.currentAudio && window.currentAudio === preloadedAudio && !preloadedAudio.paused) {
+            preloadedAudio.pause();
+        } else {
+            // Clean up any other existing audio
+            if (window.currentAudio && window.currentAudio !== preloadedAudio) {
+                window.currentAudio.pause();
+            }
+            window.currentAudio = preloadedAudio;
+            
+            preloadedAudio.play().catch(err => {
+                console.error("TTS Playback Error:", err);
+                announce("High-quality voice failed. Using standard voice.");
+                const speech = new SpeechSynthesisUtterance(plainText);
+                speech.lang = 'en-IN'; // Consistent with requested Indian English
+                speech.onstart = () => {
+                    icon.className = 'fas fa-pause';
+                    btnText.textContent = ' Pause';
+                };
+                speech.onend = () => {
+                    icon.className = 'fas fa-volume-up';
+                    btnText.textContent = ' Listen';
+                };
+                window.speechSynthesis.speak(speech);
+            });
+        }
     });
     return listenButton;
 }
@@ -119,7 +201,10 @@ function createCopyButton(text) {
 
     // Adding click event to copy the AI message to the clipboard
     copyButton.addEventListener('click', function () {
-        navigator.clipboard.writeText(text)
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = text;
+        const plainText = tempDiv.textContent || tempDiv.innerText || "";
+        navigator.clipboard.writeText(plainText)
             .then(() => announce("Message copied to clipboard"))  // Announce copy success
             .catch(() => announce("Failed to copy message"));  // Announce copy failure
     });
@@ -157,4 +242,15 @@ document.getElementById('micBtn').addEventListener('click', function () {
     } else {
         announce("Speech recognition is not supported in this browser.");
     }
+});
+
+// Event listener to refresh (clear) the chat
+document.getElementById('refreshButton').addEventListener('click', function () {
+    const tb = document.getElementById('tb');
+    tb.innerHTML = '';
+    const initialMsg = document.createElement('div');
+    initialMsg.className = 'dfm';
+    initialMsg.innerHTML = '<span>Hello! I am Blind Tech Agent AI. How can I assist you today?</span>';
+    tb.appendChild(initialMsg);
+    announce("Chat refreshed");
 });

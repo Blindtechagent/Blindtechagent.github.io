@@ -27,15 +27,104 @@
   <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
   <script src="./others/loading.js"></script>
   <style>
+    /* ===== Color tokens =====
+       --cat = strong warm color for category buttons. Orange is the
+               complement of the cornflowerblue cards, so the contrast
+               is maximal and the cards stand out clearly. */
+    :root {
+      --cat: #c2410c;        /* deep burnt orange */
+      --cat-hover: #ea580c;  /* brighter orange on hover */
+      --text: #1f2933;
+      --muted: #52606d;
+    }
+
+    /* ===== Hero header ===== */
+    #main > h2 {
+      background: var(--cat);
+      color: #fff;
+      padding: 22px 16px;
+      margin: 0 0 6px;
+      border-radius: 0 0 16px 16px;
+      font-size: 2rem;
+      letter-spacing: 0.3px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 3px 10px rgba(194, 65, 12, 0.3);
+    }
+    #main > p:first-of-type {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin: 16px auto 8px;
+      padding: 0 12px;
+    }
+
+    /* ===== Accordion category buttons (strong solid color) ===== */
+    .accordion-btn {
+      background: var(--cat);
+      color: #ffffff;
+      border: 1px solid var(--cat-hover);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 14px auto;
+      text-align: left;
+      width: 90%;
+      max-width: 900px;
+      box-sizing: border-box;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.15em;
+      font-weight: bold;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .accordion-btn:hover {
+      background: var(--cat-hover);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
+      transform: translateY(-2px);
+    }
+    .accordion-btn.active {
+      background: var(--cat-hover);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.26);
+    }
+
+    /* icon badge on the category button */
+    .category-icon {
+      margin-right: 14px;
+      width: 38px;
+      height: 38px;
+      line-height: 38px;
+      text-align: center;
+      border-radius: 8px;
+      color: var(--cat);
+      background: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .category-name { flex-grow: 1; }
+
+    .chevron-icon { transition: transform 0.3s ease; color: #ffffff; }
+    .accordion-btn.active .chevron-icon { transform: rotate(180deg); }
+
+    .accordion-content {
+      display: none;
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ===== Feature cards (original cornflowerblue) ===== */
     .featureBox {
       background-color: cornflowerblue;
       color: black;
       border: 1px solid #ccc;
       border-radius: 20px;
       padding: 6px;
-      margin: 50px auto;
+      margin: 20px auto;
       text-align: center;
-      width: 85vw;
+      width: 100%;
+      box-sizing: border-box;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       display: block;
     }
@@ -44,381 +133,375 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
     }
 
     .content i {
       border: 2px solid black;
+      flex-shrink: 0;
     }
 
-    .featureImg {
-      height: auto;
-      width: 20%;
-      display: inline-block;
-    }
-
+    /* original feature link (purple + yellow) */
     .featureLink {
       background: #800080;
-      /* Purple background color */
       color: #FFFF00;
-      /* Yellow text color */
       font-size: 1em;
+      font-weight: 600;
       text-decoration: none;
       display: inline-block;
-      width: 80%;
+      width: 70%;
       border: 1px solid #000;
-      padding: 4px;
-      margin: 0 10px;
-      /* Adjust margin for spacing */
+      padding: 5px 8px;
+      margin: 0 8px;
       border-radius: 5px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
       transition: background 0.3s, color 0.3s;
     }
-
     .featureLink:hover {
       background: #FFA07A;
-      /* Light Salmon background color */
       color: #800080;
-      /* Purple text color */
+    }
+
+    .featureBox p {
+      color: black;
+      margin: 10px 4px 4px;
+      line-height: 1.5;
     }
 
     ul {
       list-style-type: none;
+      padding: 0;
     }
 
     main p {
       display: block;
       margin-top: 10px;
     }
+
+    /* ===== Dark mode harmony ===== */
+    body.dark-mode #main > h2 { color: #fff; }
+
+    /* keep things tidy on small screens */
+    @media (max-width: 600px) {
+      .featureBox .content { flex-direction: column; }
+      .featureLink { width: 100%; margin: 8px 0; }
+      .accordion-btn { width: 96%; padding: 14px; font-size: 1em; }
+      .accordion-content { width: 96%; }
+    }
   </style>
 </head>
 
 <body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
   <div class="preloader">
-    <div class="loader"></div>
-    <p id="loading-text" tabindex="0" autofocus aria-live="assertive">LOADING</p>
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
   </div>
   <div class="body">
-    <header>
-      <a class="skip" href="#main">Skip to main content</a>
-      <a href="./index.html" class="link">
-        <h1 id="main-heading">BLIND TECH AGENT</h1>
-      </a>
-      <button class="menuBtn w3-display-topleft" aria-label="Open Navigation Menu" aria-expanded="false"
-        aria-controls="menuItems" aria-haspopup="true" role="menuitembutton">
-        <i class="fas fa-bars w3-display-topleft" style="margin:auto;"></i>
-      </button>
-      <nav>
-        <ul class="drawer w3-sidebar w3-bar-block w3-animate-left" id="menuItems" aria-orientation="vertical"
-          role="navigation">
-          <li>
-            <a id="loginBtn" role="menuitem" href="./menu/login.html" class="menuLinks w3-bar-item">Log in</a>
-          </li>
-          <li>
-            <a id="accountBtn" role="menuitem" href="./menu/createAccount.html" class="menuLinks w3-bar-item">Create
-              Account</a>
-          </li>
-          <li>
-            <a role="menuitem" href="./menu/joinUs.html" class="menuLinks w3-bar-item">Join our team</a>
-          </li>
-          <li>
-            <a role="menuitem" href="./menu/contact.html" class="menuLinks w3-bar-item">Contact us</a>
-          </li>
-          <li>
-            <a role="menuitem" href="./menu/about.html" class="menuLinks w3-bar-item">About us</a>
-          </li>
-          <li>
-            <a role="menuitem" href="./menu/donateUs.html" class="menuLinks w3-bar-item">Donate us</a>
-          </li>
-          <li>
-            <a role="menuitem" href="./menu/privacy_policy.html" class="menuLinks w3-bar-item">Privacy policy</a>
-          </li>
-        </ul>
-      </nav>
-      <div class="header-container">
-        <img src="https://te.legra.ph/file/1456591743bc08490d50c.jpg" alt="logo of Blind Tech Agent" width="100px"
-          height="100px" class="logo">
-        <button onclick="openDialog()" class="language-button">Translate page</button>
-      </div>
-      <dialog id="dialog" role="dialog" aria-modal="true">
-        <div class="dialog-content">
-          <h2>Change the Language of Our Website</h2>
-          <p>
-            We offer multiple language options to make our website accessible to a wider audience.
-            Please select your preferred language from the dropdown menu below. Once you have made
-            your selection, click the "Close and Save Language" button to save your choice and exit this popup.
-          </p>
-        </div>
-
-        <div id="google_translate_element"></div>
-
-        <div class="dialog-footer">
-          <button onclick="closeDialog()" class="close-button">
-            Close and Save Language
-          </button>
-        </div>
-      </dialog>
-      <p>"Transforming lives with the power of technology."</p>
-    </header>
+    <header id="header"></header>
     <nav class="w3-bar">
       <a role="tab" href="index.html" target="_self" class="tab">HOME</a>
       <a role="tab" href="features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES
       </a>
       <a role="tab" href="education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="articles_page.html" target="_self" class="tab">ARTICLES</a>
+      <a role="tab" href="articles.html" target="_self" class="tab">ARTICLES</a>
       <a role="tab" href="./games.html" target="_self" class="tab">Games</a>
     </nav>
     <main id="main">
       <h2>Features</h2>
-      <p>Welcome to our Features page! Here, you can find a variety of features to help you with different tasks.</p>
+      <p>Discover our collection of tools designed to make your daily tasks easier and more efficient. We’ve organized everything into categories so you can quickly find the right tool for the job.</p>
       <br>
-      <ul>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-calendar-alt" aria-label="age calculator logo"></i>
-              <a href="./features/age_calculator.html" class="featureLink">Age Calculator</a>
-            </div>
-            <p>Calculate your age quickly and easily with our Age Calculator. Simply enter your birthdate and get your
-              age instantly.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-brain" aria-label="Blind Tech Agent AI logo"></i>
-              <a href="./features/blindtechagentAI.html" class="featureLink">Blind Tech Agent AI</a>
-            </div>
-            <p>
-              Discover the power of Blind Tech Agent AI – your smart companion for endless possibilities. Instantly get
-              answers, create content, enjoy engaging conversations, and explore multilingual support with natural
-              language understanding. Let Blind Tech Agent AI elevate your experience and simplify your tasks!
-            </p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-robot" aria-label="BTA image generator logo"></i>
-              <a href="./features/BTAImageGenerator.html" class="featureLink">BTA Image Generator</a>
-            </div>
-            <p>Introducing the BTA Image Generator! This tool turns your ideas into pictures. Just describe what you
-              want – like 'a cat sitting on a tree' or 'a spaceship in space' – and we'll create the image for you. It's
-              easy, creative, and lets you bring your imagination to life instantly!</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-calculator" aria-label="calculator logo"></i>
-              <a href="./features/calculator.html" class="featureLink">Online Calculator</a>
-            </div>
-            <p>Need to do some quick calculations? Our Online Calculator is perfect for you. It includes all basic
-              functions such as addition, subtraction, multiplication, and division.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-money-bill-wave" aria-label="currency converter logo"></i>
-              <a href="./features/currency_converter.html" class="featureLink">Currency Converter</a>
-            </div>
-            <p>Introducing our Currency Converter tool! Easily convert between different currencies using real-time
-              exchange rates. Just enter the amount, select the currencies, and click 'Convert.' Perfect for travel or
-              international transactions.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-file-alt" aria-label="Document Creator logo"></i>
-              <a href="./features/document-creator.html" class="featureLink">Document Creator</a>
-            </div>
-            <p>
-              Create professional documents with ease using our Document Creator. Simply name your document, select the
-              format (Word, PDF, or Text), and type or speak your content. Perfect for students, professionals, or
-              anyone needing quick and efficient document generation. Stay organized with live character, word, and line
-              counts!
-            </p>
-          </div>
-        </li>
-<li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-camera" aria-label="image to text logo"></i>
-              <a href="./features/imgToTxt.html" class="featureLink">Image to Text Converter</a>
-            </div>
-            <p>Image2Text Converter: A tool that turns images into text, helping visually impaired people by extracting
-              the text from the image. It has an easy design and accurate conversion, making it simple to access printed
-              materials and documents, improving accessibility and independence.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-cut" aria-label="link shortener logo"></i>
-              <a href="./features/linkShortener.html" class="featureLink">Link Shortener</a>
-            </div>
-            <p>Our Link Shortener is very useful tool: it shortens any URL you have. Just paste your long link, and it
-              will quickly create a shorter, more shareable version for you to use.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-play-circle" aria-label="media player logo"></i>
-              <a href="./features/mediaPlayer.html" class="featureLink">Media Player</a>
-            </div>
-            <p>Discover our user-friendly media player, made for everyone. With special features for accessibility, it's
-              easy for all users to enjoy their favorite music and videos without any hassles.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-file-alt" aria-label="notepad logo"></i>
-              <a href="https://blindtechagent.github.io/notes-app/" class="featureLink">Note Pad</a>
-            </div>
-            <p>Looking for an easy and efficient way to capture your ideas and stay organized? Look no further than Note
-              Pad. With its intuitive interface and saving, Note Pad is the ultimate note-taking tool for unlocking your
-              productivity and creativity.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-lock" aria-label="password manager logo"></i>
-              <a href="./features/password_generator.html" class="featureLink">Password Generator and Manager</a>
-            </div>
-            <p>A random password generator is a useful tool for creating secure passwords that are difficult to crack.
-              It generates a series of random characters, including upper and lower case letters, numbers, and special
-              symbols, making it nearly impossible for others to guess your password. It also allows you to save it.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-broom" aria-label="speaker cleaner logo"></i>
-              <a href="./features/SpeakerCleaner.html" class="featureLink">Speaker Cleaner</a>
-            </div>
-            <p>This tool is designed to help you maintain the quality of your speaker. By using this tool, you can help
-              remove unwanted particles or moisture from your speaker and improve its performance.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-stopwatch" aria-label="stopwatch logo"></i>
-              <a href="./features/stop_watch.html" class="featureLink">Stop Watch</a>
-            </div>
-            <p>This stopwatch is a handy time management tool that enables users to measure the duration of any
-              activity, including workouts, cooking, and meetings. With its user-friendly interface and accurate timing
-              capabilities, a stopwatch is an essential tool for anyone looking to keep track of time.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-analytics" aria-label="text analyzer logo"></i>
-              <a href="./features/text_analyser.html" class="featureLink">Text Analyser</a>
-            </div>
-            <p>Looking to get a better handle on your writing? Our text analyzer is the perfect tool for you! With the
-              ability to quickly and accurately count characters, words, and lines, this tool will help you get a clear
-              picture of your text in just seconds. Try it out today!</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-image" aria-label="text to image logo"></i>
-              <a href="./features/textToImage.html" class="featureLink">Text to Image Converter</a>
-            </div>
-            <p>Introducing the Text to Image Converter! This tool helps you convert written text into image format.
-              Select your preferred font style, color, and background, and your text will be transformed into a visually
-              appealing image, perfect for sharing on social media, blogs, or anywhere else!</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-print" aria-label="text to PDF logo"></i>
-              <a href="./features/textToPdf.html" class="featureLink">Text to PDF Converter</a>
-            </div>
-            <p>A text to PDF converter is a valuable tool that transforms plain text documents into PDF format. This
-              conversion preserves formatting and ensures compatibility across devices. It simplifies sharing, printing,
-              and archiving of textual content. Useful for creating professional-looking documents from simple text
-              files efficiently and conveniently.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-code" aria-label="text encoder and Decoder"></i>
-              <a href="./features/textEncoderAndDecoder.html" class="featureLink">Text Encoder and Decoder</a>
-            </div>
-            <p>The Text Encoder and Decoder is a handy tool that helps keep your text safe and secure. It works by
-              turning your plain text into a secret code using special techniques. This tool ensures that sensitive
-              information stays private and cannot be easily understood by unauthorized people. It's easy to use and
-              gives you peace of mind knowing your data is protected.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fas fa-clipboard-list" aria-label="to-do list logo"></i>
-              <a href="./features/todolist.html" class="featureLink">ToDo List</a>
-            </div>
-            <p>Keep track of your tasks and get things done efficiently with our ToDo List tool. It's simple and easy to
-              use.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fab fa-telegram-plane" aria-label="telegram link generator logo"></i>
-              <a href="./features/telegram_link_generator.html" class="featureLink">Telegram Link Generator</a>
-            </div>
-            <p>Generate links to share with your friends and contacts using the Telegram Link Generator. It's quick and
-              easy to use, allowing you to create links that open a specific chat with a friend, channel, group, or bot
-              on Telegram.</p>
-          </div>
-        </li>
-        <li>
-          <div class="featureBox">
-            <div class="content">
-              <i class="fab fa-whatsapp" aria-label="whatsapp number link generator logo"></i>
-              <a href="./features/whatsapp_link_generator.html" class="featureLink">WhatsApp number link generator</a>
-            </div>
-            <p>Generate a clickable link to share your WhatsApp number with others. This tool makes it easy for people
-              to
-              contact you directly on WhatsApp.</p>
-          </div>
-        </li>
-      </ul>
-      <p>We hope you find our Features page helpful and useful for your needs. If you have any questions or feedback,
-        feel
-        free to contact us.</p>
-      <p>stay tuned with us,
-        more useful features are coming soon.</p>
-      <p><strong>Do you know that?</strong> Our features need money to keep going, and your help is super important. No
-        matter how much you donate, it really helps us out. Your support means these features stay around for everyone
-        to use.</p>
 
-      <p>Your donation, big or small, makes a huge difference. It shows you care about what we're doing and want to keep
-        these features available for everyone. Thanks a bunch for thinking about donating and for being a part of our
-        team!</p>
-      <a href="./menu/donateUs.html">Donate us</a>
-    </main>
-    <footer class="footer">
-      <h2>Footer</h2>
-      <h3 class="footer-heading">Connect with us</h3>
-      <div class="w3-block">
-        <a href="https://youtube.com/@BlindTechAgent" class="social-icon youtube"><i class="fab fa-youtube"
-            title="Join us on YouTube"></i></a>
-        <a href="https://t.me/Blindtechagent" class="social-icon telegram"><i class="fab fa-telegram-plane"
-            title="Join us on telegram"></i></a>
+      <div class="accordion">
+        <!-- AI Tools -->
+        <button class="accordion-btn">
+          <i class="fas fa-magic category-icon"></i>
+          <span class="category-name">AI Tools</span>
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </button>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-brain" aria-label="Blind Tech Agent AI logo"></i>
+                  <a href="./features/blindtechagentAI.html" class="featureLink">Blind Tech Agent AI</a>
+                </div>
+                <p>Meet Blind Tech Agent AI—your smart companion for answers, ideas, and everyday tasks. Chat naturally, create content with ease, and get helpful support in multiple languages, all in one place.
+</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-robot" aria-label="BTA image generator logo"></i>
+                  <a href="./features/BTAImageGenerator.html" class="featureLink">BTA Image Generator</a>
+                </div>
+                <p>Create amazing images from your ideas with BTA Image Generator. Just describe what you want to see, and the AI will turn your words into a picture in seconds.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Calculation Tools -->
+        <button class="accordion-btn">
+          <i class="fas fa-calculator category-icon"></i>
+          <span class="category-name">Calculation Tools</span>
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </button>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-birthday-cake" aria-label="age calculator logo"></i>
+                  <a href="./features/age_calculator.html" class="featureLink">Age Calculator</a>
+                </div>
+                <p>Find your exact age in years, months, and days with just your birth date. It's a quick and easy way to see your age instantly.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-calculator" aria-label="calculator logo"></i>
+                  <a href="./features/calculator.html" class="featureLink">Calculator</a>
+                </div>
+                <p>Perform basic mathematical calculations quickly and accurately. Easily solve addition, subtraction, multiplication, and division in one simple tool.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-money-bill-wave" aria-label="currency converter logo"></i>
+                  <a href="./features/currency_converter.html" class="featureLink">Currency Converter</a>
+                </div>
+                <p>Check the latest exchange rate between two currencies in a simple and easy way. Enter an amount, select the currencies, and see how much your chosen amount is worth in another currency using current exchange rates.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Link Tools -->
+        <button class="accordion-btn">
+          <i class="fas fa-link category-icon"></i>
+          <span class="category-name">Link Tools</span>
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </button>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-cut" aria-label="link shortener logo"></i>
+                  <a href="./features/linkShortener.html" class="featureLink">Link Shortener</a>
+                </div>
+                <p>Turn long web links into short, easy-to-share URLs in just a few clicks. Paste your link, choose either **Bitly** or **TinyURL**, and instantly get a shorter link that's perfect for sharing in messages, emails, or on social media.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fab fa-whatsapp" aria-label="whatsapp link generator logo"></i>
+                  <a href="./features/whatsapp_link_generator.html" class="featureLink">WhatsApp Link Generator</a>
+                </div>
+                <p>Create a direct WhatsApp chat link in seconds. Select your country code, enter your phone number, and optionally add a custom message to generate a shareable link that lets people start a chat with you instantly even without saving your number.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fab fa-telegram-plane" aria-label="telegram link generator logo"></i>
+                  <a href="./features/telegram_link_generator.html" class="featureLink">Telegram Link Generator</a>
+                </div>
+                <p>Create a direct Telegram link that makes it easy for people to connect with you. Enter your Telegram username to generate a shareable link that opens your profile or chat with a single click.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Text Tools -->
+        <button class="accordion-btn">
+          <i class="fas fa-font category-icon"></i>
+          <span class="category-name">Text Tools</span>
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </button>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-analytics" aria-label="text analyzer logo"></i>
+                  <a href="./features/text_analyser.html" class="featureLink">Text Analyser</a>
+                </div>
+                <p>Analyse and Review your text with helpful details in seconds. Enter or paste your text to quickly see the word count, character count, and other useful information to better understand your content.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-lock" aria-label="text encoder and decoder logo"></i>
+                  <a href="./features/textEncoderAndDecoder.html" class="featureLink">Text Encrypter & Decrypter</a>
+                </div>
+                <p>Convert text into secret code to keep messages private, and convert them back to readable text.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-image" aria-label="text to image logo"></i>
+                  <a href="./features/textToImage.html" class="featureLink">Text to Image</a>
+                </div>
+                <p>Save your text as an image file and customize the colors and fonts to look it stylish.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-camera" aria-label="text OCR logo"></i>
+                  <a href="./features/imgToTxt.html" class="featureLink">Text OCR</a>
+                </div>
+                <p>Extract readable text from images, photos, or scanned documents.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- PDF Tools -->
+        <button class="accordion-btn">
+          <i class="fas fa-file-pdf category-icon"></i>
+          <span class="category-name">PDF Tools</span>
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </button>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-file-pdf" aria-label="PDF Reader logo"></i>
+                  <a href="./features/pdf_reader.html" class="featureLink">PDF Reader</a>
+                </div>
+                <p>Read your PDF documents in a simple and comfortable way. Listen with text-to-speech, move through pages easily, ask AI questions about what you're reading, and use helpful tools to make reading more convenient.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-object-group" aria-label="pdf merge logo"></i>
+                  <a href="./features/pdf_merge.html" class="featureLink">PDF Merge</a>
+                </div>
+                <p>Combine two or more PDF files into a single document in just a few clicks. Arrange your files and create one organized PDF with ease.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-cut" aria-label="pdf split logo"></i>
+                  <a href="./features/pdf_split.html" class="featureLink">PDF Split</a>
+                </div>
+                <p>Extract specific pages or a range of pages from a PDF into a new document. Keep only the pages you need without changing the original file.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-compress-arrows-alt" aria-label="pdf compress logo"></i>
+                  <a href="./features/pdf_compress.html" class="featureLink">PDF Compress</a>
+                </div>
+                <p>Reduce the size of your PDF file while keeping it easy to read. Smaller files are quicker to share, upload, and store.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-file-image" aria-label="image to pdf logo"></i>
+                  <a href="./features/image_to_pdf.html" class="featureLink">Image to PDF</a>
+                </div>
+                <p>Turn one or more images into a single PDF document in just a few steps. It's a simple way to organize, share, or save your images as one file.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- Utility Tools -->
+        <button class="accordion-btn">
+          <i class="fas fa-tools category-icon"></i>
+          <span class="category-name">Utility Tools</span>
+          <i class="fas fa-chevron-down chevron-icon"></i>
+        </button>
+        <div class="accordion-content">
+          <ul>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-file-alt" aria-label="document creator logo"></i>
+                  <a href="./features/document-creator.html" class="featureLink">Document Creator</a>
+                </div>
+                <p>Create professional documents quickly and easily. Type or use voice input to add your content, choose your preferred format, and download your document as a Word, PDF, or text file. You can also keep track of your writing with live character, word, and line counts.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-play-circle" aria-label="media player logo"></i>
+                  <a href="./features/mediaPlayer.html" class="featureLink">Media Player</a>
+                </div>
+                <p>Play your audio and video files with a simple, accessible media player. Control playback, adjust the speed, rewind or skip forward, view file details, and enjoy a smooth listening or viewing experience with easy keyboard shortcuts.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-key" aria-label="password generator logo"></i>
+                  <a href="./features/password_generator.html" class="featureLink">Password Generator</a>
+                </div>
+                <p>Create strong, secure passwords and keep them organized in one place. Customize your passwords with letters, numbers, and symbols, then save them for easy access whenever you need them.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-broom" aria-label="speaker cleaner logo"></i>
+                  <a href="./features/SpeakerCleaner.html" class="featureLink">Speaker Cleaner</a>
+                </div>
+                <p>Help remove dust and moisture from your mobile speaker using specially designed cleaning sound frequencies. Choose a frequency and start the cleaning process to help improve your speaker's performance.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-stopwatch" aria-label="stopwatch logo"></i>
+                  <a href="./features/stop_watch.html" class="featureLink">Stop Watch</a>
+                </div>
+                <p>Measure time accurately with a simple and easy-to-use stopwatch. Start, pause, resume, and reset the timer whenever you need to track your activities.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-qrcode" aria-label="qr generator logo"></i>
+                  <a href="./features/qr_generator.html" class="featureLink">QR Generator</a>
+                </div>
+                <p>Create custom QR codes for text, websites, phone numbers, and popular platforms like WhatsApp, Telegram, Instagram, and YouTube. Choose your colors, generate your QR code instantly, then download or copy it for easy sharing.</p>
+              </div>
+            </li>
+            <li>
+              <div class="featureBox">
+                <div class="content">
+                  <i class="fas fa-list-ul" aria-label="to-do list logo"></i>
+                  <a href="./features/todolist.html" class="featureLink">To-Do List</a>
+                </div>
+                <p>Stay organized by creating and managing your daily tasks in one place. Add new tasks, keep track of what you need to do, remove completed items, or clear your entire list whenever you're ready.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <p class="text-center">&copy; 2023 Blind Tech Agent. All Rights Reserved.</p>
-    </footer>
+
+      <p>We hope these tools make your daily digital life a bit easier.</p>
+      
+      <div id="announcement" role="status" aria-live="assertive" class="sr-only"></div>
+    </main>
+    <footer id="footer"></footer>
   </div>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -429,6 +512,30 @@
   <script type="text/javascript"
     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+  <script>
+    $(document).ready(function() {
+      $('.accordion-btn').click(function() {
+        const content = $(this).next('.accordion-content');
+        const isVisible = content.is(':visible');
+        const categoryName = $(this).find('.category-name').text();
+
+        // Close other accordions
+        $('.accordion-content').not(content).slideUp(500);
+        $('.accordion-btn').not(this).removeClass('active');
+
+        // Toggle the clicked one
+        if (!isVisible) {
+          content.slideDown(500);
+          $(this).addClass('active');
+          if (typeof announce === 'function') announce(categoryName + " expanded");
+        } else {
+          content.slideUp(500);
+          $(this).removeClass('active');
+          if (typeof announce === 'function') announce(categoryName + " collapsed");
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

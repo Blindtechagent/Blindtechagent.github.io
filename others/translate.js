@@ -1,13 +1,22 @@
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
 
-    var $googleDiv = $("#google_translate_element .skiptranslate");
-    var $googleDivChild = $("#google_translate_element .skiptranslate div");
-    $googleDivChild.next().remove();
+    // Run cleanup after a small delay to ensure Google Translate has populated the DOM
+    setTimeout(function() {
+        const googleDivChild = document.querySelector("#google_translate_element .skiptranslate div");
+        if (googleDivChild && googleDivChild.nextElementSibling) {
+            googleDivChild.nextElementSibling.remove();
+        }
 
-    $googleDiv.contents().filter(function () {
-        return this.nodeType === 3 && $.trim(this.nodeValue) !== "";
-    }).remove();
+        const googleDiv = document.querySelector("#google_translate_element .skiptranslate");
+        if (googleDiv) {
+            Array.from(googleDiv.childNodes).forEach(node => {
+                if (node.nodeType === 3 && node.nodeValue.trim() !== "") {
+                    node.remove();
+                }
+            });
+        }
+    }, 500);
 }
 
 function acsDialog() {

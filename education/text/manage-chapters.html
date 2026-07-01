@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="../educationalContent.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="new-styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+<title>Manage Chapters</title>
+<style>
+
+    .btn.active {
+        background-color: #a0a0a0;
+        color: white;
+    }
+</style>
+  <script src="../../others/loading.js"></script>
+</head>
+
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+
+  <div class="body">
+    <main id="main">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1>Manage chapters for <span id="unitNameDisplay"></span></h1>
+        <button id="logoutBtn" class="w3-button w3-red w3-round">Log out</button>
+    </div>
+    <p>Here you can manage the chapters for the selected unit. Create new chapters or click on an existing chapter to edit its content.</p>
+    <button class="btn" id="newChapter">Create a new chapter</button>
+    <div class="box" id="newChapterBox" style="display: none;">
+        <h2>Create a new chapter</h2>
+        <form id="chapter-form">
+            <label for="chapterName">Chapter name:</label>
+            <input type="text" id="chapterName" placeholder="e.g., Chapter1: Introduction to Algebra" required>
+            <br>
+            <button type="submit">Add Chapter</button>
+            <small>After adding, you will be redirected to the Content Editor to add content to this new chapter.</small>
+        </form>
+    </div>
+
+    <div class="container" id="chaptersContainer"></div>
+
+    <!-- Firebase SDK -->
+  </div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="../../others/firebase.js"></script>
+
+</main>
+<script src="../../others/global.js"></script>
+<script src="./manage-chapters.js"></script>
+<script src="../jquery.js"></script>
+</body>
+
+</html>

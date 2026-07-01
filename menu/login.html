@@ -142,10 +142,19 @@
       transform: translateY(-2px);
     }
   </style>
+  <script src="../others/loading.js"></script>
 </head>
 
 <body>
-  <a href="javascript:history.go(-1)" class="back-link">Back</a>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+
+  <div class="body">
+    <a href="javascript:history.go(-1)" class="back-link">Back</a>
   <div class="container">
     <h1>Log In</h1>
     <form autocomplete="off" id="login-form">
@@ -164,7 +173,8 @@
     </form>
     <div id="announcement" role="status" aria-live="assertive"></div>
   </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  </div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <script src="login.js"></script>

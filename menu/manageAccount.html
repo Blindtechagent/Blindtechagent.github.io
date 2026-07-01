@@ -63,11 +63,13 @@ h1 {
     </style>
 </head>
 <body>
-<div class="preloader">
-    <div class="loader"></div>
-    <p id="loading-text" tabindex="0" autofocus aria-live="assertive">LOADING</p>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
   </div>
-        <div class="body">
+<div class="body">
         <a href="javascript:history.go(-1)" style="position:fixed; top:0; left:0; display:inline-block; padding:10px; background-color:#007bff; color:#fff; text-decoration:none; border-radius:5px;">Back</a>
 <center>
     <div id="heading-box" tabindex="0" role="heading" aria-level="1">

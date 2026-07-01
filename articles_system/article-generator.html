@@ -5,9 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Article Generator</title>
+  <script src="../others/loading.js"></script>
 </head>
 
 <body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+  <div class="body">
 <h2>Article generator</h2>
   <div class="tb" id="tb">
     <div class="dfm">
@@ -30,7 +38,11 @@
   <div id="output" style="margin-top: 20px;"></div>
 
   <div id="announcement" role="status" aria-live="assertive"></div>
-
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="../others/firebase.js"></script>
   <script src="article-generator.js"></script>
 </body>
 

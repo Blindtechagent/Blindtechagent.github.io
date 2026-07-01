@@ -1,39 +1,137 @@
     /* styles for preloader */
-    .preloader {
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* index-preloader styles (used on all pages) */
+    .index-preloader, .preloader {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, #22A7F0, #F433FF);
+      background: midnightblue;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      z-index: 9999;
+      transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+      transform: translateY(0);
     }
 
-    .loader {
+    .index-preloader.slide-up, .preloader.slide-up {
+      transform: translateY(-100%);
+    }
+
+    .index-loader, .loader {
       width: 150px;
       height: 150px;
-      border-radius: 50%;
-      border: 12px solid transparent;
-      border-top-color: #F4D03F;
-      border-right-color: #58D68D;
-      border-bottom-color: #3498DB;
-      border-left-color: #E74C3C;
-      animation: spin 2s infinite linear;
+      border-radius: 100%;
+      border: 10px solid transparent;
+      border-top-color: aquamarine;
+      border-right-color: black;
+      border-bottom-color: black;
+      border-left-color: black;
+      animation: topBorder 1s infinite linear, spin 2s infinite linear;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
+    @keyframes topBorder {
+      0%   { border-top-color: aquamarine; }
+      25%  { border-top-color: cornflowerblue; }
+      50%  { border-top-color: magenta; }
+      75%  { border-top-color: hotpink; }
+      100% { border-top-color: aquamarine; }
+    }
 
-      100% {
-        transform: rotate(360deg);
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    #loaderInner {
+      position: absolute;
+      opacity: 0.6;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: colourMotion 3s infinite linear;
+    }
+
+    @keyframes colourMotion {
+      0%   { background-color: forestgreen; }
+      25%  { background-color: yellow; }
+      50%  { background-color: floralwhite; }
+      75%  { background-color: violet; }
+      100% { background-color: forestgreen; }
+    }
+
+    .welcome {
+      color: ghostwhite;
+      margin: 6px;
+      font-size: 32px;
+    }
+
+    #wt {
+      display: block;
+      text-align: center;
+      font-size: 40px;
+      font-family: elephant;
+      color: ghostwhite;
+      animation: wtShow 1.5s;
+    }
+
+    @keyframes wtShow {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #welcomeBox {
+      width: 0%;
+      background-color: snow;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: progress 1.3s linear forwards;
+    }
+
+    @keyframes progress {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+
+    .welcome {
+      font-size: 40px;
+      font-family: elephant;
+      color: indigo;
+      margin: 0 8px;
+      opacity: 0;
+      display: inline-block;
+      animation: reveal 1.2s forwards;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
+
+    #b { animation-delay: 0.2s; }
+    #t { animation-delay: 0.5s; }
+    #a { animation-delay: 0.8s; }
 
     #loading-text {
       text-align: center;
@@ -64,7 +162,23 @@
 
     /* start styles for header */
     .skip {
-      font-size: 0;
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      padding: 10px;
+      z-index: 1001;
+    }
+
+    .skip:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      font-size: 16px;
     }
 
     .link {
@@ -94,18 +208,26 @@
     /* greeting animation */
     .infobox {
       padding: 20px;
-      margin: 10px auto;
-      width: 70vw;
-      height: 30vh;
+      margin: 10px 0;
+      width: 100vw;
+      box-sizing: border-box;
+      min-height: 30vh;
       background: #000;
       /* Initial background color */
       border: 4px solid #FFF;
-      border-radius: 15px;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
       text-align: center;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       animation: changeBackgroundColor 30s ease-in-out infinite; /* Slower duration and ease-in-out */
       font-weight: bolder;
       color: ghostwhite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
     .infobox:hover {
       animation-play-state: paused; /* Pause on hover */
@@ -120,53 +242,165 @@
   
     .menuBtn {
       background: #4CAF50;
-      width: 20px;
-      height: 20px;
-      padding: 5px;
-      display: inline-block;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: 2px solid #388E3C;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 20px;
       cursor: pointer;
+      transition: background 0.15s ease;
     }
 
+    .menuBtn:hover,
+    .menuBtn:focus-visible {
+      background: #388E3C;
+      outline: none;
+    }
+
+    /* ===== Navigation drawer (native <dialog> modal) ===== */
     .drawer {
-      display: none;
-      padding: 16px;
-      position: absolute;
-      top: 22px;
+      position: fixed;
+      top: 0;
       left: 0;
-      background: cadetblue;
-      width: 50%;
-      border: 2px solid #388E3C;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin: 0;
+      padding: 0;
+      width: 320px;
+      max-width: 85vw;
+      height: 100vh;
+      max-height: 100vh;
+      background: powderblue;
+      color: #1e293b;
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 0 40px rgba(15, 23, 42, 0.35);
       z-index: 1000;
+      overflow: hidden;
+    }
+
+    .drawer::backdrop {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(3px);
+    }
+
+    .drawer[open] {
+      display: flex;
+      flex-direction: column;
+      animation: drawerSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes drawerSlideIn {
+      from { transform: translateX(-100%); opacity: 0.6; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+
+        .drawerCloseBtn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 auto;
+      font-size: 22px;
+      line-height: 1;
+      border: none;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.55);
+      color: #f8fafc;
+      cursor: pointer;
+      backdrop-filter: blur(2px);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .drawerCloseBtn:hover,
+    .drawerCloseBtn:focus-visible {
+      background: rgba(220, 38, 38, 0.9);
+      transform: scale(1.08);
+      outline: none;
+    }
+
+    .drawer nav {
+      display: block;
+      overflow-y: auto;
+      padding: 56px 16px 16px; /* top room for the floating close button */
+      -webkit-overflow-scrolling: touch;
+      background: transparent;
+      color: inherit;
+    }
+
+    .drawer ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      display: block;
+      flex-direction: initial;
+      justify-content: initial;
+    }
+
+    .drawer li {
+      width: auto;
+      text-align: initial;
+    }
+
+    .drawer .menuLinks {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: auto;
+      margin: 8px 0;
+      padding: 13px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      text-align: left;
+      color: #ffffff;
+      background: #1d4ed8;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.18);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease;
+    }
+
+    /* Icon sits cleanly inside the filled button */
+    .drawer .menuLinks i {
+      flex: 0 0 auto;
+      width: 22px;
+      text-align: center;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.92);
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .drawer .menuLinks:hover,
+    .drawer .menuLinks:focus {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.28);
+    }
+
+    .drawer .menuLinks:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.2);
+    }
+
+
+    /* Top tab bar (separate from the drawer). */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      background-color: cornflowerblue;
     }
 
     nav ul {
       list-style-type: none;
       padding: 0;
-    }
-
-    .menuLinks {
-      color: yellow;
-      text-decoration: none;
-      margin: 10px auto;
-      display: block;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-align: center;
-      background-color: darkblue;
-      width: 40vw;
-    }
-
-    .menuLinks:hover {
-    background-color: blue;
-    color: white;
-    }
-      Nav {
-      display: flex;
-      justify-content: space-between;
-      background-color: cornflowerblue;
     }
 
     nav a {
@@ -176,13 +410,32 @@
       text-decoration: none;
       width: 20%;
       text-align: center;
-      padding: 8px auto;
+      padding: 8px 0;
       border: none;
     }
 
     nav a:hover {
       background-color: powderblue;
       color: black;
+    }
+
+    /* Responsive: on small screens widen the drawer and relax spacing */
+    @media (max-width: 600px) {
+      .drawer {
+        width: 85vw;
+        max-width: 340px;
+      }
+      .drawer-header {
+        padding: 15px 16px;
+      }
+      .drawer-title {
+        font-size: 17px;
+      }
+      .drawer .menuLinks {
+        margin: 4px 10px;
+        padding: 14px 14px;
+        font-size: 16px;
+      }
     }
 
 
@@ -436,17 +689,27 @@
       /* Light text */
     }
 
-    /* Header Links */
-    .dark-mode .menuLinks {
-      background: #3A3A3A;
-      /* Dark link background */
-      color: #E0E0E0;
-      /* Light link text */
+    /* Navigation drawer dark mode */
+    .dark-mode .drawer {
+      background: #1f2937;
+      color: #e5e7eb;
+      border-right: 1px solid #374151;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
     }
 
-    .dark-mode .menuLinks:hover {
-      background: #4A4A4A;
-      /* Lighter on hover */
+    /* Filled buttons stay vivid against the dark panel */
+    .dark-mode .drawer .menuLinks {
+      color: #ffffff;
+    }
+
+    .dark-mode .drawer .menuLinks i {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .dark-mode .drawer .menuLinks:hover,
+    .dark-mode .drawer .menuLinks:focus {
+      filter: brightness(1.12);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     }
 
     /* Preloader */

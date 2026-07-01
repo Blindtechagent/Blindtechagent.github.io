@@ -57,32 +57,48 @@
     .usage p {
       margin-bottom: 10px;
     }
+    
+    /* Ensure .body is hidden during loading if style.css isn't loaded yet or for safety */
+    .body {
+      display: none;
+    }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../others/loading.js"></script>
 </head>
 
 <body>
-  <a href="javascript:history.go(-1)" style="position: fixed; top: 0; left: 0; display: inline-block; padding: 10px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Back</a>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
 
-  <div class="container">
-    <h1>Empowering Individuals with Visual Impairments Through Technology</h1>
-    <div class="message">
-      <p>Our mission is to empower individuals with visual impairments by providing them with the resources and knowledge to effectively utilize technology.</p>
-      <p>Your generous contribution allows us to continue serving this community.</p>
-    </div>
+  <div class="body">
+    <a href="javascript:history.go(-1)" style="position: fixed; top: 0; left: 0; display: inline-block; padding: 10px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Back</a>
 
-    <h2>Our Goal</h2>
-    <p>We strive to create a more inclusive technological landscape where everyone, particularly those with visual impairments, has equitable access to technological advancements.</p>
+    <div class="container">
+      <h1>Empowering Individuals with Visual Impairments Through Technology</h1>
+      <div class="message">
+        <p>Our mission is to empower individuals with visual impairments by providing them with the resources and knowledge to effectively utilize technology.</p>
+        <p>Your generous contribution allows us to continue serving this community.</p>
+      </div>
 
-    <h2>The Impact of Your Donation</h2>
-    <div class="usage">
-      <p>Your contribution is instrumental in:</p>
-      <ul>
-        <li>Maintaining the smooth operation of our website to ensure accessibility for all users.</li>
-        <li>Developing and integrating new features that enhance the user experience, particularly for those with visual impairments.</li>
-        <li>Guaranteeing the usability of our website for everyone, regardless of visual ability.</li>
-      </ul>
-      <p>To make a donation, please click the button below.</p>
-      <a href="https://wa.me/+919315548418?text=I%20want%20to%donate%20for%20blind%20tech%20agent" class="donate-button">Donate</a>
+      <h2>Our Goal</h2>
+      <p>We strive to create a more inclusive technological landscape where everyone, particularly those with visual impairments, has equitable access to technological advancements.</p>
+
+      <h2>The Impact of Your Donation</h2>
+      <div class="usage">
+        <p>Your contribution is instrumental in:</p>
+        <ul>
+          <li>Maintaining the smooth operation of our website to ensure accessibility for all users.</li>
+          <li>Developing and integrating new features that enhance the user experience, particularly for those with visual impairments.</li>
+          <li>Guaranteeing the usability of our website for everyone, regardless of visual ability.</li>
+        </ul>
+        <p>To make a donation, please click the button below.</p>
+        <a href="https://wa.me/+919315548418?text=I%20want%20to%donate%20for%20blind%20tech%20agent" class="donate-button">Donate</a>
+      </div>
     </div>
   </div>
 </body>

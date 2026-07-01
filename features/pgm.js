@@ -186,3 +186,26 @@ announce(" saved passwords hidden");    }
 g.addEventListener('click', generateAndDisplayPassword);
 s.addEventListener('click', savePassword);
 rt.addEventListener('click', showSavedPasswords);
+
+// Copy functionality for generated password
+document.querySelector('.result-container .copyBtn').addEventListener('click', () => {
+    const password = r.innerText;
+    if (password) {
+        navigator.clipboard.writeText(password)
+            .then(() => announce("Password copied to clipboard"))
+            .catch(() => announce("Failed to copy password"));
+    }
+});
+
+// Event delegation for copy buttons in the saved passwords list
+spl.addEventListener('click', (event) => {
+    const copyBtn = event.target.closest('.copyBtn');
+    if (copyBtn && spl.contains(copyBtn)) {
+        const passwordSpan = copyBtn.parentElement.querySelector('.password');
+        if (passwordSpan) {
+            navigator.clipboard.writeText(passwordSpan.textContent)
+                .then(() => announce("Password copied to clipboard"))
+                .catch(() => announce("Failed to copy password"));
+        }
+    }
+});

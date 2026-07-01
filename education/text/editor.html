@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Content Editor</title>
+
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../educationalContent.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="new-styles.css">
+  
+  <!-- SCRIPTS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Custom styles for the editor page */
+    body {
+      max-width: 800px;
+      margin: 30px auto;
+    }
+    h2 {
+        margin-bottom: 30px;
+        color: #555;
+        text-align: center;
+    }
+    #output {
+        border: 1px dashed #ccc;
+        padding: 15px;
+        min-height: 100px;
+        background: #fff;
+    }
+    .element-container {
+        position: relative;
+        padding: 5px;
+        border: 1px solid transparent;
+        transition: border 0.2s ease;
+    }
+    .element-container:hover {
+        border: 1px dotted #aaa;
+        background: #f9f9f9;
+    }
+    .element-container.editing { /* Style for when an element is being edited */
+        border: 2px solid #6495ED; /* CornflowerBlue border */
+        background-color: #e6f7ff; /* Light blue background */
+    }
+    .element-controls {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background: rgba(238, 238, 238, 0.9);
+        padding: 2px;
+        display: none; /* Hidden by default */
+        border-radius: 0 0 0 5px; /* Rounded bottom-left corner */
+        box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+    }
+    .element-container.focused .element-controls,
+    .element-container:hover .element-controls {
+        display: block;
+    }
+    .control-btn { /* General style for control buttons */
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 3px 8px;
+        font-size: 0.8em;
+        margin-left: 5px;
+        cursor: pointer;
+        width: auto;
+        margin-top: 0;
+        border-radius: 3px;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .control-btn:hover {
+        background-color: #f0f0f0;
+        border-color: #999;
+    }
+    .edit-btn {
+        color: #3498db; /* Blue for edit */
+        border-color: #3498db;
+    }
+    .edit-btn:hover {
+        background-color: #3498db;
+        color: white;
+    }
+    .delete-btn {
+        color: #e74c3c; /* Red for delete */
+        border-color: #e74c3c;
+    }
+    .delete-btn:hover {
+        background-color: #e74c3c;
+        color: white;
+    }
+    [contenteditable="true"] {
+        outline: 2px solid #007bff;
+        background-color: #f0f8ff;
+    }
+  </style>
+  <script src="../../others/loading.js"></script>
+</head>
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+
+  <div class="body">
+    <main id="main">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h1>Content Editor</h1>
+    <button id="logoutBtn" class="w3-button w3-red w3-round">Log out</button>
+  </div>
+  <h2 id="chapter-name-display"></h2>
+  <p>This page allows you to create and edit the content for your chapters. You can add various elements like headings, paragraphs, lists, and links. Use the controls to manage your content effectively.</p>
+  <p>
+    Add new elements to your content below. To edit or delete existing content, simply hover over it and use the controls that appear.
+  </p>
+
+  <label for="elementType">What do you want to add?</label>
+  <select id="elementType" class="w3-select w3-border">
+    <optgroup label="Headings">
+      <option value="h1">Heading level 1 (Big Title)</option>
+      <option value="h2">Heading level 2 (Section Title)</option>
+      <option value="h3">Heading level 3 (Subsection Title)</option>
+      <option value="h4">Heading level 4</option>
+      <option value="h5">Heading level 5</option>
+      <option value="h6">Heading level 6</option>
+    </optgroup>
+    <optgroup label="Text">
+      <option value="p">Paragraph (regular text)</option>
+    </optgroup>
+    <optgroup label="Lists">
+      <option value="ul">Bullet list</option>
+      <option value="ol">Numbered list</option>
+    </optgroup>
+    <optgroup label="Other">
+      <option value="a">Link (clickable URL)</option>
+      <option value="hr">Separator line</option>
+      <option value="br">Line break (new line)</option>
+    </optgroup>
+  </select>
+
+  <label for="elementContent" style="margin-top:20px;">Type your content here:</label>
+  <textarea id="elementContent" class="w3-input w3-border" placeholder="Write your text here."></textarea>
+  
+  <div id="urlInputContainer" style="margin-top:15px; display: none;">
+    <label for="elementURL">Enter the website address:</label>
+    <input type="url" id="elementURL" class="w3-input w3-border" placeholder="https://example.com" />
+  </div>
+
+  <button id="createBtn" class="w3-button w3-blue" style="margin-top:25px;">Add to your content</button>
+
+  <hr style="margin-top:30px;" />
+
+  <div id="aiModeContainer" style="margin-bottom: 30px;">
+    <button id="toggleAiMode" class="w3-button w3-purple w3-round">Switch to AI Mode</button>
+    <div id="aiInputArea" style="display: none; margin-top: 15px; border: 1px solid #9c27b0; padding: 15px; border-radius: 8px;">
+        <h3>AI Chapter Generator</h3>
+        <p>Enter a topic or outline, and our AI team will generate a comprehensive chapter for you.</p>
+        <textarea id="aiTopic" class="w3-input w3-border" placeholder="e.g., Introduction to Photosynthesis or The French Revolution summary" style="height: 100px;"></textarea>
+        <button id="generateAiBtn" class="w3-button w3-deep-purple" style="margin-top: 10px;">Generate Chapter Content</button>
+        <div id="aiStatus" style="margin-top: 10px; font-weight: bold; color: #9c27b0;"></div>
+    </div>
+  </div>
+
+  <form id="publish-form">
+    <div id="output">
+        <span id="output-empty-message" style="display: none; color: #888; text-align: center; padding: 20px;">Your content will appear here. Start by adding elements above!</span>
+    </div>
+    <br>
+    <button id="deleteAll" class="w3-button w3-red">Delete All</button>
+    <button type="submit" class="w3-button w3-green">Publish</button>
+  </form>
+
+</main>
+
+<!-- Firebase SDK -->
+  </div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<!-- Project-specific & Global Scripts -->
+<script src="../../others/firebase.js"></script>
+<script src="../../others/global.js"></script>
+<script src="../educationalContent.js"></script>
+<script src="../jquery.js"></script>
+
+<!-- Page-specific Scripts -->
+<script src="script.js"></script>
+<script src="ai-generator.js"></script>
+
+</body>
+</html>

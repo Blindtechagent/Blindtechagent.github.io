@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="../others/loading.js"></script>
+  <title>PDF Splitter - Blind Tech Agent</title>
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --secondary-color: #4CAF50;
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+      --reader-border: #e2e8f0;
+    }
+    body { background-color: var(--bg-color); }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .tool-header {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #eee;
+    }
+    /* Updated Upload Area to match Reader */
+    .upload-area {
+      padding: 60px 40px;
+      border: 3px dashed #cbd5e0;
+      border-radius: 16px;
+      background: white;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .upload-area:hover { border-color: var(--primary-color); background: #f0f9ff; }
+    .file-input { display: none; }
+    
+    .file-info-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--reader-border);
+      margin-bottom: 20px;
+      text-align: left;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .status-badge {
+      background: #dcfce7;
+      color: #166534;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px;
+    }
+    .btn-primary { background: var(--primary-color); color: white; }
+    .btn-success { background: var(--secondary-color); color: white; }
+    .btn-danger { background: #ff4d4d; color: white; }
+    
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    /* Refactored Classes */
+    .nav-icon-margin { margin: auto; }
+    .upload-icon-style { color: var(--primary-color); margin-bottom: 20px; }
+    .split-section-wrapper { display: none; }
+    .page-range-container { text-align: left; margin-bottom: 20px; }
+    .page-range-label { font-weight: bold; }
+    .status-text { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+  <div class="body">
+    <header id="header"></header>
+    <nav class="w3-bar">
+      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
+      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
+      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
+      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
+      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
+    </nav>
+    <main id="main">
+      <div class="container">
+        <div class="tool-header">
+          <h2><i class="fas fa-cut"></i> PDF Splitter</h2>
+          <p><strong>Welcome to our PDF Splitter tool!</strong> This tool lets you extract specific pages or page ranges from a PDF document in just a few clicks. Simply select a PDF file from your device, enter the pages you want to extract, and the new PDF will be created almost instantly.</p>
+<p>You can extract a single page, multiple pages, or page ranges such as <strong>1-5</strong>, <strong>8</strong>, or <strong>10-15</strong>. Once the extraction is complete, you can download the new PDF containing only the pages you selected.</p>
+        </div>
+        
+        <div id="upload-section">
+          <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()" aria-label="Upload PDF Document">
+            <i class="fas fa-file-import fa-4x upload-icon-style"></i>
+            <p>Drag and drop your PDF file here, or click to browse your folders.</p>
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-plus-circle"></i> Select File
+            </button>
+            <input type="file" id="fileInput" class="file-input" accept="application/pdf">
+          </div>
+        </div>
+
+        <div id="split-section" class="split-section-wrapper">
+          <div class="file-info-box">
+            <strong id="fileNameDisplay"></strong><br>
+            <span id="pageCountDisplay" class="status-badge"></span>
+          </div>
+
+          <div class="page-range-container">
+            <label for="pageRange" class="page-range-label">Enter pages to extract (e.g., 1-5, 8, 10):</label>
+            <input type="text" id="pageRange" placeholder="e.g. 1-5, 8, 11-15">
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-success" onclick="splitPDF()">
+              <i class="fas fa-file-export"></i> Download Extracted Pages
+            </button>
+            <button class="btn btn-danger" onclick="clearFile()">
+              <i class="fas fa-undo"></i> Clear Selected File
+            </button>
+          </div>
+        </div>
+
+        <div id="status" role="status" aria-live="polite" class="status-text"></div>
+      </div>
+    </main>
+    <footer id="footer"></footer>
+  </div>
+
+  <script src="../others/firebase.js"></script>
+  <script src="../others/global.js"></script>
+  <script src="../others/translate.js"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="pdf_split.js"></script>
+</body>
+</html>

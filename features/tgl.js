@@ -40,9 +40,9 @@ announce("link generated successfully");
     }
 
     function enableButton(buttonId) {
-      let button = document.getElementById(buttonId || "generate-btn");
+      let generateBtn = document.getElementById("generate-btn");
       let username = document.getElementById("username").value.trim();
 
-      button.disabled = username === "";
+      generateBtn.disabled = username === "";
     }
   

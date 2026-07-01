@@ -102,7 +102,7 @@
       // creating element
       const list = document.createElement("li");
       list.id = uniqueId;
-      const element = `<p>${serial} :</p> <p>${value}</p> <p id="single-delete"><img  src="./icon/icons8-trash-30.png" alt="Delete" /></p>`;
+      const element = `<p>${serial} :</p> <p>${value}</p> <p id="single-delete" style="cursor:pointer;"><i class="fas fa-trash" style="font-size: 2rem; color: #e8706c;"></i></p>`;
 
       // put element with list
       list.innerHTML = element;

@@ -92,10 +92,12 @@
         }
 
         function copyToClipboard() {
-            const shortUrl = document.getElementById('short-url').textContent;
+            const shortUrl = document.getElementById('short-url').textContent.replace('Short URL: ', '');
             navigator.clipboard.writeText(shortUrl).then(() => {
                 announce('Short URL copied to clipboard');
             }).catch(err => {
                 console.error('Failed to copy: ', err);
             });
         }
+
+        document.getElementById('copy-button').addEventListener('click', copyToClipboard);

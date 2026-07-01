@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../others/loading.js"></script>
+  <title>QR Generator</title>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #2196F3;
+      --bg-color: #f0f8ff;
+      --text-color: #333;
+    }
+    .container {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      max-width: 600px;
+      margin: 40px auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin: 5px 0;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+      font-size: 16px;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--secondary-color);
+      outline: none;
+    }
+    .color-options {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .color-item {
+      flex: 1;
+    }
+    .color-item input[type="color"] {
+      height: 45px;
+      padding: 2px;
+      cursor: pointer;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 12px 25px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: transform 0.2s, background-color 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    .button.secondary {
+      background-color: var(--secondary-color);
+    }
+    .button.secondary:hover {
+      background-color: #1976D2;
+    }
+    .button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #qrResult {
+      margin-top: 30px;
+      padding: 20px;
+      border: 2px dashed #eee;
+      border-radius: 10px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    #qrImage {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--secondary-color);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #actions {
+      display: none;
+      margin-top: 20px;
+    }
+    @media (max-width: 500px) {
+      .container {
+        margin: 20px 10px;
+        padding: 20px;
+      }
+      .color-options {
+        flex-direction: column;
+      }
+      .button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+  <div class="body">
+    <header id="header"></header>
+    <nav class="w3-bar">
+      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
+      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
+      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
+      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
+      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
+    </nav>
+    <main id="main">
+     
+        <h2>QR Code Generator</h2>
+<p><strong>Welcome to our QR Code Generator!</strong> This tool lets you create QR codes for text, websites, phone numbers, WhatsApp chats, Instagram profiles, Telegram profiles, YouTube channels, and more. Simply choose the type of QR code, enter your content, and generate your QR code instantly.</p>
+<p>You can also customize the foreground and background colors of your QR code to match your preferences. Once it's generated, you can download it as an image or copy it directly to your clipboard for quick sharing and use.</p>
+      <div class="container">
+        <div class="input-group">
+          <label for="qrType">QR Code Type</label>
+          <select id="qrType" onchange="updatePlaceholder()">
+            <option value="text">Plain Text</option>
+            <option value="url">Website URL</option>
+            <option value="phone">Phone Number</option>
+            <option value="whatsapp">WhatsApp Chat</option>
+            <option value="instagram">Instagram Profile</option>
+            <option value="telegram">Telegram Profile</option>
+            <option value="youtube">YouTube Channel</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="qrData">Content</label>
+          <textarea id="qrData" rows="3" placeholder="Enter text..."></textarea>
+        </div>
+        <div class="color-options">
+          <div class="color-item">
+            <label for="fgColor">Foreground Color</label>
+            <select id="fgColor">
+              <option value="000000" selected>Black</option>
+              <option value="ff0000">Red</option>
+              <option value="0000ff">Blue</option>
+              <option value="008000">Green</option>
+              <option value="800080">Purple</option>
+              <option value="ff1493">Deep Pink</option>
+              <option value="000080">Navy Blue</option>
+              <option value="800000">Maroon</option>
+              <option value="008080">Teal</option>
+              <option value="ff8c00">Dark Orange</option>
+              <option value="ffffff">White</option>
+            </select>
+          </div>
+          <div class="color-item">
+            <label for="bgColor">Background Color</label>
+            <select id="bgColor">
+              <option value="ffffff" selected>White</option>
+              <option value="f0f8ff">Alice Blue</option>
+              <option value="eeeeee">Light Grey</option>
+              <option value="ffff00">Yellow</option>
+              <option value="ffa500">Orange</option>
+              <option value="c0c0c0">Silver</option>
+              <option value="ffd700">Gold</option>
+              <option value="98fb98">Pale Green</option>
+              <option value="afeeee">Pale Turquoise</option>
+              <option value="ffb6c1">Light Pink</option>
+              <option value="000000">Black</option>
+            </select>
+          </div>
+        </div>
+        <button class="button" onclick="generateQR()">
+          <i class="fas fa-qrcode"></i> Generate QR Code
+        </button>
+        <div id="announcement" role="status" aria-live="assertive" class="sr-only"></div>
+        <div id="qrResult">
+          <div class="loader" id="qrLoader"></div>
+          <img id="qrImage" src="" alt="Generated QR Code will appear here" style="display:none;">
+          <div id="actions" class="button-group">
+            <button class="button secondary" onclick="downloadQR()">
+              <i class="fas fa-download"></i> Download QR
+            </button>
+            <button class="button secondary" onclick="copyQR()">
+              <i class="fas fa-copy"></i> Copy QR to the clipboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer"></footer>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="../others/firebase.js"></script>
+  <script>
+    function updatePlaceholder() {
+      var type = document.getElementById("qrType").value;
+      var textarea = document.getElementById("qrData");
+      if (type === 'text') textarea.placeholder = "Enter text...";
+      else if (type === 'url') textarea.placeholder = "Enter full URL (e.g., https://example.com)...";
+      else if (type === 'phone') textarea.placeholder = "Enter phone number (e.g., +1234567890)...";
+      else if (type === 'whatsapp') textarea.placeholder = "Enter phone number with country code (e.g., 1234567890)...";
+      else if (type === 'instagram') textarea.placeholder = "Enter username...";
+      else if (type === 'telegram') textarea.placeholder = "Enter username (e.g., username)...";
+      else if (type === 'youtube') textarea.placeholder = "Enter channel handle or URL...";
+    }
+
+    function generateQR() {
+      var type = document.getElementById("qrType").value;
+      var rawData = document.getElementById("qrData").value;
+      var fgColor = document.getElementById("fgColor").value;
+      var bgColor = document.getElementById("bgColor").value;
+      
+      if (!rawData) {
+        announce("Please enter some data to generate a QR code.");
+        return;
+      }
+      
+      var finalData = "";
+      if (type === 'text') finalData = rawData;
+      else if (type === 'url') finalData = rawData.startsWith('http') ? rawData : 'https://' + rawData;
+      else if (type === 'phone') finalData = 'tel:' + rawData;
+      else if (type === 'whatsapp') finalData = 'https://wa.me/' + rawData.replace(/\D/g, '');
+      else if (type === 'instagram') finalData = 'https://instagram.com/' + rawData;
+      else if (type === 'telegram') finalData = 'https://t.me/' + rawData.replace('@', '');
+      else if (type === 'youtube') finalData = rawData.startsWith('http') ? rawData : 'https://youtube.com/' + rawData;
+
+      var qrImage = document.getElementById("qrImage");
+      var qrLoader = document.getElementById("qrLoader");
+      var actions = document.getElementById("actions");
+
+      qrImage.style.display = "none";
+      actions.style.display = "none";
+      qrLoader.style.display = "block";
+
+      var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(finalData) + "&color=" + fgColor + "&bgcolor=" + bgColor + "&t=" + new Date().getTime();
+      
+      qrImage.onload = function() {
+        qrLoader.style.display = "none";
+        qrImage.style.display = "block";
+        actions.style.display = "flex";
+        announce("QR code generated successfully.");
+      };
+
+      qrImage.onerror = function() {
+        qrLoader.style.display = "none";
+        announce("Failed to generate QR code. Please try again.");
+      };
+
+      qrImage.src = apiUrl;
+      qrImage.alt = "Generated QR Code for " + type;
+    }
+
+    async function downloadQR() {
+      const qrImage = document.getElementById("qrImage");
+      try {
+        const response = await fetch(qrImage.src);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "qrcode.png";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (e) {
+        alert("Failed to download image.");
+      }
+    }
+
+    async function copyQR() {
+      const qrImage = document.getElementById("qrImage");
+      try {
+        const response = await fetch(qrImage.src);
+        const blob = await response.blob();
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'image/png': blob
+          })
+        ]);
+        alert("QR Code image copied to clipboard!");
+      } catch (e) {
+        alert("Failed to copy image. Your browser may not support this feature.");
+      }
+    }
+
+    function announce(msg) {
+      document.getElementById("announcement").innerText = msg;
+    }
+  </script>
+  <script src="../others/global.js"></script>
+  <script src="../others/translate.js"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

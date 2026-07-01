@@ -67,12 +67,81 @@ function getGreeting(name) {
   }
 }
 
-$(document).ready(function () {
+// Resolve the base path once at script-parse time using the script element itself.
+// This is more reliable than reading the style.css href.
+function getPathPrefix() {
+  const styleLink = document.querySelector('link[href*="style.css"]');
+  if (styleLink) {
+    const href = styleLink.getAttribute('href');
+    return href.replace('style.css', '');
+  }
+  return './';
+}
+
+function adjustRelativeLinks(container, pathPrefix) {
+  if (!pathPrefix || pathPrefix === './') return;
+
+  container.querySelectorAll('[href]').forEach(el => {
+    const href = el.getAttribute('href');
+    if (href && !href.startsWith('http') && !href.startsWith('//') && !href.startsWith('#') && !href.startsWith('javascript:')) {
+      el.setAttribute('href', pathPrefix + (href.startsWith('./') ? href.slice(2) : href));
+    }
+  });
+
+  container.querySelectorAll('[src]').forEach(el => {
+    const src = el.getAttribute('src');
+    if (src && !src.startsWith('http') && !src.startsWith('//') && !src.startsWith('data:')) {
+      el.setAttribute('src', pathPrefix + (src.startsWith('./') ? src.slice(2) : src));
+    }
+  });
+}
+
+function loadHeaderAndFooter(onComplete) {
+  const prefix = getPathPrefix();
+  const headerEl = document.getElementById('header') || document.querySelector('header');
+  const footerEl = document.getElementById('footer') || document.querySelector('footer');
+
+  function renderHTML() {
+    if (headerEl && window.BTA_HEADER_HTML) {
+      headerEl.innerHTML = window.BTA_HEADER_HTML;
+      adjustRelativeLinks(headerEl, prefix);
+    }
+    if (footerEl && window.BTA_FOOTER_HTML) {
+      footerEl.innerHTML = window.BTA_FOOTER_HTML;
+      adjustRelativeLinks(footerEl, prefix);
+      // Update dynamic copyright year via stable id
+      const copyright = footerEl.querySelector('#copyright');
+      if (copyright) {
+        const yr = new Date().getFullYear();
+        copyright.textContent = `\u00A9 2023\u2013${yr} Blind Tech Agent. All Rights Reserved.`;
+      }
+    }
+    if (typeof onComplete === 'function') onComplete();
+  }
+
+  // Render immediately if already loaded in window
+  if (window.BTA_HEADER_HTML && window.BTA_FOOTER_HTML) {
+    renderHTML();
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = prefix + 'others/header-footer-data.js';
+  script.onload = renderHTML;
+  script.onerror = (err) => {
+    console.error('Failed to load header/footer data script:', err);
+    if (typeof onComplete === 'function') onComplete();
+  };
+  document.head.appendChild(script);
+}
+
+function initPage() {
   const accountBtn = document.getElementById("accountBtn");
   const accountBox = document.querySelector('#accountBox');
   const loginBtn = document.getElementById("loginBtn");
   const menuBtn = document.querySelector(".menuBtn");
-  const menuItems = document.getElementById("menuItems");
+  const navDrawer = document.getElementById("navDrawer");
+  const drawerCloseBtn = document.getElementById("drawerCloseBtn");
 
   if (accountBtn && accountBox && loginBtn) {
     firebase.auth().onAuthStateChanged((user) => {
@@ -90,18 +159,23 @@ $(document).ready(function () {
       }
     });
 
-    // Define the toggleDrawer function
-    function toggleDrawer() {
-      const isHidden = menuItems.style.display === "none" || menuItems.style.display === "";
-      menuItems.style.display = isHidden ? "block" : "none";
-      menuBtn.setAttribute("aria-expanded", !isHidden);
-      menuBtn.setAttribute("aria-label", isHidden ? "Close Navigation Menu" : "Open Navigation Menu");
-    }
+    // Open the navigation drawer as a modal dialog
+    menuBtn.addEventListener("click", function () {
+      navDrawer.showModal();
+      navDrawer.querySelector("button").focus();
+    });
 
-    // Attach the toggleDrawer function to the menu button click event
-    menuBtn.addEventListener("click", toggleDrawer);
+    // Close the drawer
+    drawerCloseBtn.addEventListener("click", function () {
+      navDrawer.close();
+      menuBtn.focus();
+    });
+
   }
-});
+}
+
+loadHeaderAndFooter(initPage);
+
 
 function translateToHindi() {
   const thought = document.getElementById('thought').innerHTML;

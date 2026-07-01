@@ -1,8 +1,12 @@
 
     function analyze() {
       const startTime = performance.now();
-      const input = document.getElementById('input').value;
-      const words = input.trim().split(/\s+/);
+      const input = document.getElementById('input').value.trim();
+      if (!input) {
+        announce("Please enter some text to analyze.");
+        return;
+      }
+      const words = input.split(/\s+/);
       const wordCount = words.length;
       const charCount = input.length;
       const sentenceCount = input.split(/[.!?]+/).length - 1;

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../educationalContent.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+  <title>Educational Content</title>
+  <script src="../../others/loading.js"></script>
+</head>
+
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+<div class="body">
+    <header id="header"></header>
+    <nav class="w3-bar">
+      <a role="tab" href="../../index.html" target="_self" class="tab">HOME</a>
+      <a role="tab" href="../../features.html" target="_self" class="tab">FEATURES</a>
+      <a role="tab" href="../../education.html" target="_self" aria-label="Selected, education"
+        class="tab w3-yellow">EDUCATION</a>
+      <a role="tab" href="../../articles.html" target="_self" class="tab">ARTICLES</a>
+      <a role="tab" href="../../games.html" target="_self" class="tab">Games</a>
+    </nav>
+    <main id="main">
+      <h2 id="subject-name"></h2>
+      <p>Here you will learn various topics related to the selected subject.</p>
+
+      <div id="units-container" class="container"></div>
+      <div id="chapter-content-container"></div>
+    </main>
+    <footer id="footer"></footer>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="../../others/firebase.js"></script>
+  <script src="../../others/global.js"></script>
+  <script src="../../others/auth.js"></script>
+  <script src="./subjectScript.js"></script>
+  <script src="../../others/translate.js"></script>
+  <script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="../jquery.js"></script>
+</body>
+
+</html>
+

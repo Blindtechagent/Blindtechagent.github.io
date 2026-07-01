@@ -188,8 +188,14 @@ source.connect(audioContext.destination);
 
 const canvas = document.getElementById("audioVisualization");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = 200; // Set to a fixed height or based on layout
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
 const config = {
     barCount: 100,

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="../educationalContent.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="new-styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+<title>Create content</title>
+<style>
+    .btn.active { background-color: #ccc; }
+    #loader {
+        text-align: center;
+        padding: 20px;
+        font-size: 1.2em;
+    }
+</style>
+  <script src="../../others/loading.js"></script>
+</head>
+
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+
+  <div class="body">
+    <main id="main">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1>Education publisher</h1>
+        <button id="logoutBtn" class="w3-button w3-red w3-round">Log out</button>
+    </div>
+<p>Welcome to the Education Publisher! Here you can manage your educational content by creating new subjects, units, and chapters. Use the buttons below to get started or select an existing subject to modify.</p>
+<p>Select any subject to modify or start a new subject</p>
+<div class="container" id="container">
+    <div id="loader">Loading...</div>
+</div>
+<br>
+<button class="btn" id="newSubject">Create a new subject</button>
+<div class="box" id="newSubjectBox" style="display: none;">
+    <h2>Create a new subject</h2>
+    <form id="form">
+        <label for="subjectName">Subject name:</label>
+        <input type="text" id="subjectName" placeholder="e.g., Mathematics" required>
+        <br>
+        <button type="submit">Add Subject</button>
+        <small>After adding, the new subject will appear above.</small>
+    </form>
+</div>
+
+<button class="btn" id="newUnit" style="display: none;">Create a new unit</button>
+<div class="box" id="newUnitBox" style="display: none;">
+    <h2>Create a new unit</h2>
+    <form id="unit-form">
+        <label for="unitName">Unit name:</label>
+        <input type="text" id="unitName" placeholder="e.g., Unit1: Algebra Basics" required>
+        <br>
+        <button type="submit">Add Unit</button>
+        <small>After adding, the new unit will appear under the selected subject.</small>
+    </form>
+</div>
+
+
+
+<!-- Firebase SDK -->
+  </div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../../others/firebase.js"></script>
+
+<script>
+$(document).ready(function() {
+    if (sessionStorage.getItem('adminAuthenticated') !== 'true') {
+        alert('Access denied. Please log in first.');
+        window.location.href = 'admin.html';
+        return;
+    }
+    const db = firebase.database().ref('education');
+    const container = document.getElementById('container');
+    const loader = document.getElementById('loader');
+    
+    const newUnitButton = document.getElementById('newUnit');
+    const newSubjectButton = document.getElementById('newSubject');
+    
+    const newSubjectBox = document.getElementById('newSubjectBox');
+    const newUnitBox = document.getElementById('newUnitBox');
+    
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.removeItem('adminAuthenticated');
+        window.location.href = 'admin.html';
+    });
+
+    newSubjectButton.addEventListener('click', () => {
+        // Handled by jquery.js for slideToggle
+        if (activeSubjectKey) {
+             activeSubjectKey = null;
+             newUnitButton.style.display = 'none';
+             document.querySelectorAll('#container .btn.active').forEach(btn => btn.classList.remove('active'));
+             document.querySelectorAll('#container .box').forEach(box => $(box).slideUp());
+        }
+    });
+
+    const subjectForm = document.getElementById('form');
+    const unitForm = document.getElementById('unit-form');
+    
+
+    let activeSubjectKey = null;
+
+    // Helper: sanitize name for Firebase keys
+    function safeKey(name) {
+        return name.trim().replace(/[.#$\[\]\/]/g, "_");
+    }
+
+    // Add data with duplicate check for subjects
+    subjectForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const subjectName = document.getElementById('subjectName').value.trim();
+        if (!subjectName) { alert('Please enter a subject name'); return; }
+        const key = safeKey(subjectName);
+        db.child(key).once('value').then(snapshot => {
+            if (snapshot.exists()) {
+                alert('This subject name already exists.');
+            } else {
+                db.child(key).set({ subjectName: subjectName }).then(() => {
+                    alert('Subject added successfully!');
+                    document.getElementById('subjectName').value = '';
+                    $(newSubjectBox).slideUp();
+                });
+            }
+        }).catch(error => alert('Error: ' + error.message));
+    });
+
+    // Add data for units
+    unitForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!activeSubjectKey) { alert('Please select a subject first!'); return; }
+        const unitName = document.getElementById('unitName').value.trim();
+        if (!unitName) { alert('Please enter a unit name.'); return; }
+        const unitKey = safeKey(unitName);
+        const subjectRef = db.child(activeSubjectKey).child('units');
+        subjectRef.child(unitKey).once('value').then(snapshot => {
+            if (snapshot.exists()) {
+                alert('This unit name already exists for this subject.');
+            } else {
+                subjectRef.child(unitKey).set({ name: unitName }).then(() => {
+                    alert('Unit added successfully!');
+                    document.getElementById('unitName').value = '';
+                    $(newUnitBox).slideUp();
+                });
+            }
+        }).catch(error => alert('Error: ' + error.message));
+    });
+
+    
+
+
+    // Show subjects in real-time
+    db.on('value', (snapshot) => {
+        container.innerHTML = '';
+        loader.style.display = 'none';
+
+        if (!snapshot.exists()) {
+            container.innerHTML = '<p>No subjects found. Create one to get started!</p>';
+            newUnitButton.style.display = 'none';
+            activeSubjectKey = null;
+            return;
+        }
+
+        snapshot.forEach((childSnapshot) => {
+            const subjectKey = childSnapshot.key;
+            const subjectData = childSnapshot.val();
+
+            const subjectBtn = document.createElement('button');
+            subjectBtn.className = 'btn';
+            subjectBtn.textContent = subjectData.subjectName;
+            if (activeSubjectKey === subjectKey) subjectBtn.classList.add('active');
+            
+            const subjectBox = document.createElement('div');
+            subjectBox.className = 'box';
+            subjectBox.style.display = (activeSubjectKey === subjectKey) ? 'block' : 'none';
+            subjectBox.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>${subjectData.subjectName}</h2>
+                    <div>
+                        <button class="w3-button w3-orange w3-text-white w3-round w3-small rename-subject" style="margin-right: 5px;">Rename</button>
+                        <button class="w3-button w3-red w3-round w3-small delete-subject">Delete Subject</button>
+                    </div>
+                </div>
+                <div class="units-container" id="units-for-${subjectKey}"></div>
+            `;
+            
+            subjectBox.querySelector('.rename-subject').addEventListener('click', (e) => {
+                e.stopPropagation();
+                const newName = prompt('Enter new subject name:', subjectData.subjectName);
+                if (newName && newName.trim() !== "" && newName !== subjectData.subjectName) {
+                    db.child(subjectKey).update({ subjectName: newName.trim() })
+                        .then(() => alert('Subject renamed successfully.'));
+                }
+            });
+
+            subjectBox.querySelector('.delete-subject').addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (confirm(`Are you sure you want to delete the subject "${subjectData.subjectName}" and all its content?`)) {
+                    db.child(subjectKey).remove().then(() => {
+                        alert('Subject deleted.');
+                        if (activeSubjectKey === subjectKey) {
+                            activeSubjectKey = null;
+                            newUnitButton.style.display = 'none';
+                        }
+                    });
+                }
+            });
+            
+            subjectBtn.addEventListener('click', () => {
+                if (activeSubjectKey === subjectKey) {
+                    activeSubjectKey = null;
+                    newUnitButton.style.display = 'none';
+                    subjectBtn.classList.remove('active');
+                    $(newUnitBox).slideUp();
+                } else {
+                    activeSubjectKey = subjectKey;
+                    newUnitButton.style.display = 'inline-block';
+                    document.querySelectorAll('#container .btn.active').forEach(btn => btn.classList.remove('active'));
+                    subjectBtn.classList.add('active');
+                    $(newSubjectBox).slideUp();
+                }
+            });
+
+            container.appendChild(subjectBtn);
+            container.appendChild(subjectBox);
+
+            const unitsRef = db.child(subjectKey).child('units');
+            unitsRef.on('value', (unitsSnapshot) => {
+                const unitsContainer = document.getElementById(`units-for-${subjectKey}`);
+                if (unitsContainer) {
+                    unitsContainer.innerHTML = '';
+                    if (!unitsSnapshot.exists()) {
+                        unitsContainer.innerHTML = '<p>No units found for this subject.</p>';
+                    } else {
+                        unitsSnapshot.forEach((unitChildSnapshot) => {
+                            const unitKey = unitChildSnapshot.key;
+                            const unitData = unitChildSnapshot.val();
+
+                            const unitBtn = document.createElement('button');
+                            unitBtn.className = 'btn';
+                            unitBtn.textContent = unitData.name;
+                            
+                            const unitBox = document.createElement('div');
+                            unitBox.className = 'box';
+                            unitBox.style.display = 'none';
+                            unitBox.innerHTML = `
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h3>${unitData.name}</h3>
+                                        <div>
+                                            <button class="w3-button w3-orange w3-text-white w3-round w3-small rename-unit" style="margin-right: 5px;">Rename</button>
+                                            <button class="w3-button w3-red w3-round w3-small delete-unit">Delete Unit</button>
+                                        </div>
+                                    </div>
+                                    <button class="w3-button w3-blue w3-round manage-chapters-btn">Manage Chapters</button>
+                                </div>
+                            `;
+
+                            unitBox.querySelector('.rename-unit').addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                const newName = prompt('Enter new unit name:', unitData.name);
+                                if (newName && newName.trim() !== "" && newName !== unitData.name) {
+                                    db.child(subjectKey).child('units').child(unitKey).update({ name: newName.trim() })
+                                        .then(() => alert('Unit renamed successfully.'));
+                                }
+                            });
+
+                            unitBox.querySelector('.delete-unit').addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                if (confirm(`Are you sure you want to delete the unit "${unitData.name}"?`)) {
+                                    db.child(subjectKey).child('units').child(unitKey).remove().then(() => alert('Unit deleted.'));
+                                }
+                            });
+
+                            unitBox.querySelector('.manage-chapters-btn').addEventListener('click', () => {
+                                window.location.href = `manage-chapters.html?subjectKey=${subjectKey}&unitKey=${unitKey}&unitName=${encodeURIComponent(unitData.name)}`;
+                            });
+
+                            unitsContainer.appendChild(unitBtn);
+                            unitsContainer.appendChild(unitBox);
+                        });
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
+</main>
+<!-- Removed duplicate Firebase SDK links below -->
+<script src="../../others/global.js"></script>
+<script src="../educationalContent.js"></script>
+<script src="../jquery.js"></script>
+</body>
+
+</html>

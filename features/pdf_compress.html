@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="../others/loading.js"></script>
+  <title>PDF Compressor - Blind Tech Agent</title>
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --secondary-color: #4CAF50;
+      --accent-color: #ff9800;
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+    }
+    body { background-color: var(--bg-color); }
+    .container {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      max-width: 800px;
+      margin: 40px auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .tool-header {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #eee;
+    }
+    .upload-area {
+      border: 3px dashed #cbd5e0;
+      padding: 50px 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
+    }
+    .upload-area:hover, .upload-area.dragover {
+      border-color: var(--primary-color);
+      background-color: #ebf8ff;
+    }
+    .upload-icon { color: var(--primary-color); margin-bottom: 20px; }
+    #compress-section { display: none; }
+    #resultInfo { display: none; }
+    #status { margin-top: 20px; font-weight: bold; }
+    .file-input { display: none; }
+    
+    .file-info-box {
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px;
+    }
+    .btn-primary { background: var(--primary-color); color: white; }
+    .btn-success { background: var(--secondary-color); color: white; }
+    .btn-danger { background: #ff4d4d; color: white; }
+    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .result-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+  <div class="body">
+    <header id="header"></header>
+    <nav class="w3-bar">
+      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
+      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
+      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
+      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
+      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
+    </nav>
+    <main id="main">
+      <div class="container">
+        <div class="tool-header">
+          <h2><i class="fas fa-compress-arrows-alt"></i> PDF Compressor</h2>
+          <p><strong>Welcome to our PDF Compressor tool!</strong> This tool helps you reduce the file size of your PDF documents while keeping their quality as high as possible. Simply select a PDF file from your device, and the optimization process will begin right away.</p>
+<p>Once the compression is complete, you can instantly download the optimized PDF. A smaller file size makes your PDF easier to store, upload, share, and send without changing its content.</p>
+        </div>
+        
+        <div id="upload-section">
+          <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()" aria-label="Select PDF for Compression">
+            <i class="fas fa-file-download fa-4x upload-icon"></i>
+                        <p>Select a PDF document from your device to begin optimization.</p>
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-plus-circle"></i> Select PDF File
+                        </button>
+                        <input type="file" id="fileInput" class="file-input" accept="application/pdf">
+                      </div>
+                    </div>
+
+                    <div id="compress-section">
+                      <div class="file-info-box">
+                        <strong id="fileNameDisplay"></strong><br>
+                        <span id="fileSizeDisplay" class="status-badge"></span>
+                      </div>
+
+                      <div class="action-buttons">
+                        <button class="btn btn-success" onclick="compressPDF()">
+                          <i class="fas fa-magic"></i> Optimize and Download
+                        </button>
+                        <button class="btn btn-danger" onclick="clearFile()">
+                          <i class="fas fa-undo"></i> Choose Different File
+                        </button>
+                      </div>
+
+                      <div id="resultInfo" class="result-badge"></div>
+                    </div>
+
+                    <div id="status" role="status" aria-live="polite"></div>
+      </div>
+    </main>
+    <footer id="footer"></footer>
+  </div>
+
+  <script src="../others/firebase.js"></script>
+  <script src="../others/global.js"></script>
+  <script src="../others/translate.js"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="pdf_compress.js"></script>
+</body>
+</html>
+>
+</body>
+</html>

@@ -37,7 +37,8 @@ function startVoiceTyping() {
 }
 
 // Function to generate the document in the chosen format
-function generate() {
+function generate(event) {
+  if (event) event.preventDefault();
   const fileName = document.getElementById("fileName").value || "document";
   const content = document.getElementById("content").value || "No content provided.";
   const format = document.getElementById("format").value;
@@ -56,9 +57,12 @@ function generate() {
       generatePdf(fileName, content);
       break;
   }
+}
 
-  showMessage("Your document has been created successfully!");
-  clearForm();
+// Function to format file size
+function formatFileSize(sizeInBytes) {
+  const size = (sizeInBytes / 1024).toFixed(2);
+  return size >= 1000 ? (size / 1000).toFixed(2) + ' MB' : size + ' KB';
 }
 
 // Function to generate DOCX file
@@ -71,33 +75,69 @@ function generateDocx(fileName, content) {
   });
 
   docx.Packer.toBlob(doc).then((blob) => {
+    const sizeText = formatFileSize(blob.size);
     saveAs(blob, `${fileName}.docx`);
+    showMessage(`DOCX created successfully! (Size: ${sizeText})`);
+    clearForm();
   });
 }
 
 // Function to generate TXT file
 function generateTxt(fileName, content) {
   const blob = new Blob([content], { type: "text/plain" });
+  const sizeText = formatFileSize(blob.size);
   saveAs(blob, `${fileName}.txt`);
+  showMessage(`TXT created successfully! (Size: ${sizeText})`);
+  clearForm();
 }
 
 // Function to generate Markdown file
 function generateMarkdown(fileName, content) {
   const blob = new Blob([content], { type: "text/markdown" });
+  const sizeText = formatFileSize(blob.size);
   saveAs(blob, `${fileName}.md`);
+  showMessage(`Markdown created successfully! (Size: ${sizeText})`);
+  clearForm();
 }
 
 // Function to generate PDF file
 function generatePdf(fileName, content) {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF();
-  const lines = content.split("\n");
+  
+  // PDF Page settings
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const margin = 10;
+  const maxLineWidth = pageWidth - margin * 2;
+  const startY = 10;
+  const lineHeight = 10;
+  let currentY = startY;
 
-  lines.forEach((line, lineIndex) => {
-    pdf.text(line, 10, 10 + lineIndex * 10);
+  // Split content into lines and handle wrapping
+  const sourceLines = content.split("\n");
+  sourceLines.forEach((sourceLine) => {
+    // If line is empty, just move Y
+    if (sourceLine.trim() === "") {
+        currentY += lineHeight;
+    } else {
+        const wrappedLines = pdf.splitTextToSize(sourceLine, maxLineWidth);
+        wrappedLines.forEach((line) => {
+            // Add a new page if we're near the bottom
+            if (currentY > pdf.internal.pageSize.getHeight() - margin) {
+                pdf.addPage();
+                currentY = margin;
+            }
+            pdf.text(line, margin, currentY);
+            currentY += lineHeight;
+        });
+    }
   });
 
+  const blob = pdf.output('blob');
+  const sizeText = formatFileSize(blob.size);
   pdf.save(`${fileName}.pdf`);
+  showMessage(`PDF created successfully! (Size: ${sizeText})`);
+  clearForm();
 }
 
 // Function to update counters for characters, words, and lines

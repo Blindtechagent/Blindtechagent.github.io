@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../others/loading.js"></script>
+  <title>Professional PDF Reader - Blind Tech Agent</title>
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --secondary-color: #03DAC6;
+      --accent-color: #ff9800;
+      --bg-color: #f4f7f6;
+      --card-bg: #ffffff;
+      --reader-border: #e2e8f0;
+    }
+    body { background-color: var(--bg-color); }
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .tool-header {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #eee;
+    }
+
+    #file-details {
+      margin-bottom: 20px;
+      background: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      display: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--reader-border);
+    }
+
+    .reader-frame {
+      width: 100%;
+      background: white;
+      border-radius: 15px;
+      margin: 0 auto;
+      padding: 0;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid var(--reader-border);
+      overflow: hidden;
+    }
+
+    .top-nav {
+      background: #f8fafc;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--reader-border);
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-nav input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .content-area {
+      flex-grow: 1;
+      background: #fff;
+      min-height: 500px;
+      max-height: 75vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    #resultContainer {
+      padding: 40px 60px;
+      text-align: left;
+      font-size: 1.15em;
+      line-height: 1.8;
+      color: #1a202c;
+    }
+
+    /* Analysis Loading State */
+    .analysis-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      color: var(--primary-color);
+    }
+    .analysis-spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: var(--primary-color);
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .bottom-nav {
+      background: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 20px;
+      border-top: 1px solid var(--reader-border);
+      gap: 30px;
+    }
+
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #64748b;
+      transition: all 0.2s;
+      padding: 8px 15px;
+      border-radius: 8px;
+    }
+    .nav-btn:hover { color: var(--primary-color); background: #eff6ff; }
+    .nav-btn:disabled { color: #cbd5e0; cursor: not-allowed; background: none; }
+    .nav-btn i { font-size: 1.4em; }
+    .nav-btn span { font-size: 0.75em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    dialog#moreActionsDialog {
+      border: none;
+      border-radius: 15px;
+      padding: 25px;
+      width: 350px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+    dialog#moreActionsDialog::backdrop { background: rgba(0,0,0,0.5); }
+    .dialog-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+    .upload-area {
+      padding: 60px 40px;
+      border: 3px dashed #cbd5e0;
+      border-radius: 16px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+    .upload-area:hover { border-color: var(--primary-color); background: #f0f9ff; }
+    .file-input { display: none; }
+    
+    .status-badge {
+      background: #dcfce7;
+      color: #166534;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+
+    mark { background: #fef08a; padding: 0 2px; border-radius: 3px; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
+  <div class="preloader">
+    <div class="index-loader"><div id="loaderInner"></div></div>
+    <span id="wt" aria-live="assertive">Loading</span>
+    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+  </div>
+  <div class="body">
+    <header id="header"></header>
+
+    <nav class="w3-bar">
+      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
+      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
+      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
+      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
+      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
+    </nav>
+
+    <main id="main">
+      <div class="container">
+        <div class="tool-header">
+          <h2><i class="fas fa-file-invoice"></i> Professional PDF Reader</h2>
+          <p>Experience beautifully formatted documents with high-fidelity structural reconstruction.</p>
+        </div>
+
+        <div id="upload-section" class="upload-area">
+          <i class="fas fa-file-import fa-4x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+          <h3>Enhanced Document Reading</h3>
+          <p>Upload your PDF and our engine will reconstruct the layout into clean, semantic HTML.</p>
+          <button class="w3-button w3-blue w3-round-large w3-large" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-plus"></i> Select PDF File
+          </button>
+          <input type="file" id="fileInput" class="file-input" accept="application/pdf">
+        </div>
+
+        <div id="status-container">
+          <div id="status" role="status" aria-live="polite" style="margin-top:10px; font-weight:bold; color:var(--primary-color);"></div>
+        </div>
+
+        <!-- File Metadata -->
+        <div id="file-details">
+          <div style="text-align:left;">
+            <strong id="fileName" style="font-size:1.1em; color:#2d3748;"></strong><br>
+            <span id="pageCount" class="status-badge"></span>
+          </div>
+          <button class="w3-button w3-red w3-round-large" onclick="clearAll()">
+            <i class="fas fa-times"></i> Close Document
+          </button>
+        </div>
+
+        <!-- Full-Width Reader -->
+        <div id="dashboard" class="reader-frame">
+          <div class="top-nav">
+            <div class="nav-group">
+               <span id="pageIndicator" style="font-weight: 700; color: #4a5568;"></span>
+            </div>
+            <div class="nav-group">
+              <label for="jumpInput" style="font-size:0.9em; font-weight:600;">Go to:</label>
+              <input type="number" id="jumpInput" min="1" placeholder="#">
+              <button class="w3-button w3-light-gray w3-round w3-small" onclick="jumpToPage()">Jump</button>
+            </div>
+          </div>
+
+          <div class="content-area">
+            <div id="resultContainer"></div>
+          </div>
+
+          <div class="bottom-nav">
+            <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">
+              <i class="fas fa-chevron-left"></i>
+              <span>Previous Page</span>
+            </button>
+            
+            <button class="nav-btn" id="playBtn" onclick="toggleRead()">
+              <i class="fas fa-play" id="playIcon"></i>
+              <span id="playText">Play</span>
+            </button>
+
+            <button class="nav-btn" id="nextBtn" onclick="changePage(1)">
+              <i class="fas fa-chevron-right"></i>
+              <span>Next Page</span>
+            </button>
+
+            <button class="nav-btn" onclick="document.getElementById('moreActionsDialog').showModal()" title="More Options">
+              <i class="fas fa-cog"></i>
+              <span>Options</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <dialog id="moreActionsDialog">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h3 style="margin:0;">Reading Options</h3>
+          <button class="w3-button w3-circle" onclick="document.getElementById('moreActionsDialog').close()">&times;</button>
+        </div>
+        
+        <div class="dialog-grid">
+          <div>
+            <label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Reading Speed</label>
+            <input type="range" id="speedRange" min="0.5" max="2.5" step="0.1" value="1.0" oninput="updateSpeed(this.value)" style="width:100%;">
+            <div style="display:flex; justify-content:space-between; margin-top:5px;">
+              <small>Slower</small>
+              <small><strong><span id="speedVal">1.0</span>x</strong></small>
+              <small>Faster</small>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid #eee; padding-top:15px;">
+            <label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Text Zoom</label>
+            <div style="display:flex; gap:10px;">
+              <button class="w3-button w3-border w3-round w3-block" onclick="adjustFontSize(2)">
+                <i class="fas fa-plus"></i> Increase
+              </button>
+              <button class="w3-button w3-border w3-round w3-block" onclick="adjustFontSize(-2)">
+                <i class="fas fa-minus"></i> Decrease
+              </button>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid #eee; padding-top:15px;">
+            <label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Visual Theme</label>
+            <button class="w3-button w3-border w3-round w3-block" id="themeToggle" onclick="toggleDarkMode()">
+              <i class="fas fa-moon"></i> Dark Mode
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid #eee; padding-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <button class="w3-button w3-blue w3-round-large" onclick="displayPage(0)">
+              <i class="fas fa-fast-backward"></i> First Page
+            </button>
+            <button class="w3-button w3-blue w3-round-large" onclick="displayPage(pdfDoc.numPages - 1)">
+              <i class="fas fa-fast-forward"></i> Last Page
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid #eee; padding-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <button class="w3-button w3-green w3-round-large" onclick="copyText()">
+              <i class="fas fa-copy"></i> Copy Page
+            </button>
+            <button class="w3-button w3-teal w3-round-large" onclick="downloadText()">
+              <i class="fas fa-file-download"></i> Save as TXT
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid #eee; padding-top:15px;">
+            <button class="w3-button w3-deep-orange w3-round-large w3-block" onclick="downloadAllText()">
+              <i class="fas fa-file-export"></i> Extract All Text (TXT)
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid #eee; padding-top:15px;">
+            <button class="w3-button w3-red w3-round-large w3-block" id="downloadAudioBtn" onclick="downloadFullAudio()">
+              <i class="fas fa-file-audio"></i> Download Full Audio (MP3)
+            </button>
+          </div>
+        </div>
+      </dialog>
+    </main>
+
+    <footer id="footer"></footer>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="../others/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script src="ai_pdf_reader.js"></script>
+  <script src="../others/global.js"></script>
+  <script src="../others/translate.js"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

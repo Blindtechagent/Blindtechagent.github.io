@@ -1,0 +1,66 @@
+window.BTA_HEADER_HTML = `<a class="skip" href="#main">Skip to main content</a>
+<a href="./index.html" class="link">
+  <h1 id="main-heading">BLIND TECH AGENT</h1>
+</a>
+<button class="menuBtn w3-display-topleft" aria-label="Open Navigation Menu">
+  <i class="fas fa-bars w3-display-topleft" style="margin:auto;"></i>
+</button>
+<dialog id="navDrawer" class="drawer" aria-labelledby="navTitle">
+  <p id="navTitle" hidden>navigation drawer</p>
+    <button id="drawerCloseBtn" class="drawerCloseBtn" aria-label="Close Navigation Menu">&times;</button>
+  
+  <nav>
+    <ul id="menuItems" role="navigation">
+      <li>
+        <a id="loginBtn" role="menuitem" href="./menu/login.html" class="menuLinks w3-bar-item">Log in</a>
+      </li>
+      <li>
+        <a id="accountBtn" role="menuitem" href="./menu/createAccount.html" class="menuLinks w3-bar-item">Create Account</a>
+      </li>
+      <li>
+        <a role="menuitem" href="./menu/joinUs.html" class="menuLinks w3-bar-item">Join our team</a>
+      </li>
+      <li>
+        <a role="menuitem" href="./menu/contact.html" class="menuLinks w3-bar-item">Contact us</a>
+      </li>
+      <li>
+        <a role="menuitem" href="./menu/about.html" class="menuLinks w3-bar-item">About us</a>
+      </li>
+      <li>
+        <a role="menuitem" href="./menu/donateUs.html" class="menuLinks w3-bar-item">Donate us</a>
+      </li>
+      <li>
+        <a role="menuitem" href="./menu/privacy_policy.html" class="menuLinks w3-bar-item">Privacy policy</a>
+      </li>
+    </ul>
+  </nav>
+</dialog>
+<div class="header-container">
+  <img src="others/logo.png" alt="logo of Blind Tech Agent" width="100px" height="100px" class="logo">
+  <button onclick="openDialog()" class="language-button">Translate page</button>
+</div>
+<dialog id="dialog" role="dialog" aria-modal="true">
+  <div class="dialog-content">
+    <h2>Change the Language of Our Website</h2>
+    <p>
+      We offer multiple language options to make our website accessible to a wider audience. 
+      Please select your preferred language from the dropdown menu below. Once you have made 
+      your selection, click the "Close and Save Language" button to save your choice and exit this popup.
+    </p>
+  </div>
+  <div id="google_translate_element"></div>
+  <div class="dialog-footer">
+    <button onclick="closeDialog()" class="close-button">
+      Close and Save Language
+    </button>
+  </div>
+</dialog>
+<p>"Transforming lives with the power of technology."</p>`;
+
+window.BTA_FOOTER_HTML = `<h2>Footer</h2>
+<h3 class="footer-heading">Connect with us</h3>
+<div class="w3-block">
+  <a href="https://youtube.com/@BlindTechAgent" class="social-icon youtube"><i class="fab fa-youtube" title="Join us on YouTube"></i></a>
+  <a href="https://t.me/Blindtechagent" class="social-icon telegram"><i class="fab fa-telegram-plane" title="Join us on telegram"></i></a>
+</div>
+<p id="copyright" class="text-center">&copy; 2026 Blind Tech Agent. All Rights Reserved.</p>`;

@@ -15,7 +15,7 @@ function generate() {
     result += `?text=${encodeURIComponent(message)}`; // Append message to the link
   }
 
-  document.getElementById('result').innerText = result;
+  document.getElementById('result').value = result;
   announce("link generated successfully");
 }
 
@@ -28,13 +28,13 @@ function generate() {
       }
     };
 
-    function openInWhatsApp() {
-      const result = document.getElementById("result");
-      if (!result.value) {
+    function openWhatsApp(event) {
+      const result = document.getElementById("result").value;
+      if (!result) {
         announce("Please generate the link first.");
+        event.preventDefault();
         return;
       }
-      document.form_main.submit();
     }
 
     function share() {

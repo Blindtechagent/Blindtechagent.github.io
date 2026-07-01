@@ -1,0 +1,158 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* General body styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5; /* Lighter grey */
+    color: #333;
+}
+
+/* Override main style from educationalContent.css */
+main {
+    background-color: #ffffff !important;
+    color: #333 !important;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    max-width: 950px;
+}
+
+/* Headings with new color scheme */
+h1 {
+    color: #483D8B; /* DarkSlateBlue */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #6A5ACD; /* SlateBlue */
+    border-bottom: 2px solid #6495ED; /* cornflowerblue */
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+h3 {
+    color: #8A2BE2; /* blueviolet */
+}
+
+/* Buttons for units and chapters */
+.units-container .btn, .chaptersContainer .btn {
+    display: block !important;
+    width: 80% !important;
+    margin: 10px auto !important;
+    text-align: left;
+    padding: 12px 20px;
+}
+
+/* General button styles */
+.btn, button {
+    background-color: #6495ED !important; /* cornflowerblue */
+    color: white !important;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn:hover, button:hover {
+    background-color: #4169E1 !important; /* RoyalBlue */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Using golden color for specific buttons */
+#newSubject, #newUnit, #newChapter, #createBtn {
+    background-color: #DAA520 !important; /* goldenrod */
+}
+
+#newSubject:hover, #newUnit:hover, #newChapter:hover, #createBtn:hover {
+    background-color: #B8860B !important; /* darkgoldenrod */
+}
+
+/* Forms */
+input[type="text"], input[type="url"], textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="url"]:focus, textarea:focus, select:focus {
+    border-color: #6495ED; /* cornflowerblue */
+    outline: none;
+}
+
+
+/* Override container style from educationalContent.css */
+.container {
+    background: #f8f9fa !important; /* Lighter than before */
+    padding: 25px;
+    border-radius: 8px;
+}
+
+/* Box styling */
+#newSubjectBox, #newUnitBox, #newChapterBox, .box {
+    background-color: #e9ecef !important;
+    padding: 25px;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+/* Output area */
+#output {
+    border: 2px dashed #6495ED; /* cornflowerblue */
+    padding: 25px;
+    min-height: 200px;
+    background: #fdfdfd;
+    border-radius: 8px;
+}
+
+/* Chapter styles */
+.chapter-title {
+    cursor: pointer;
+    color: #8A2BE2; /* blueviolet */
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.chapter-title:hover {
+    color: #6A5ACD; /* SlateBlue */
+}
+
+.chapter-content {
+    border-left: 4px solid #DAA520; /* goldenrod */
+    padding-left: 20px;
+    margin-top: 10px;
+    background-color: #fff8e7;
+}
+
+/* Container for unit and chapter buttons */
+.units-container, .chaptersContainer {
+    background-color: #e0e7ed; /* Slightly darker grey-blue */
+    border: 1px solid #c0d0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Adjust button styles within the container */
+.units-container .btn, .chaptersContainer .btn {
+    background-color: #9932CC !important; /* DarkOrchid - bright purple */
+    color: white !important; /* White text for contrast */
+    border: 1px solid #8A2BE2; /* BlueViolet border */
+}
+
+.units-container .btn:hover, .chaptersContainer .btn:hover {
+    background-color: #8A2BE2 !important; /* BlueViolet on hover */
+    border-color: #6A5ACD; /* SlateBlue border on hover */
+}

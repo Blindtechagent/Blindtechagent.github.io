@@ -23,7 +23,14 @@ db.orderByKey().on('value', (snapshot) => {
   isLoaded = true;
   
   if (articles) {
-    sortedArticles = Object.entries(articles).sort(([, a], [, b]) => new Date(b.publishDate) - new Date(a.publishDate));
+    // Filter out entries that don't have a title or publishDate (e.g., savedData)
+    sortedArticles = Object.entries(articles)
+      .filter(([, article]) => article.title && article.publishDate)
+      .sort(([, a], [, b]) => {
+        const dateA = new Date(a.publishDate);
+        const dateB = new Date(b.publishDate);
+        return (dateB - dateA) || 0; // Fallback to 0 if NaN
+      });
     totalArticles = sortedArticles.length;
     if (totalArticlesElement) {
       totalArticlesElement.innerHTML = `Total articles: ${totalArticles}`;
