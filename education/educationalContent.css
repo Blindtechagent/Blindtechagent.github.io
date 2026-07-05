@@ -34,23 +34,3 @@
 display: block
 ;}
 
-.box {
-  background: ghostwhite;
-  color: black;
-  text-align: center;
-  margin: 10px auto;
-  padding: 8px;
-  display: none;
-  position: relative;
-  border-radius: 16px;
-}
-
-.btn {
-  background: #BCE954;
-  color: black;
-  font-weight: bold;
-  display: block;
-  width: 60%;
-  margin: 16px auto;
-  padding: 8px;
-}
