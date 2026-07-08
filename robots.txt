@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /menu/createAccount.html
+Disallow: /menu/login.html
+Disallow: /menu/manageAccount.html
+Disallow: /education/text/admin.html
+Disallow: /education/text/editor.html
+Disallow: /education/text/manage-chapters.html
+Disallow: /education/text/manage.html
+Disallow: /articles_system/article-generator.html
+
+Sitemap: https://blindtechagent.github.io/sitemap.xml
