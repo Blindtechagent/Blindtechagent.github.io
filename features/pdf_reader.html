@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css">
-  <title>PDF Reader - Blind Tech Agent</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf_viewer.min.css" rel="stylesheet"/>
+<title>PDF Reader - Blind Tech Agent</title>
+<style>
     :root {
   --primary-color: #2563EB;
   --primary-hover: #1D4ED8;
@@ -434,202 +435,178 @@ mark {
   }
 }
   </style>
-</head>
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive"></div>
-  
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-
-  <div class="body">
-    <header id="header"></header>
-
-    <nav class="w3-bar">
-      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
-      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-    </nav>
-
-    <main id="main">
-      <div class="container">
-        <div class="tool-header">
-          <h2><i class="fas fa-file-pdf"></i>PDF Reader</h2>
-          <p><strong>Welcome to our PDF Reader tool!</strong> This tool lets you open and read PDF documents quickly and easily. Simply select a PDF file from your device, and the text is extracted almost instantly, so you can start reading right away without waiting for processing.</p>
+<meta content="Explore the Pdf Reader tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/pdf_reader.html" rel="canonical"/></head>
+<body><h1 class="sr-only">PDF Reader</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer"></div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div class="container">
+<div class="tool-header">
+<h2><i class="fas fa-file-pdf"></i>PDF Reader</h2>
+<p><strong>Welcome to our PDF Reader tool!</strong> This tool lets you open and read PDF documents quickly and easily. Simply select a PDF file from your device, and the text is extracted almost instantly, so you can start reading right away without waiting for processing.</p>
 <p>You can read the document page by page, move to the next or previous page, jump directly to any page, and listen to the text using the built-in text-to-speech reader with adjustable reading speed.</p>
 <p>You can also copy text from the current page, save the current page or the entire document as a text file, and ask AI questions about the page you're reading to get explanations, summaries, or answers.</p>
 <p>Enjoy a fast, simple, and accessible PDF reading experience on your <strong>mobile device</strong>, <strong>computer</strong>, or <strong>laptop</strong>.</p>
-          <p>Open a PDF and start reading or listening now.</p>
-        </div>
-
-        <div id="upload-section" class="upload-area">
-          <i class="fas fa-file-upload fa-4x upload-icon-style"></i>
-          <h3>Select PDF</h3>
-          <p>Please select a PDF document from your device to begin the reading.</p>
-          <button class="w3-button w3-blue w3-round-large w3-large" onclick="document.getElementById('fileInput').click()">
-            <i class="fas fa-plus"></i> Select PDF Document
+<p>Open a PDF and start reading or listening now.</p>
+</div>
+<div class="upload-area" id="upload-section">
+<i class="fas fa-file-upload fa-4x upload-icon-style"></i>
+<h3>Select PDF</h3>
+<p>Please select a PDF document from your device to begin the reading.</p>
+<button class="w3-button w3-blue w3-round-large w3-large" onclick="document.getElementById('fileInput').click()">
+<i class="fas fa-plus"></i> Select PDF Document
           </button>
-          <input type="file" id="fileInput" class="file-input" accept="application/pdf">
-        </div>
-
-<details id="shortcuts-info" class="shortcuts-details">
-  <summary class="shortcuts-summary">
-    <i class="fas fa-keyboard"></i> Keyboard Shortcuts
+<input accept="application/pdf" class="file-input" id="fileInput" type="file"/>
+</div>
+<details class="shortcuts-details" id="shortcuts-info">
+<summary class="shortcuts-summary">
+<i class="fas fa-keyboard"></i> Keyboard Shortcuts
   </summary>
-
-  <div class="shortcuts-grid">
-    <div><kbd>N</kbd> or <kbd>→</kbd> <span>Next page</span></div>
-    <div><kbd>P</kbd> or <kbd>←</kbd> <span>Previous page</span></div>
-    <div><kbd>R</kbd> <span>Read / Pause</span></div>
-    <div><kbd>S</kbd> <span>Stop reading</span></div>
-    <div><kbd>A</kbd> <span>Ask AI</span></div>
-    <div><kbd>O</kbd> <span>Open options</span></div>
-  </div>
+<div class="shortcuts-grid">
+<div><kbd>N</kbd> or <kbd>→</kbd> <span>Next page</span></div>
+<div><kbd>P</kbd> or <kbd>←</kbd> <span>Previous page</span></div>
+<div><kbd>R</kbd> <span>Read / Pause</span></div>
+<div><kbd>S</kbd> <span>Stop reading</span></div>
+<div><kbd>A</kbd> <span>Ask AI</span></div>
+<div><kbd>O</kbd> <span>Open options</span></div>
+</div>
 </details>
-
-        <div id="status-container">
-          <div id="status" role="status" aria-live="polite" class="status-text"></div>
-        </div>
-
-        <div id="file-details">
-          <div class="file-details-wrapper">
-            <strong id="fileName" class="file-name-text"></strong><br>
-            <span id="pageCount" class="status-badge"></span>
-          </div>
-          <button class="w3-button w3-red w3-round-large" onclick="clearAll()">
-            <i class="fas fa-times"></i> Close Document
+<div id="status-container">
+<div aria-live="polite" class="status-text" id="status" role="status"></div>
+</div>
+<div id="file-details">
+<div class="file-details-wrapper">
+<strong class="file-name-text" id="fileName"></strong><br/>
+<span class="status-badge" id="pageCount"></span>
+</div>
+<button class="w3-button w3-red w3-round-large" onclick="clearAll()">
+<i class="fas fa-times"></i> Close Document
           </button>
-        </div>
-
-        <div id="dashboard" class="reader-frame">
-          <div class="top-nav">
-            <div class="nav-group">
-               <span id="pageIndicator" class="page-indicator-text"></span>
-            </div>
-            <div class="nav-group">
-              <label for="jumpInput" class="jump-label">Go to:</label>
-              <input type="number" id="jumpInput" min="1" placeholder="#">
-              <button class="w3-button w3-light-gray w3-round w3-small" onclick="jumpToPage()">Jump</button>
-            </div>
-          </div>
-
-          <div class="content-area">
-            <div id="resultContainer" role="article" aria-label="Extracted PDF content"></div>
-          </div>
-
-          <div class="bottom-nav">
-            <button class="nav-btn" id="prevBtn" onclick="changePage(-1)" aria-label="Previous Page">
-              <i class="fas fa-chevron-left"></i>
-              <span>Previous Page</span>
+</div>
+<div class="reader-frame" id="dashboard">
+<div class="top-nav">
+<div class="nav-group">
+<span class="page-indicator-text" id="pageIndicator"></span>
+</div>
+<div class="nav-group">
+<label class="jump-label" for="jumpInput">Go to:</label>
+<input id="jumpInput" min="1" placeholder="#" type="number"/>
+<button class="w3-button w3-light-gray w3-round w3-small" onclick="jumpToPage()">Jump</button>
+</div>
+</div>
+<div class="content-area">
+<div aria-label="Extracted PDF content" id="resultContainer" role="article"></div>
+</div>
+<div class="bottom-nav">
+<button aria-label="Previous Page" class="nav-btn" id="prevBtn" onclick="changePage(-1)">
+<i class="fas fa-chevron-left"></i>
+<span>Previous Page</span>
+</button>
+<button aria-label="Play or Pause reading" class="nav-btn" id="playBtn" onclick="toggleRead()">
+<i class="fas fa-play" id="playIcon"></i>
+<span id="playText">Play</span>
+</button>
+<button aria-label="Next Page" class="nav-btn" id="nextBtn" onclick="changePage(1)">
+<i class="fas fa-chevron-right"></i>
+<span>Next Page</span>
+</button>
+<button aria-label="Ask AI about this page" class="nav-btn" id="askAiBtn" onclick="askAiAboutPage()" title="Ask AI about this page">
+<i class="fas fa-robot"></i>
+<span>Ask AI</span>
+</button>
+<button aria-label="Open Reading Options" class="nav-btn" onclick="document.getElementById('moreActionsDialog').showModal()" title="More Options">
+<i class="fas fa-cog"></i>
+<span>Options</span>
+</button>
+</div>
+</div>
+</div>
+<dialog aria-labelledby="chatTitle" id="aiChatDialog" role="dialog">
+<div class="ai-chat-header">
+<h3 class="chat-title" id="chatTitle"><i class="fas fa-robot"></i>Ask AI</h3>
+<button aria-label="Close Chat" class="w3-button w3-transparent w3-hover-none w3-large" onclick="closeChat()">×</button>
+</div>
+<div aria-live="polite" class="chat-history" id="aiChatHistory" role="log">
+</div>
+<div class="chat-input-wrapper">
+<input class="w3-input w3-border w3-round-large chat-input-field" id="aiChatInput" placeholder="Ask about this page" type="text"/>
+<button aria-label="Start voice input" class="w3-button w3-green w3-round-large" id="aiChatMicBtn">
+<i class="fas fa-microphone"></i>
+</button>
+<button aria-label="Send message" class="w3-button w3-blue w3-round-large" id="aiChatSendBtn" onclick="sendChatFollowUp()">
+<i class="fas fa-paper-plane"></i>
+</button>
+</div>
+</dialog>
+<dialog id="moreActionsDialog">
+<div class="dialog-header">
+<h3 class="tools-title">Tools</h3>
+<button aria-label="Close Options" class="w3-button w3-circle" onclick="document.getElementById('moreActionsDialog').close()">×</button>
+</div>
+<div class="dialog-grid">
+<!-- Reading Controls -->
+<div>
+<label class="speed-label">Reading Speed</label>
+<input class="speed-range" id="speedRange" max="2.5" min="0.5" oninput="updateSpeed(this.value)" step="0.1" type="range" value="1.0"/>
+<div class="speed-range-labels">
+<small>Slower</small>
+<small><strong><span id="speedVal">1.0</span>x</strong></small>
+<small>Faster</small>
+</div>
+</div>
+<!-- Visual & Mode Toggles -->
+<div class="dialog-section grid-2col">
+<button class="w3-button w3-border w3-round w3-block" id="themeToggle" onclick="toggleDarkMode()">
+<i class="fas fa-moon"></i> Dark Mode
             </button>
-            
-            <button class="nav-btn" id="playBtn" onclick="toggleRead()" aria-label="Play or Pause reading">
-              <i class="fas fa-play" id="playIcon"></i>
-              <span id="playText">Play</span>
+<button class="w3-button w3-border w3-round w3-block" id="continuousToggle" onclick="toggleContinuousReading()">
+<i class="fas fa-sync"></i> ☐ Read pages continuously: ON
             </button>
-
-            <button class="nav-btn" id="nextBtn" onclick="changePage(1)" aria-label="Next Page">
-              <i class="fas fa-chevron-right"></i>
-              <span>Next Page</span>
+</div>
+<!-- Current Page Actions -->
+<div class="dialog-section grid-1col">
+<button class="w3-button w3-green w3-round-large" onclick="copyText()">
+<i class="fas fa-copy"></i> Copy text of current page
             </button>
-
-            <button class="nav-btn" id="askAiBtn" onclick="askAiAboutPage()" title="Ask AI about this page" aria-label="Ask AI about this page">
-              <i class="fas fa-robot"></i>
-              <span>Ask AI</span>
+<button class="w3-button w3-teal w3-round-large" onclick="downloadText()">
+<i class="fas fa-file-download"></i> Save current page as TXT
             </button>
-
-            <button class="nav-btn" onclick="document.getElementById('moreActionsDialog').showModal()" title="More Options" aria-label="Open Reading Options">
-              <i class="fas fa-cog"></i>
-              <span>Options</span>
+</div>
+<!-- Document Export Actions -->
+<div class="dialog-section grid-1col">
+<button class="w3-button w3-deep-orange w3-round-large" onclick="downloadAllText()">
+<i class="fas fa-file-export"></i> Save full document as TXT
             </button>
-          </div>
-        </div>
-      </div>
-
-      <dialog id="aiChatDialog" aria-labelledby="chatTitle" role="dialog">
-        <div class="ai-chat-header">
-          <h3 id="chatTitle" class="chat-title"><i class="fas fa-robot"></i>Ask AI</h3>
-          <button class="w3-button w3-transparent w3-hover-none w3-large" onclick="closeChat()" aria-label="Close Chat">&times;</button>
-        </div>
-        <div id="aiChatHistory" role="log" aria-live="polite" class="chat-history">
-        </div>
-        <div class="chat-input-wrapper">
-          <input type="text" id="aiChatInput" placeholder="Ask about this page" class="w3-input w3-border w3-round-large chat-input-field">
-          <button id="aiChatMicBtn" class="w3-button w3-green w3-round-large" aria-label="Start voice input">
-            <i class="fas fa-microphone"></i>
-          </button>
-          <button id="aiChatSendBtn" class="w3-button w3-blue w3-round-large" onclick="sendChatFollowUp()" aria-label="Send message">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
-      </dialog>
-
-      <dialog id="moreActionsDialog">
-        <div class="dialog-header">
-          <h3 class="tools-title">Tools</h3>
-          <button class="w3-button w3-circle" onclick="document.getElementById('moreActionsDialog').close()" aria-label="Close Options">&times;</button>
-        </div>
-        
-        <div class="dialog-grid">
-          <!-- Reading Controls -->
-          <div>
-            <label class="speed-label">Reading Speed</label>
-            <input type="range" id="speedRange" min="0.5" max="2.5" step="0.1" value="1.0" oninput="updateSpeed(this.value)" class="speed-range">
-            <div class="speed-range-labels">
-              <small>Slower</small>
-              <small><strong><span id="speedVal">1.0</span>x</strong></small>
-              <small>Faster</small>
-            </div>
-          </div>
-
-          <!-- Visual & Mode Toggles -->
-          <div class="dialog-section grid-2col">
-            <button class="w3-button w3-border w3-round w3-block" id="themeToggle" onclick="toggleDarkMode()">
-              <i class="fas fa-moon"></i> Dark Mode
-            </button>
-            <button class="w3-button w3-border w3-round w3-block" id="continuousToggle" onclick="toggleContinuousReading()">
-              <i class="fas fa-sync"></i> ☐ Read pages continuously: ON
-            </button>
-          </div>
-
-          <!-- Current Page Actions -->
-          <div class="dialog-section grid-1col">
-            <button class="w3-button w3-green w3-round-large" onclick="copyText()">
-              <i class="fas fa-copy"></i> Copy text of current page
-            </button>
-            <button class="w3-button w3-teal w3-round-large" onclick="downloadText()">
-              <i class="fas fa-file-download"></i> Save current page as TXT
-            </button>
-          </div>
-
-          <!-- Document Export Actions -->
-          <div class="dialog-section grid-1col">
-            <button class="w3-button w3-deep-orange w3-round-large" onclick="downloadAllText()">
-              <i class="fas fa-file-export"></i> Save full document as TXT
-            </button>
-          </div>
-        </div>
-      </dialog>
-    </main>
-
-    <footer id="footer"></footer>
-  </div>
-
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="../others/global.js"></script>
-  <script src="../others/translate.js"></script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="pdf_reader.js"></script>
+</div>
+</div>
+</dialog>
+</main>
+<footer id="footer"></footer>
+</div>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="../others/global.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+<script src="pdf_reader.js"></script>
 </body>
 </html>

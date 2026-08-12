@@ -1,38 +1,31 @@
 <!DOCTYPE HTML>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Articles & Blog - Blind Tech Agent</title>
-  <meta name="description"
-    content="Discover a variety of informative and engaging articles on different topics at Blind Tech Agent. Enhance your knowledge and stay updated with us.">
-  <meta name="keywords"
-    content="Blind Tech Agent, articles, informative articles, engaging content, education, knowledge, learning, technology, health, lifestyle, science, business, entertainment, blind tech agent articles page, articles page of Blind Tech Agent, blog of Blind Tech Agent, Blind Tech Agent blog">
-  <meta name="author" content="Blind Tech Agent">
-  <meta name="robots" content="index, follow">
-  <meta name="googlebot" content="index, follow">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://blindtechagent.github.io/articles.html">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="Articles - Blind Tech Agent">
-  <meta property="og:description"
-    content="Explore a wide range of articles on various topics, all aimed at enhancing your knowledge and keeping you informed.">
-  <meta property="og:image" content="https://te.legra.ph/file/1456591743bc08490d50c.jpg">
-  <meta property="og:url" content="https://blindtechagent.github.io/articles.html">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Articles & Blog - Blind Tech Agent">
-  <meta name="twitter:description" content="Explore a wide range of articles on various topics, all aimed at enhancing your knowledge and keeping you informed.">
-  <meta name="twitter:image" content="https://te.legra.ph/file/1456591743bc08490d50c.jpg">
-
-  <!-- Structured Data JSON-LD -->
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<title>Articles &amp; Blog - Blind Tech Agent</title>
+<meta content="Discover a variety of informative and engaging articles on different topics at Blind Tech Agent. Enhance your knowledge and stay updated with us." name="description"/>
+<meta content="Blind Tech Agent, articles, informative articles, engaging content, education, knowledge, learning, technology, health, lifestyle, science, business, entertainment, blind tech agent articles page, articles page of Blind Tech Agent, blog of Blind Tech Agent, Blind Tech Agent blog" name="keywords"/>
+<meta content="Blind Tech Agent" name="author"/>
+<meta content="index, follow" name="robots"/>
+<meta content="index, follow" name="googlebot"/>
+<!-- Canonical URL -->
+<link href="https://blindtechagent.github.io/articles.html" rel="canonical"/>
+<!-- Open Graph / Facebook -->
+<meta content="Articles - Blind Tech Agent" property="og:title"/>
+<meta content="Explore a wide range of articles on various topics, all aimed at enhancing your knowledge and keeping you informed." property="og:description"/>
+<meta content="https://te.legra.ph/file/1456591743bc08490d50c.jpg" property="og:image"/>
+<meta content="https://blindtechagent.github.io/articles.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Articles &amp; Blog - Blind Tech Agent" name="twitter:title"/>
+<meta content="Explore a wide range of articles on various topics, all aimed at enhancing your knowledge and keeping you informed." name="twitter:description"/>
+<meta content="https://te.legra.ph/file/1456591743bc08490d50c.jpg" name="twitter:image"/>
+<!-- Structured Data JSON-LD -->
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -41,14 +34,13 @@
     "description": "Discover a variety of informative and engaging articles on different topics at Blind Tech Agent. Enhance your knowledge and stay updated with us."
   }
   </script>
-
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="./others/loading.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <style>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="./style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="./others/loading.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
     /* Basic styling for the article list and search box */
     #searchBox {
       margin-bottom: 10px;
@@ -98,75 +90,70 @@
     }
   </style>
 </head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-    <nav class="w3-bar">
-      <a role="tab" href="index.html" target="_self" class="tab">HOME</a>
-      <a role="tab" href="features.html" target="_self" class="tab">FEATURES </a>
-      <a role="tab" href="education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="articles.html" target="_self" aria-label="Selected, Articles"
-        class="tab w3-yellow">ARTICLES</a>
-        <a role="tab" href="games.html" target="_self" class="tab">Games</a>
-    </nav>
-    <main id="main">
-      <h2>Articles</h2>
-      <form autocomplete="off" id="searchform">
-        <input required type="text" id="searchBox" placeholder="Search articles..." />
-        <button type="submit" id="searchButton">Search</button>
-      </form>
-      <label for="filter-by">Filter by category</label>
-      <select id="filter-by">
-        <option value="all">All Categories</option>
-        <option>Artificial intelligence</option>
-        <option>Cyber security</option>
-        <option>Environment</option>
-        <option>Festivals and Occasions</option>
-        <option>Gaming</option>
-        <option>Hidden details</option>
-        <option>History</option>
-        <option>Logic behind</option>
-        <option>Politics</option>
-        <option>Programming</option>
-        <option>Social Awareness</option>
-        <option>Space and Universe</option>
-        <option>Sports</option>
-        <option>Tech news</option>
-        <option>Technology</option>
-        <option>Website announcement</option>
-      </select>
-      <label for="sort-by">Sort by</label>
-      <select id="sort-by">
-        <option value="latest" selected>Latest</option>
-        <option value="popular">Popular</option>
-        <option value="oldest">Oldest</option>
-      </select>
-      <p style="background: black; color: white; font-weight: 900; text-align: center; font-size: 1.5em; padding: 2px 4px; width: 40vw; display: block; margin: auto;"
-        id="totalArticles"></p>
-      <div id="articles">
-        <p>Loading Articles...</p>
-      </div>
-      <div id="pagination"></div>
-    </main>
-    <div id="announcement" role="status" aria-live="assertive" class="sr-only"></div>
-    <footer id="footer"></footer>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="./others/firebase.js"></script>
-  <script src="./others/indexGlobal.js"></script>
-  <script src="./articles_system/index.js"></script>
-  <script src="./others/translate.js"></script>
-  <script type="text/javascript"
-    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<body><h1 class="sr-only">Articles &amp; Blog</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="index.html" role="tab" target="_self">HOME</a>
+<a class="tab" href="features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="education.html" role="tab" target="_self">EDUCATION</a>
+<a aria-label="Selected, Articles" class="tab w3-yellow" href="articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<h2>Articles</h2>
+<form autocomplete="off" id="searchform">
+<input id="searchBox" placeholder="Search articles..." required="" type="text"/>
+<button id="searchButton" type="submit">Search</button>
+</form>
+<label for="filter-by">Filter by category</label>
+<select id="filter-by">
+<option value="all">All Categories</option>
+<option>Artificial intelligence</option>
+<option>Cyber security</option>
+<option>Environment</option>
+<option>Festivals and Occasions</option>
+<option>Gaming</option>
+<option>Hidden details</option>
+<option>History</option>
+<option>Logic behind</option>
+<option>Politics</option>
+<option>Programming</option>
+<option>Social Awareness</option>
+<option>Space and Universe</option>
+<option>Sports</option>
+<option>Tech news</option>
+<option>Technology</option>
+<option>Website announcement</option>
+</select>
+<label for="sort-by">Sort by</label>
+<select id="sort-by">
+<option selected="" value="latest">Latest</option>
+<option value="popular">Popular</option>
+<option value="oldest">Oldest</option>
+</select>
+<p id="totalArticles" style="background: black; color: white; font-weight: 900; text-align: center; font-size: 1.5em; padding: 2px 4px; width: 40vw; display: block; margin: auto;"></p>
+<div id="articles">
+<p>Loading Articles...</p>
+</div>
+<div id="pagination"></div>
+</main>
+<div aria-live="assertive" class="sr-only" id="announcement" role="status"></div>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="./others/firebase.js"></script>
+<script src="./others/indexGlobal.js"></script>
+<script src="./articles_system/index.js"></script>
+<script src="./others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
-
 </html>

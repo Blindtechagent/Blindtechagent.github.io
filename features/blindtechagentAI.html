@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <title>Blind tech agent AI</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<title>Blind tech agent AI</title>
+<style>
     main {
       display: flex;
       flex-direction: column;
@@ -225,86 +225,81 @@
       margin-bottom: 10px;
     }
   </style>
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-    <nav class="w3-bar">
-      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features"
-        class="tab w3-yellow">FEATURES
+<meta content="Explore the Blindtechagentai tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/blindtechagentAI.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Blind tech agent AI</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES
       </a>
-      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-    </nav>
-    <main id="main">
-      <div class="container">
-        <div class="head">
-          <div class="info">
-              <h2>Blind Tech Agent AI</h2>
-          </div>
-          <button id="refreshButton" aria-label="refresh chat"><img
-              src="https://graph.org/file/254b9c2cd8d64b4075eaf.jpg" alt="Refresh"></button>
-        </div>
-        <div class="tb" id="tb">
-          <div class="dfm">
-            <span>Hello! I am Blind Tech Agent AI. How can I assist you today?</span>
-          </div>
-        </div>
-        <form id="form">
-          <div class="input-area">
-            <input type="text" id="msg_text" placeholder="Enter message here" required autocomplete="off">
-            <button type="button" id="micBtn" class="btn mic-btn" aria-label="Start voice input">
-              <i class="fas fa-microphone"></i>
-            </button>
-            <button type="submit" id="sendBtn" class="btn send-btn" aria-label="Send message">
-              <i class="fas fa-paper-plane"></i>
-            </button>
-          </div>
-      </div>
-      </form>
-      <section>
-        <h2>About Blind Tech Agent AI</h2>
-        <p>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div class="container">
+<div class="head">
+<div class="info">
+<h2>Blind Tech Agent AI</h2>
+</div>
+<button aria-label="refresh chat" id="refreshButton"><img alt="Refresh" src="https://graph.org/file/254b9c2cd8d64b4075eaf.jpg"/></button>
+</div>
+<div class="tb" id="tb">
+<div class="dfm">
+<span>Hello! I am Blind Tech Agent AI. How can I assist you today?</span>
+</div>
+</div>
+<form id="form">
+<div class="input-area">
+<input autocomplete="off" id="msg_text" placeholder="Enter message here" required="" type="text"/>
+<button aria-label="Start voice input" class="btn mic-btn" id="micBtn" type="button">
+<i class="fas fa-microphone"></i>
+</button>
+<button aria-label="Send message" class="btn send-btn" id="sendBtn" type="submit">
+<i class="fas fa-paper-plane"></i>
+</button>
+</div>
+</form></div>
+
+<section>
+<h2>About Blind Tech Agent AI</h2>
+<p>
           Discover the power of Blind Tech Agent AI. It's your smart companion for:
         </p>
-        <ul>
-          <li>Instant answers to your questions</li>
-          <li>Effortless content generation</li>
-          <li>Engaging conversations and insights</li>
-          <li>Multilingual support</li>
-          <li>Natural language understanding</li>
-          <li>and so much more</li>
-        </ul>
-        <p>Please note that messages are generated by AI. While we strive for accuracy, Blind Tech Agent AI may
+<ul>
+<li>Instant answers to your questions</li>
+<li>Effortless content generation</li>
+<li>Engaging conversations and insights</li>
+<li>Multilingual support</li>
+<li>Natural language understanding</li>
+<li>and so much more</li>
+</ul>
+<p>Please note that messages are generated by AI. While we strive for accuracy, Blind Tech Agent AI may
           occasionally make mistakes. We are not responsible for the content of these messages.</p>
-        <p>
+<p>
           Whether you need assistance, generating content, or just a friendly chat, our AI is here to
           enhance your experience. Join us in the future of technology!
         </p>
-      </section>
-      <br><br>
-      <div id="announcement" role="status" aria-live="assertive"></div>
-
-    </main>
-    <footer id="footer"></footer>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="../others/global.js"></script>
-  <script src="./AI.js"></script>
-  <script src="../others/translate.js"></script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</section>
+<br/><br/>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="../others/global.js"></script>
+<script src="./AI.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
-
 </html>

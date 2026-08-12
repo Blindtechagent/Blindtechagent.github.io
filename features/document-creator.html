@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document Creator</title>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Document Creator</title>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<style>
     main {
       font-family: Arial, sans-serif;
       background-color: #f0f8ff;
@@ -140,89 +140,75 @@
       text-align: center;
     }
   </style>
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-    <nav class="w3-bar">
-      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features"
-        class="tab w3-yellow">FEATURES </a>
-      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-    </nav>
-    <main id="main">
-      <div class="container" role="main" aria-labelledby="title">
-        <h2 id="title">Document Creator</h2>
-        <p>Welcome to our Document Creator tool! This handy tool lets you easily create different types of documents.
+<meta content="Explore the Document Creator tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/document-creator.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Document Creator</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div aria-labelledby="title" class="container" role="main">
+<h2 id="title">Document Creator</h2>
+<p>Welcome to our Document Creator tool! This handy tool lets you easily create different types of documents.
           Just enter a name for your document, choose your preferred format, and type or speak your content into the box
           provided.</p>
-        <p>Our Document Creator supports various formats like Word, PDF, and plain text, making it perfect for students,
+<p>Our Document Creator supports various formats like Word, PDF, and plain text, making it perfect for students,
           professionals, or anyone needing to generate documents quickly. You’ll also see live updates for the
           character, word, and line counts to help you keep track of your content.</p>
-        <p>Give it a try and create your document with ease!</p>
-        <form id="docForm" onsubmit="generate(event)">
-          <label for="fileName">Document Name:</label>
-          <input type="text" id="fileName" placeholder="Enter document name" aria-describedby="fileNameDesc" required autocomplete="off">
-          <span id="fileNameDesc" class="sr-only">Enter a name for your document file.</span>
-
-          <label for="format">Select Format:</label>
-          <select id="format" aria-describedby="formatDesc">
-            <option value="docx">Word Document (DOCX)</option>
-            <option value="txt">Plain Text (TXT)</option>
-            <option value="md">Markdown (MD)</option>
-            <option value="pdf">PDF Document</option>
-          </select>
-          <span id="formatDesc" class="sr-only">Choose the format you want for your document.</span>
-
-          <label for="content">Document Content:</label>
-          <div class="textarea-wrapper">
-            <textarea id="content" placeholder="Type or use voice to input your document content"
-              aria-describedby="contentDesc" required></textarea>
-            <button type="button" class="voice-btn" onclick="startVoiceTyping()"
-              aria-label="Start Voice Typing">🎤</button>
-          </div>
-
-          <div class="counter">
-            <span id="charCount">Characters: 0</span> |
+<p>Give it a try and create your document with ease!</p>
+<form id="docForm" onsubmit="generate(event)">
+<label for="fileName">Document Name:</label>
+<input aria-describedby="fileNameDesc" autocomplete="off" id="fileName" placeholder="Enter document name" required="" type="text"/>
+<span class="sr-only" id="fileNameDesc">Enter a name for your document file.</span>
+<label for="format">Select Format:</label>
+<select aria-describedby="formatDesc" id="format">
+<option value="docx">Word Document (DOCX)</option>
+<option value="txt">Plain Text (TXT)</option>
+<option value="md">Markdown (MD)</option>
+<option value="pdf">PDF Document</option>
+</select>
+<span class="sr-only" id="formatDesc">Choose the format you want for your document.</span>
+<label for="content">Document Content:</label>
+<div class="textarea-wrapper">
+<textarea aria-describedby="contentDesc" id="content" placeholder="Type or use voice to input your document content" required=""></textarea>
+<button aria-label="Start Voice Typing" class="voice-btn" onclick="startVoiceTyping()" type="button">🎤</button>
+</div>
+<div class="counter">
+<span id="charCount">Characters: 0</span> |
             <span id="wordCount">Words: 0</span> |
             <span id="lineCount">Lines: 0</span>
-          </div>
-
-          <div class="progress-bar">
-            <div class="progress" id="progress"></div>
-          </div>
-
-          <button type="submit">Generate Document</button>
-        </form>
-
-        <div id="message" class="alert" role="alert" aria-live="polite"></div>
-      </div>
-    </main>
-    <footer id="footer"></footer>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="./doc-creator.js"></script>
-  <script src="../others/translate.js"></script>
-
-  <script type="text/javascript"
-    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="../others/global.js"></script>
-
+</div>
+<div class="progress-bar">
+<div class="progress" id="progress"></div>
+</div>
+<button type="submit">Generate Document</button>
+</form>
+<div aria-live="polite" class="alert" id="message" role="alert"></div>
+</div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="./doc-creator.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+<script src="../others/global.js"></script>
 </body>
-
 </html>

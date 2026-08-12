@@ -1,130 +1,122 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../others/loading.js"></script>
-    <title>Shootout Challenge</title>
-    <link rel="stylesheet" href="shootout-styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<title>Shootout Challenge</title>
+<link href="shootout-styles.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<meta content="Explore the Shootout tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/games/shootout.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Shootout Challenge</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
 <div class="body">
-        <header id="header"></header>
-        <nav class="w3-bar">
-            <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-            <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features"
-                class="tab w3-yellow">FEATURES </a>
-            <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-            <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-            <a role="tab" href="../games.html" target="_self" aria-label="Selected, Games" class="tab w3-yellow">Games </a>
-        </nav>
-        <main id="main">
-            <h2>Shootout Challenge</h2>
-            <!-- initial screen -->
-            <div id="initialScreen">
-                <div id="game-instructions">
-                    <p>Welcome to the Shootout Challenge! In this game, your objective is to shoot enemies before they
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a aria-label="Selected, Games" class="tab w3-yellow" href="../games.html" role="tab" target="_self">Games </a>
+</nav>
+<main id="main">
+<h2>Shootout Challenge</h2>
+<!-- initial screen -->
+<div id="initialScreen">
+<div id="game-instructions">
+<p>Welcome to the Shootout Challenge! In this game, your objective is to shoot enemies before they
                         attack
                         you. Be quick and aim carefully to score points!</p>
-                    <p>Enemies will appear randomly from one of three directions: left, center, or right. You must shoot
+<p>Enemies will appear randomly from one of three directions: left, center, or right. You must shoot
                         them
                         before they get the chance to shoot you.</p>
-                    <p>The game will speed up as you score more points, so stay alert and try to reach 10 points before
+<p>The game will speed up as you score more points, so stay alert and try to reach 10 points before
                         the
                         enemy does. Click "Start Game" to begin and good luck!</p>
-                </div>
-                <button id="start-btn">Start Game</button>
-                <br>
-                <details>
-                    <summary>How to Play</summary>
-                    <p>Welcome to the Shootout Challenge! Get ready for an exciting shooting game where you'll need to
+</div>
+<button id="start-btn">Start Game</button>
+<br/>
+<details>
+<summary>How to Play</summary>
+<p>Welcome to the Shootout Challenge! Get ready for an exciting shooting game where you'll need to
                         use your
                         skills and quick reflexes to outshoot the enemy. Here’s how to play:</p>
-
-                    <ul>
-                        <li><strong>Enemy Appearance:</strong> Enemies will randomly appear from one of three
+<ul>
+<li><strong>Enemy Appearance:</strong> Enemies will randomly appear from one of three
                             directions: left,
                             center, or right. You need to stay alert as they approach.</li>
-                        <li><strong>Shooting the Enemy:</strong> Your goal is to shoot the enemy before it shoots you.
+<li><strong>Shooting the Enemy:</strong> Your goal is to shoot the enemy before it shoots you.
                             If you
                             shoot the enemy first, you score a point.</li>
-                        <li><strong>Increasing Difficulty:</strong> As you score more points, the game speeds up. The
+<li><strong>Increasing Difficulty:</strong> As you score more points, the game speeds up. The
                             faster you
                             shoot, the quicker the enemy gets!</li>
-                        <li><strong>Winning the Game:</strong> The first player to score 10 points wins the game. Keep
+<li><strong>Winning the Game:</strong> The first player to score 10 points wins the game. Keep
                             playing
                             and improve your shooting speed to beat the enemy!</li>
-                        <li><strong>Controls:</strong>
-                            <ul>
-                                <li>Use <strong>Alt + Left Arrow</strong> or click the <strong>Shoot Left</strong>
+<li><strong>Controls:</strong>
+<ul>
+<li>Use <strong>Alt + Left Arrow</strong> or click the <strong>Shoot Left</strong>
                                     button (which
                                     has a gun icon pointing to the left) to fire at enemies on the left.</li>
-                                <li>Use <strong>Alt + Up Arrow</strong> or click the <strong>Shoot Center</strong>
+<li>Use <strong>Alt + Up Arrow</strong> or click the <strong>Shoot Center</strong>
                                     button (which
                                     has a gun icon pointing straight) to fire at enemies in the center.</li>
-                                <li>Use <strong>Alt + Right Arrow</strong> or click the <strong>Shoot Right</strong>
+<li>Use <strong>Alt + Right Arrow</strong> or click the <strong>Shoot Right</strong>
                                     button
                                     (which has a gun icon pointing to the right) to fire at enemies on the right.</li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <p>Be quick and try to score 10 points before the enemy gets you!</p>
-                </details>
-
-            </div>
-
-            <!-- game area -->
-            <div id="game-area">
-                <div id="enemy_info" role="alert" aria-live="assertive"></div>
-                <div class="enemy_container" id="enemy_container">
-                    <div id="enemy_figure">👾</div>
-                </div>
-                <div id="controls">
-                    <button class="shoot-btn" data-direction="left" aria-label="Shoot Left">
-                        <i class="fas fa-gun fa-rotate-180 fa-flip-horizontal"></i>
-                    </button>
-                    <button class="shoot-btn" data-direction="center" aria-label="Shoot Center">
-                        <i class="fas fa-gun fa-rotate-270"></i>
-                    </button>
-                    <button class="shoot-btn" data-direction="right" aria-label="Shoot Right">
-                        <i class="fas fa-gun"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- score board -->
-            <div id="scoreboard">
-                <div class="score player-score">Player: <span id="player-score">0</span></div>
-                <div class="score enemy-score">Enemy: <span id="enemy-score">0</span></div>
-            </div>
-            <div id="announcement" role="status" aria-live="assertive"></div>
-        </main>
-        <footer id="footer"></footer>
-    </div>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="../others/firebase.js"></script>
-        <script src="../others//global.js"></script>
-    <script src="../others//auth.js"></script>
-    <script src="../others/translate.js"></script>
-    <script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script src="shootout-scripts.js"></script>
+</ul>
+</li>
+</ul>
+<p>Be quick and try to score 10 points before the enemy gets you!</p>
+</details>
+</div>
+<!-- game area -->
+<div id="game-area">
+<div aria-live="assertive" id="enemy_info" role="alert"></div>
+<div class="enemy_container" id="enemy_container">
+<div id="enemy_figure">👾</div>
+</div>
+<div id="controls">
+<button aria-label="Shoot Left" class="shoot-btn" data-direction="left">
+<i class="fas fa-gun fa-rotate-180 fa-flip-horizontal"></i>
+</button>
+<button aria-label="Shoot Center" class="shoot-btn" data-direction="center">
+<i class="fas fa-gun fa-rotate-270"></i>
+</button>
+<button aria-label="Shoot Right" class="shoot-btn" data-direction="right">
+<i class="fas fa-gun"></i>
+</button>
+</div>
+</div>
+<!-- score board -->
+<div id="scoreboard">
+<div class="score player-score">Player: <span id="player-score">0</span></div>
+<div class="score enemy-score">Enemy: <span id="enemy-score">0</span></div>
+</div>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="../others//global.js"></script>
+<script src="../others//auth.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+<script src="shootout-scripts.js"></script>
 </body>
-
 </html>

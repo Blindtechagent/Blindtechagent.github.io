@@ -1,82 +1,83 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTA Image Generator</title>
-    <link rel="stylesheet" href="./img-generator-styles.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../others/loading.js"></script>
-</head>
-<body>
-    <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-    <div class="preloader">
-        <div class="index-loader"><div id="loaderInner"></div></div>
-        <span id="wt" aria-live="assertive">Loading</span>
-        <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-    </div>
-    <div class="body">
-        <header id="header"></header>
-        <nav class="w3-bar">
-            <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-            <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES</a>
-            <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-            <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-            <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-        </nav>
-        <main id="main">
-            <h2>BTA Image Generator</h2>
-            <p>Welcome to the BTA Image Generator! This tool lets you create images from text descriptions. Just type what you imagine, and we'll turn it into a picture.</p>
-            <p>How to use the tool:</p>
-            <ul>
-                <li>Type a description of the image you want in the box below. For example, "A cat sitting on a tree" or "A spaceship flying in space."</li>
-                <li>Click the "Generate Image" button.</li>
-                <li>Wait a moment, and your image will appear below.</li>
-            </ul>
-            <p>To download the image:</p>
-            <ul>
-                <li>On a phone or tablet: long press on the image to see the option to download.</li>
-                <li>On a laptop or computer: press the application key (or right-click) on the image to find the option to download.</li>
-            </ul>
-            <p>Unleash your creativity with this tool and give shape to your imagination!</p>
-            <div class="container">
-                <div class="inputArea">
-                    <div class="input-group">
-                        <label for="imgPrompt" class="w3-label">Image Prompt</label>
-                        <textarea id="imgPrompt" class="w3-input w3-border" placeholder="Describe the image you want to create. For example: 'A majestic lion in the savanna at sunset'"></textarea>
-                    </div>
-                    <div class="options-group">
-                        <label for="modelSelect" class="w3-label">Select Model</label>
-                        <select id="modelSelect" class="w3-select w3-border">
-                            <option value="flux" selected>Flux (High Quality)</option>
-                            <option value="flux-realism">Flux Realism</option>
-                            <option value="any-dark">Dark/Artistic</option>
-                            <option value="turbo">Turbo (Fast)</option>
-                        </select>
-                        <button id="generateBtn" class="btn" onclick="sendPrompt()">Generate Image</button>
-                    </div>
-                </div>
-                <div class="img-box" id="imgBox"></div>
-                <div id="downloadContainer" style="display: none; text-align: center; margin-top: 20px;">
-                    <button id="downloadBtn" class="btn download-btn">Download Image</button>
-                </div>
-            </div>
-            <div id="announcement" role="status" aria-live="assertive"></div>
-        </main>
-        <footer id="footer"></footer>
-    </div>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="../others/firebase.js"></script>
-    <script src="../others/global.js"></script>
-    <script src="../others/auth.js"></script>
-    <script src="./img-generator-javascript.js"></script>
-    <script src="../others/translate.js"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BTA Image Generator</title>
+<link href="./img-generator-styles.css" rel="stylesheet"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<meta content="Explore the Btaimagegenerator tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/BTAImageGenerator.html" rel="canonical"/></head>
+<body><h1 class="sr-only">BTA Image Generator</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES</a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<h2>BTA Image Generator</h2>
+<p>Welcome to the BTA Image Generator! This tool lets you create images from text descriptions. Just type what you imagine, and we'll turn it into a picture.</p>
+<p>How to use the tool:</p>
+<ul>
+<li>Type a description of the image you want in the box below. For example, "A cat sitting on a tree" or "A spaceship flying in space."</li>
+<li>Click the "Generate Image" button.</li>
+<li>Wait a moment, and your image will appear below.</li>
+</ul>
+<p>To download the image:</p>
+<ul>
+<li>On a phone or tablet: long press on the image to see the option to download.</li>
+<li>On a laptop or computer: press the application key (or right-click) on the image to find the option to download.</li>
+</ul>
+<p>Unleash your creativity with this tool and give shape to your imagination!</p>
+<div class="container">
+<div class="inputArea">
+<div class="input-group">
+<label class="w3-label" for="imgPrompt">Image Prompt</label>
+<textarea class="w3-input w3-border" id="imgPrompt" placeholder="Describe the image you want to create. For example: 'A majestic lion in the savanna at sunset'"></textarea>
+</div>
+<div class="options-group">
+<label class="w3-label" for="modelSelect">Select Model</label>
+<select class="w3-select w3-border" id="modelSelect">
+<option selected="" value="flux">Flux (High Quality)</option>
+<option value="flux-realism">Flux Realism</option>
+<option value="any-dark">Dark/Artistic</option>
+<option value="turbo">Turbo (Fast)</option>
+</select>
+<button class="btn" id="generateBtn" onclick="sendPrompt()">Generate Image</button>
+</div>
+</div>
+<div class="img-box" id="imgBox"></div>
+<div id="downloadContainer" style="display: none; text-align: center; margin-top: 20px;">
+<button class="btn download-btn" id="downloadBtn">Download Image</button>
+</div>
+</div>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="../others/global.js"></script>
+<script src="../others/auth.js"></script>
+<script src="./img-generator-javascript.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
 </html>

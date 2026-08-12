@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <title>Advanced Calculator</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<title>Advanced Calculator</title>
+<style>
     table {
       width: 95vw;
       height: 80vh;
@@ -52,81 +52,80 @@
       border-radius: 5%;
     }
   </style>
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-          <nav class="w3-bar">
-        <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-        <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
-        <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-        <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-        <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-      </nav>
-    <main id="main">
-      <div id="heading-box" role="heading" aria-level="2">
-        <h2>Online Calculator by <br> Blind Tech Agent</h2>
-      </div>
-      <table class="calculator">
-        <tr>
-          <td colspan="4"><input type="text" id="result" disabled aria-live="assertive"></td>
-        </tr>
-        <tr>
-          <td><button onclick="clearInput()" aria-label="Clear" accesskey="c">AC</button></td>
-          <td><button onclick="backspace()" aria-label="Backspace" accesskey="b">&larr;</button></td>
-          <td><button onclick="calculate('sqrt(')" aria-label="Square Root" accesskey="s">√</button></td>
-          <td><button onclick="calculate('pow(')" aria-label="power" accesskey="e">^</button></td>
-        </tr>
-        <tr>
-          <td><button onclick="addInput('(')" aria-label="Left Parenthesis" accesskey="()">(</button></td>
-          <td><button onclick="addInput(')')" aria-label="Right Parenthesis" accesskey=")">)</button></td>
-          <td><button onclick="calculate('pi')" aria-label="Pi" accesskey="p">π</button></td>
-          <td><button onclick="calculate('fact(')" aria-label="Factors" accesskey="f">!</button></td>
-        </tr>
-        <tr>
-          <td><button onclick="calculate('7')" aria-label="7" accesskey="7">7</button></td>
-          <td><button onclick="calculate('8')" aria-label="8" accesskey="8">8</button></td>
-          <td><button onclick="calculate('9')" aria-label="9" accesskey="9">9</button></td>
-          <td><button onclick="calculate('/')" aria-label="Divide" accesskey="/">÷</button></td>
-        </tr>
-        <tr>
-          <td><button onclick="calculate('4')" aria-label="4" accesskey="4">4</button></td>
-          <td><button onclick="calculate('5')" aria-label="5" accesskey="5">5</button></td>
-          <td><button onclick="calculate('6')" aria-label="6" accesskey="6">6</button></td>
-          <td><button onclick="calculate('*')" aria-label="Multiply" accesskey="*">×</button></td>
-        </tr>
-        <tr>
-          <td><button onclick="calculate('1')" aria-label="1" accesskey="1">1</button></td>
-          <td><button onclick="calculate('2')" aria-label="2" accesskey="2">2</button></td>
-          <td><button onclick="calculate('3')" aria-label="3" accesskey="3">3</button></td>
-          <td><button onclick="calculate('-')" aria-label="Minus" accesskey="-">-</button></td>
-        </tr>
-        <tr>
-          <td><button onclick="calculate('percent(')" aria-label="Percent" accesskey="%">%</button></td>
-          <td><button onclick="calculate('0')" aria-label="0" accesskey="0">0</button></td>
-          <td><button onclick="calculate('.')" aria-label="Decimal Point" accesskey=".">.</button></td>
-          <td><button onclick="calculate('+')" aria-label="Plus" accesskey="+">+</button></td>
-        </tr>
-        <tr>
-          <td colspan="4"><button onclick="calculate('=')" aria-label="Equals" id="eq" accesskey="=">=</button></td>
-        </tr>
-      </table>
-      <div id="announcement" role="status" aria-live="assertive"></div>
-    </main>
-    <footer id="footer"></footer>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script>const result = document.getElementById('result');
+<meta content="Explore the Calculator tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/calculator.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Advanced Calculator</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div aria-level="2" id="heading-box" role="heading">
+<h2>Online Calculator by <br/> Blind Tech Agent</h2>
+</div>
+<table class="calculator">
+<tr>
+<td colspan="4"><input aria-live="assertive" disabled="" id="result" type="text"/></td>
+</tr>
+<tr>
+<td><button accesskey="c" aria-label="Clear" onclick="clearInput()">AC</button></td>
+<td><button accesskey="b" aria-label="Backspace" onclick="backspace()">←</button></td>
+<td><button accesskey="s" aria-label="Square Root" onclick="calculate('sqrt(')">√</button></td>
+<td><button accesskey="e" aria-label="power" onclick="calculate('pow(')">^</button></td>
+</tr>
+<tr>
+<td><button accesskey="()" aria-label="Left Parenthesis" onclick="addInput('(')">(</button></td>
+<td><button accesskey=")" aria-label="Right Parenthesis" onclick="addInput(')')">)</button></td>
+<td><button accesskey="p" aria-label="Pi" onclick="calculate('pi')">π</button></td>
+<td><button accesskey="f" aria-label="Factors" onclick="calculate('fact(')">!</button></td>
+</tr>
+<tr>
+<td><button accesskey="7" aria-label="7" onclick="calculate('7')">7</button></td>
+<td><button accesskey="8" aria-label="8" onclick="calculate('8')">8</button></td>
+<td><button accesskey="9" aria-label="9" onclick="calculate('9')">9</button></td>
+<td><button accesskey="/" aria-label="Divide" onclick="calculate('/')">÷</button></td>
+</tr>
+<tr>
+<td><button accesskey="4" aria-label="4" onclick="calculate('4')">4</button></td>
+<td><button accesskey="5" aria-label="5" onclick="calculate('5')">5</button></td>
+<td><button accesskey="6" aria-label="6" onclick="calculate('6')">6</button></td>
+<td><button accesskey="*" aria-label="Multiply" onclick="calculate('*')">×</button></td>
+</tr>
+<tr>
+<td><button accesskey="1" aria-label="1" onclick="calculate('1')">1</button></td>
+<td><button accesskey="2" aria-label="2" onclick="calculate('2')">2</button></td>
+<td><button accesskey="3" aria-label="3" onclick="calculate('3')">3</button></td>
+<td><button accesskey="-" aria-label="Minus" onclick="calculate('-')">-</button></td>
+</tr>
+<tr>
+<td><button accesskey="%" aria-label="Percent" onclick="calculate('percent(')">%</button></td>
+<td><button accesskey="0" aria-label="0" onclick="calculate('0')">0</button></td>
+<td><button accesskey="." aria-label="Decimal Point" onclick="calculate('.')">.</button></td>
+<td><button accesskey="+" aria-label="Plus" onclick="calculate('+')">+</button></td>
+</tr>
+<tr>
+<td colspan="4"><button accesskey="=" aria-label="Equals" id="eq" onclick="calculate('=')">=</button></td>
+</tr>
+</table>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script>const result = document.getElementById('result');
 
     function addInput(value) {
       result.value += value;
@@ -167,9 +166,8 @@
       }
     }
   </script>
-  <script src="../others/global.js"></script>
-    <script src="../others/translate.js"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="../others/global.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
-
 </html>

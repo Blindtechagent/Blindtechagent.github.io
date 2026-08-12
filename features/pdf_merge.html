@@ -1,17 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <title>PDF Merge - Blind Tech Agent</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="../others/loading.js"></script>
+<title>PDF Merge - Blind Tech Agent</title>
+<style>
     :root {
       --primary-color: #2196F3;
       --secondary-color: #4CAF50;
@@ -87,71 +88,66 @@
       color: var(--primary-color);
     }
   </style>
-</head>
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-    <nav class="w3-bar">
-      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
-      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-    </nav>
-    <main id="main">
-      <div class="container">
-        <div class="tool-header">
-          <h2><i class="fas fa-object-group"></i> PDF Merger</h2>
-          <p><strong>Welcome to our PDF Merger tool!</strong> This tool lets you combine multiple PDF documents into a single PDF in just a few clicks. Simply select the PDF files you want to merge, and the combined PDF will be created almost instantly without unnecessary waiting.</p>
+<meta content="Explore the Pdf Merge tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/pdf_merge.html" rel="canonical"/></head>
+<body><h1 class="sr-only">PDF Merge</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div class="container">
+<div class="tool-header">
+<h2><i class="fas fa-object-group"></i> PDF Merger</h2>
+<p><strong>Welcome to our PDF Merger tool!</strong> This tool lets you combine multiple PDF documents into a single PDF in just a few clicks. Simply select the PDF files you want to merge, and the combined PDF will be created almost instantly without unnecessary waiting.</p>
 <p>You can add multiple PDF files, review the list before merging, remove files if needed, and download the merged PDF once it's ready. Your files are processed directly in your browser, helping keep your documents private.</p>
 <p>Merge your PDF files anytime, whether you're using a <strong>mobile device</strong>, <strong>computer</strong>, or <strong>laptop</strong>.</p>
-        </div>
-        
-        <div id="upload-section">
-          <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()" aria-label="Upload PDF Documents">
-            <i class="fas fa-file-import fa-4x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
-            <p>Drag and drop your PDF files here, or click to browse your folders.</p>
-            <button class="btn btn-primary" type="button">
-              <i class="fas fa-plus-circle"></i> Select Files
+</div>
+<div id="upload-section">
+<div aria-label="Upload PDF Documents" class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+<i class="fas fa-file-import fa-4x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+<p>Drag and drop your PDF files here, or click to browse your folders.</p>
+<button class="btn btn-primary" type="button">
+<i class="fas fa-plus-circle"></i> Select Files
             </button>
-            <input type="file" id="fileInput" class="file-input" accept="application/pdf" multiple>
-          </div>
-        </div>
-
-        <div id="file-list-container">
-          <div class="file-list" id="fileList"></div>
-        </div>
-
-        <div id="action-buttons" style="display:none;">
-          <button class="btn btn-success" onclick="mergePDFs()">
-            <i class="fas fa-layer-group"></i> Merge PDF Files
+<input accept="application/pdf" class="file-input" id="fileInput" multiple="" type="file"/>
+</div>
+</div>
+<div id="file-list-container">
+<div class="file-list" id="fileList"></div>
+</div>
+<div id="action-buttons" style="display:none;">
+<button class="btn btn-success" onclick="mergePDFs()">
+<i class="fas fa-layer-group"></i> Merge PDF Files
           </button>
-          <button class="btn btn-danger" onclick="clearFiles()">
-            <i class="fas fa-undo"></i> Clear All Files
+<button class="btn btn-danger" onclick="clearFiles()">
+<i class="fas fa-undo"></i> Clear All Files
           </button>
-        </div>
-
-        <div id="status" role="status" aria-live="polite"></div>
-      </div>
-    </main>
-    <footer id="footer"></footer>
-  </div>
-
-  <script src="../others/firebase.js"></script>
-  <script src="../others/global.js"></script>
-  <script src="../others/translate.js"></script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="pdf_merge.js"></script>
+</div>
+<div aria-live="polite" id="status" role="status"></div>
+</div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="../others/firebase.js"></script>
+<script src="../others/global.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+<script src="pdf_merge.js"></script>
 </body>
 </html>
-  <script src="../others/translate.js"></script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script src="pdf_merge.js"></script>
-</body>
-</html>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
+<script src="pdf_merge.js"></script>
+
+

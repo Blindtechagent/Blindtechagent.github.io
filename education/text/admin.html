@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Content Management</title>
-    <link rel="stylesheet" href="../../style.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Panel - Content Management</title>
+<link href="../../style.css" rel="stylesheet"/>
+<style>
         body {
             font-family: sans-serif;
             margin: 0;
@@ -94,29 +95,28 @@
             color: red;
         }
     </style>
-  <script src="../../others/loading.js"></script>
-</head>
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-
-  <div class="body">
-    <header id="header"></header>
-    <main>
-        <h2>Access Educational Content Admin Panel</h2>
-        <p>
+<script src="../../others/loading.js"></script>
+<meta content="Explore the Admin tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/education/text/admin.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Admin Panel - Content Management</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<main>
+<h2>Access Educational Content Admin Panel</h2>
+<p>
             This page is for educational content creators of Blind Tech Agent. Here, you can securely access the tools to create and manage our educational materials.
         </p>
-        <p class="warning-text">Please note: This area is restricted to authorized team members only.</p>
-        <input type="password" id="password-input" placeholder="Enter password" aria-label="Password">
-        <button id="access-button">Access Editor</button>
-        <p id="message" role="alert" aria-live="assertive"></p>
-    </main>
-  </div>
+<p class="warning-text">Please note: This area is restricted to authorized team members only.</p>
+<input aria-label="Password" id="password-input" placeholder="Enter password" type="password"/>
+<button id="access-button">Access Editor</button>
+<p aria-live="assertive" id="message" role="alert"></p>
+</main>
+</div>
 <script src="admin.js"></script>
 </body>
 </html>

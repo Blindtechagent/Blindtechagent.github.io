@@ -1,49 +1,44 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Article Generator</title>
-  <script src="../others/loading.js"></script>
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Article Generator</title>
+<script src="../others/loading.js"></script>
+<meta content="Explore the Article Generator tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/articles_system/article-generator.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Article Generator</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
 <h2>Article generator</h2>
-  <div class="tb" id="tb">
-    <div class="dfm">
-      <span>Welcome! Enter a topic below and click "Generate Article" to get started.</span>
-    </div>
-  </div>
-
-  <form autocomplete="off" id="form">
-    <div class="input-area">
-      <input type="text" id="msg_text" placeholder="Enter topic here" required />
-      <button type="button" id="micBtn" class="btn mic-btn" aria-label="Start voice input">
-        <i class="fas fa-microphone"></i>
-      </button>
-      <button type="submit" id="sendBtn" class="btn send-btn" aria-label="Generate article">
-        <i class="fas fa-paper-plane"></i>
-      </button>
-    </div>
-  </form>
-
-  <div id="output" style="margin-top: 20px;"></div>
-
-  <div id="announcement" role="status" aria-live="assertive"></div>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="article-generator.js"></script>
+<div class="tb" id="tb">
+<div class="dfm">
+<span>Welcome! Enter a topic below and click "Generate Article" to get started.</span>
+</div>
+</div>
+<form autocomplete="off" id="form">
+<div class="input-area">
+<input id="msg_text" placeholder="Enter topic here" required="" type="text"/>
+<button aria-label="Start voice input" class="btn mic-btn" id="micBtn" type="button">
+<i class="fas fa-microphone"></i>
+</button>
+<button aria-label="Generate article" class="btn send-btn" id="sendBtn" type="submit">
+<i class="fas fa-paper-plane"></i>
+</button>
+</div>
+</form>
+<div id="output" style="margin-top: 20px;"></div>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="article-generator.js"></script>
 </body>
-
 </html>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
 
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Analyzer</title>
-  <style>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Text Analyzer</title>
+<style>
     body {
       font-family: Arial, sans-serif;
     }
@@ -59,50 +59,47 @@
       content: ')';
     }
   </style>
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-      <nav class="w3-bar">
-        <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-        <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
-        <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-        <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-        <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-      </nav>
-    <main id="main">
-      <div id="heading-box" role="heading" aria-level="2">
-        <h2>Text Analyzer</h2>
-      </div>
-      <p>Welcome to our Text Analyzer tool! With this simple utility, you can easily analyze any text you input. Just type or paste your text into the provided area and click "Analyze Text."</p>
-
+<meta content="Explore the Text Analyser tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/text_analyser.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Text Analyzer</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div aria-level="2" id="heading-box" role="heading">
+<h2>Text Analyzer</h2>
+</div>
+<p>Welcome to our Text Analyzer tool! With this simple utility, you can easily analyze any text you input. Just type or paste your text into the provided area and click "Analyze Text."</p>
 <p>Our Text Analyzer will quickly provide you with useful information, such as the word count and character count of your text. It's a handy tool for writers, students, and anyone who works with text regularly. Give it a try now!</p>
 <textarea id="input" placeholder="Enter your text here..."></textarea>
-      <button onclick="analyze()">Analyze Text</button>
-      <div id="output">
-        <span id="word-count"></span>
-        <span id="char-count"></span>
-      </div>
-      <div id="time-taken"></div>
-      <div id="announcement" role="status" aria-live="assertive"></div>
-    </main>
-    <footer id="footer"></footer>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="./txtEm.js"></script>
-  <script src="../others/global.js"></script>
-    <script src="../others/translate.js"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<button onclick="analyze()">Analyze Text</button>
+<div id="output">
+<span id="word-count"></span>
+<span id="char-count"></span>
+</div>
+<div id="time-taken"></div>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="./txtEm.js"></script>
+<script src="../others/global.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
-
 </html>

@@ -38,38 +38,32 @@
         return gk_fileData[filename] || "";
         }
         </script><!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multiplayer Chess Game - Blind Tech Agent</title>
-  <meta name="description"
-    content="Play Multiplayer Chess online. Create or join rooms and challenge your friends in this accessible, Firebase-powered Chess-like game.">
-  <meta name="keywords"
-    content="multiplayer chess, online chess, accessible chess, blind chess, Firebase chess, Blind Tech Agent">
-  <meta name="author" content="Blind Tech Agent">
-  <meta name="robots" content="index, follow">
-  <meta name="googlebot" content="index, follow">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://blindtechagent.github.io/menu/index.html">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="Multiplayer Chess Game - Blind Tech Agent">
-  <meta property="og:description"
-    content="Play Multiplayer Chess online. Create or join rooms and challenge your friends in this accessible, Firebase-powered Chess-like game.">
-  <meta property="og:image" content="https://te.legra.ph/file/1456591743bc08490d50c.jpg">
-  <meta property="og:url" content="https://blindtechagent.github.io/menu/index.html">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Multiplayer Chess Game - Blind Tech Agent">
-  <meta name="twitter:description" content="Play Multiplayer Chess online. Create or join rooms and challenge your friends.">
-  <meta name="twitter:image" content="https://te.legra.ph/file/1456591743bc08490d50c.jpg">
-
-  <!-- Structured Data JSON-LD -->
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Multiplayer Chess Game - Blind Tech Agent</title>
+<meta content="Play Multiplayer Chess online. Create or join rooms and challenge your friends in this accessible, Firebase-powered Chess-like game." name="description"/>
+<meta content="multiplayer chess, online chess, accessible chess, blind chess, Firebase chess, Blind Tech Agent" name="keywords"/>
+<meta content="Blind Tech Agent" name="author"/>
+<meta content="index, follow" name="robots"/>
+<meta content="index, follow" name="googlebot"/>
+<!-- Canonical URL -->
+<link href="https://blindtechagent.github.io/menu/index.html" rel="canonical"/>
+<!-- Open Graph / Facebook -->
+<meta content="Multiplayer Chess Game - Blind Tech Agent" property="og:title"/>
+<meta content="Play Multiplayer Chess online. Create or join rooms and challenge your friends in this accessible, Firebase-powered Chess-like game." property="og:description"/>
+<meta content="https://te.legra.ph/file/1456591743bc08490d50c.jpg" property="og:image"/>
+<meta content="https://blindtechagent.github.io/menu/index.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- Twitter -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Multiplayer Chess Game - Blind Tech Agent" name="twitter:title"/>
+<meta content="Play Multiplayer Chess online. Create or join rooms and challenge your friends." name="twitter:description"/>
+<meta content="https://te.legra.ph/file/1456591743bc08490d50c.jpg" name="twitter:image"/>
+<!-- Structured Data JSON-LD -->
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -78,7 +72,7 @@
     "description": "Play Multiplayer Chess online. Create or join rooms and challenge your friends in this accessible, Firebase-powered Chess-like game."
   }
   </script>
-  <style>
+<style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
@@ -149,31 +143,30 @@
     }
   </style>
 </head>
-<body>
-  <div id="room-section">
-    <h2>Create or Join a Game</h2>
-    <div>
-      <button onclick="createRoom()">Create Room</button>
-      <p id="room-id">Room ID: None</p>
-      <p id="error-message"></p>
-      <div>
-        <input id="room-input" type="text" placeholder="Enter Room ID">
-        <button onclick="joinRoom()">Join Room</button>
-      </div>
-    </div>
-  </div>
-  <div id="game-section">
-    <h2>Multiplayer Game</h2>
-    <p id="status">Waiting for opponent...</p>
-    <p id="error-message"></p>
-    <div id="board"></div>
-    <button onclick="resetGame()">Reset Game</button>
-  </div>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"></script>
-  <script>
+<body><h1 class="sr-only">Multiplayer Chess Game</h1>
+<div id="room-section">
+<h2>Create or Join a Game</h2>
+<div>
+<button onclick="createRoom()">Create Room</button>
+<p id="room-id">Room ID: None</p>
+<p id="error-message"></p>
+<div>
+<input id="room-input" placeholder="Enter Room ID" type="text"/>
+<button onclick="joinRoom()">Join Room</button>
+</div>
+</div>
+</div>
+<div id="game-section">
+<h2>Multiplayer Game</h2>
+<p id="status">Waiting for opponent...</p>
+<p id="error-message"></p>
+<div id="board"></div>
+<button onclick="resetGame()">Reset Game</button>
+</div>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"></script>
+<script>
     // Replace with your Firebase configuration
     const firebaseConfig = {
       apiKey: "your-api-key",

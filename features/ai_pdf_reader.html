@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <title>Professional PDF Reader - Blind Tech Agent</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<title>Professional PDF Reader - Blind Tech Agent</title>
+<style>
     :root {
       --primary-color: #2196F3;
       --secondary-color: #03DAC6;
@@ -191,177 +192,156 @@
       border-width: 0;
     }
   </style>
-</head>
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div class="body">
-    <header id="header"></header>
-
-    <nav class="w3-bar">
-      <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-      <a role="tab" href="../features.html" target="_self" aria-label="Selected, Features" class="tab w3-yellow">FEATURES </a>
-      <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-      <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-      <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-    </nav>
-
-    <main id="main">
-      <div class="container">
-        <div class="tool-header">
-          <h2><i class="fas fa-file-invoice"></i> Professional PDF Reader</h2>
-          <p>Experience beautifully formatted documents with high-fidelity structural reconstruction.</p>
-        </div>
-
-        <div id="upload-section" class="upload-area">
-          <i class="fas fa-file-import fa-4x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
-          <h3>Enhanced Document Reading</h3>
-          <p>Upload your PDF and our engine will reconstruct the layout into clean, semantic HTML.</p>
-          <button class="w3-button w3-blue w3-round-large w3-large" onclick="document.getElementById('fileInput').click()">
-            <i class="fas fa-plus"></i> Select PDF File
+<meta content="Explore the Ai Pdf Reader tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/ai_pdf_reader.html" rel="canonical"/></head>
+<body><h1 class="sr-only">Professional PDF Reader</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Features" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
+<div class="container">
+<div class="tool-header">
+<h2><i class="fas fa-file-invoice"></i> Professional PDF Reader</h2>
+<p>Experience beautifully formatted documents with high-fidelity structural reconstruction.</p>
+</div>
+<div class="upload-area" id="upload-section">
+<i class="fas fa-file-import fa-4x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+<h3>Enhanced Document Reading</h3>
+<p>Upload your PDF and our engine will reconstruct the layout into clean, semantic HTML.</p>
+<button class="w3-button w3-blue w3-round-large w3-large" onclick="document.getElementById('fileInput').click()">
+<i class="fas fa-plus"></i> Select PDF File
           </button>
-          <input type="file" id="fileInput" class="file-input" accept="application/pdf">
-        </div>
-
-        <div id="status-container">
-          <div id="status" role="status" aria-live="polite" style="margin-top:10px; font-weight:bold; color:var(--primary-color);"></div>
-        </div>
-
-        <!-- File Metadata -->
-        <div id="file-details">
-          <div style="text-align:left;">
-            <strong id="fileName" style="font-size:1.1em; color:#2d3748;"></strong><br>
-            <span id="pageCount" class="status-badge"></span>
-          </div>
-          <button class="w3-button w3-red w3-round-large" onclick="clearAll()">
-            <i class="fas fa-times"></i> Close Document
+<input accept="application/pdf" class="file-input" id="fileInput" type="file"/>
+</div>
+<div id="status-container">
+<div aria-live="polite" id="status" role="status" style="margin-top:10px; font-weight:bold; color:var(--primary-color);"></div>
+</div>
+<!-- File Metadata -->
+<div id="file-details">
+<div style="text-align:left;">
+<strong id="fileName" style="font-size:1.1em; color:#2d3748;"></strong><br/>
+<span class="status-badge" id="pageCount"></span>
+</div>
+<button class="w3-button w3-red w3-round-large" onclick="clearAll()">
+<i class="fas fa-times"></i> Close Document
           </button>
-        </div>
-
-        <!-- Full-Width Reader -->
-        <div id="dashboard" class="reader-frame">
-          <div class="top-nav">
-            <div class="nav-group">
-               <span id="pageIndicator" style="font-weight: 700; color: #4a5568;"></span>
-            </div>
-            <div class="nav-group">
-              <label for="jumpInput" style="font-size:0.9em; font-weight:600;">Go to:</label>
-              <input type="number" id="jumpInput" min="1" placeholder="#">
-              <button class="w3-button w3-light-gray w3-round w3-small" onclick="jumpToPage()">Jump</button>
-            </div>
-          </div>
-
-          <div class="content-area">
-            <div id="resultContainer"></div>
-          </div>
-
-          <div class="bottom-nav">
-            <button class="nav-btn" id="prevBtn" onclick="changePage(-1)">
-              <i class="fas fa-chevron-left"></i>
-              <span>Previous Page</span>
-            </button>
-            
-            <button class="nav-btn" id="playBtn" onclick="toggleRead()">
-              <i class="fas fa-play" id="playIcon"></i>
-              <span id="playText">Play</span>
-            </button>
-
-            <button class="nav-btn" id="nextBtn" onclick="changePage(1)">
-              <i class="fas fa-chevron-right"></i>
-              <span>Next Page</span>
-            </button>
-
-            <button class="nav-btn" onclick="document.getElementById('moreActionsDialog').showModal()" title="More Options">
-              <i class="fas fa-cog"></i>
-              <span>Options</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <dialog id="moreActionsDialog">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <h3 style="margin:0;">Reading Options</h3>
-          <button class="w3-button w3-circle" onclick="document.getElementById('moreActionsDialog').close()">&times;</button>
-        </div>
-        
-        <div class="dialog-grid">
-          <div>
-            <label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Reading Speed</label>
-            <input type="range" id="speedRange" min="0.5" max="2.5" step="0.1" value="1.0" oninput="updateSpeed(this.value)" style="width:100%;">
-            <div style="display:flex; justify-content:space-between; margin-top:5px;">
-              <small>Slower</small>
-              <small><strong><span id="speedVal">1.0</span>x</strong></small>
-              <small>Faster</small>
-            </div>
-          </div>
-
-          <div style="border-top: 1px solid #eee; padding-top:15px;">
-            <label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Text Zoom</label>
-            <div style="display:flex; gap:10px;">
-              <button class="w3-button w3-border w3-round w3-block" onclick="adjustFontSize(2)">
-                <i class="fas fa-plus"></i> Increase
+</div>
+<!-- Full-Width Reader -->
+<div class="reader-frame" id="dashboard">
+<div class="top-nav">
+<div class="nav-group">
+<span id="pageIndicator" style="font-weight: 700; color: #4a5568;"></span>
+</div>
+<div class="nav-group">
+<label for="jumpInput" style="font-size:0.9em; font-weight:600;">Go to:</label>
+<input id="jumpInput" min="1" placeholder="#" type="number"/>
+<button class="w3-button w3-light-gray w3-round w3-small" onclick="jumpToPage()">Jump</button>
+</div>
+</div>
+<div class="content-area">
+<div id="resultContainer"></div>
+</div>
+<div class="bottom-nav">
+<button class="nav-btn" id="prevBtn" onclick="changePage(-1)">
+<i class="fas fa-chevron-left"></i>
+<span>Previous Page</span>
+</button>
+<button class="nav-btn" id="playBtn" onclick="toggleRead()">
+<i class="fas fa-play" id="playIcon"></i>
+<span id="playText">Play</span>
+</button>
+<button class="nav-btn" id="nextBtn" onclick="changePage(1)">
+<i class="fas fa-chevron-right"></i>
+<span>Next Page</span>
+</button>
+<button class="nav-btn" onclick="document.getElementById('moreActionsDialog').showModal()" title="More Options">
+<i class="fas fa-cog"></i>
+<span>Options</span>
+</button>
+</div>
+</div>
+</div>
+<dialog id="moreActionsDialog">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+<h3 style="margin:0;">Reading Options</h3>
+<button class="w3-button w3-circle" onclick="document.getElementById('moreActionsDialog').close()">×</button>
+</div>
+<div class="dialog-grid">
+<div>
+<label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Reading Speed</label>
+<input id="speedRange" max="2.5" min="0.5" oninput="updateSpeed(this.value)" step="0.1" style="width:100%;" type="range" value="1.0"/>
+<div style="display:flex; justify-content:space-between; margin-top:5px;">
+<small>Slower</small>
+<small><strong><span id="speedVal">1.0</span>x</strong></small>
+<small>Faster</small>
+</div>
+</div>
+<div style="border-top: 1px solid #eee; padding-top:15px;">
+<label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Text Zoom</label>
+<div style="display:flex; gap:10px;">
+<button class="w3-button w3-border w3-round w3-block" onclick="adjustFontSize(2)">
+<i class="fas fa-plus"></i> Increase
               </button>
-              <button class="w3-button w3-border w3-round w3-block" onclick="adjustFontSize(-2)">
-                <i class="fas fa-minus"></i> Decrease
+<button class="w3-button w3-border w3-round w3-block" onclick="adjustFontSize(-2)">
+<i class="fas fa-minus"></i> Decrease
               </button>
-            </div>
-          </div>
-
-          <div style="border-top: 1px solid #eee; padding-top:15px;">
-            <label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Visual Theme</label>
-            <button class="w3-button w3-border w3-round w3-block" id="themeToggle" onclick="toggleDarkMode()">
-              <i class="fas fa-moon"></i> Dark Mode
+</div>
+</div>
+<div style="border-top: 1px solid #eee; padding-top:15px;">
+<label style="display:block; font-size:0.9em; font-weight:bold; margin-bottom:10px;">Visual Theme</label>
+<button class="w3-button w3-border w3-round w3-block" id="themeToggle" onclick="toggleDarkMode()">
+<i class="fas fa-moon"></i> Dark Mode
             </button>
-          </div>
-
-          <div style="border-top: 1px solid #eee; padding-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <button class="w3-button w3-blue w3-round-large" onclick="displayPage(0)">
-              <i class="fas fa-fast-backward"></i> First Page
+</div>
+<div style="border-top: 1px solid #eee; padding-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+<button class="w3-button w3-blue w3-round-large" onclick="displayPage(0)">
+<i class="fas fa-fast-backward"></i> First Page
             </button>
-            <button class="w3-button w3-blue w3-round-large" onclick="displayPage(pdfDoc.numPages - 1)">
-              <i class="fas fa-fast-forward"></i> Last Page
+<button class="w3-button w3-blue w3-round-large" onclick="displayPage(pdfDoc.numPages - 1)">
+<i class="fas fa-fast-forward"></i> Last Page
             </button>
-          </div>
-
-          <div style="border-top: 1px solid #eee; padding-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-            <button class="w3-button w3-green w3-round-large" onclick="copyText()">
-              <i class="fas fa-copy"></i> Copy Page
+</div>
+<div style="border-top: 1px solid #eee; padding-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+<button class="w3-button w3-green w3-round-large" onclick="copyText()">
+<i class="fas fa-copy"></i> Copy Page
             </button>
-            <button class="w3-button w3-teal w3-round-large" onclick="downloadText()">
-              <i class="fas fa-file-download"></i> Save as TXT
+<button class="w3-button w3-teal w3-round-large" onclick="downloadText()">
+<i class="fas fa-file-download"></i> Save as TXT
             </button>
-          </div>
-
-          <div style="border-top: 1px solid #eee; padding-top:15px;">
-            <button class="w3-button w3-deep-orange w3-round-large w3-block" onclick="downloadAllText()">
-              <i class="fas fa-file-export"></i> Extract All Text (TXT)
+</div>
+<div style="border-top: 1px solid #eee; padding-top:15px;">
+<button class="w3-button w3-deep-orange w3-round-large w3-block" onclick="downloadAllText()">
+<i class="fas fa-file-export"></i> Extract All Text (TXT)
             </button>
-          </div>
-
-          <div style="border-top: 1px solid #eee; padding-top:15px;">
-            <button class="w3-button w3-red w3-round-large w3-block" id="downloadAudioBtn" onclick="downloadFullAudio()">
-              <i class="fas fa-file-audio"></i> Download Full Audio (MP3)
+</div>
+<div style="border-top: 1px solid #eee; padding-top:15px;">
+<button class="w3-button w3-red w3-round-large w3-block" id="downloadAudioBtn" onclick="downloadFullAudio()">
+<i class="fas fa-file-audio"></i> Download Full Audio (MP3)
             </button>
-          </div>
-        </div>
-      </dialog>
-    </main>
-
-    <footer id="footer"></footer>
-  </div>
-
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-  <script src="ai_pdf_reader.js"></script>
-  <script src="../others/global.js"></script>
-  <script src="../others/translate.js"></script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+</div>
+</dialog>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script src="ai_pdf_reader.js"></script>
+<script src="../others/global.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
 </html>

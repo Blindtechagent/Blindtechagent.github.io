@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login</title>
+<style>
     * {
       font-family: 'Arial', sans-serif;
       box-sizing: border-box;
@@ -142,43 +142,40 @@
       transform: translateY(-2px);
     }
   </style>
-  <script src="../others/loading.js"></script>
-</head>
-
+<script src="../others/loading.js"></script>
+<meta content="Explore the Login tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/menu/login.html" rel="canonical"/></head>
 <body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-
-  <div class="body">
-    <a href="javascript:history.go(-1)" class="back-link">Back</a>
-  <div class="container">
-    <h1>Log In</h1>
-    <form autocomplete="off" id="login-form">
-      <label for="login-email">Email ID</label>
-      <input type="email" id="login-email" aria-label="Email ID" required>
-      <label for="login-password">Password</label>
-      <div class="password-container">
-        <input type="password" id="login-password" aria-label="Password" required>
-        <input type="checkbox" id="show-password"> Show Password
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div class="body">
+<a class="back-link" href="javascript:history.go(-1)">Back</a>
+<div class="container">
+<h1>Log In</h1>
+<form autocomplete="off" id="login-form">
+<label for="login-email">Email ID</label>
+<input aria-label="Email ID" id="login-email" required="" type="email"/>
+<label for="login-password">Password</label>
+<div class="password-container">
+<input aria-label="Password" id="login-password" required="" type="password"/>
+<input id="show-password" type="checkbox"/> Show Password
       </div>
-      <p><a id="forgot-password-link" class="link" role="button">Forgot Password?</a></p>
-      <button class="button" type="submit">Login</button>
-      <!-- <p>or</p>
+<p><a class="link" id="forgot-password-link" role="button">Forgot Password?</a></p>
+<button class="button" type="submit">Login</button>
+<!-- <p>or</p>
       <button class="google-button" id="google-sign-in">Sign in with Google</button> -->
-      <p>Not have an account yet? <a class="link" href="createAccount.html">Create Account</a></p>
-    </form>
-    <div id="announcement" role="status" aria-live="assertive"></div>
-  </div>
-  </div>
+<p>Not have an account yet? <a class="link" href="createAccount.html">Create Account</a></p>
+</form>
+<div aria-live="assertive" id="announcement" role="status"></div>
+</div>
+</div>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="login.js"></script>
-  <script src="../others/google-sign-in.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="login.js"></script>
+<script src="../others/google-sign-in.js"></script>
 </body>
-
 </html>

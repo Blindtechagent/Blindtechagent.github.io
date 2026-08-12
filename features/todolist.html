@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/a5db627303.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../others/loading.js"></script>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>todo List</title>
-  <style>
+<link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/a5db627303.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../others/loading.js"></script>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>todo List</title>
+<style>
     /* reset style code here */
     * {
       margin: 0px;
@@ -233,64 +233,60 @@
 
     /* happy coding!! */
   </style>
-</head>
-
-<body>
-  <div id="sr-announcer" class="sr-only" aria-live="assertive">loading, please wait</div>
-  <div class="preloader">
-    <div class="index-loader"><div id="loaderInner"></div></div>
-    <span id="wt" aria-live="assertive">Loading</span>
-    <div id="wt-box" aria-live="polite"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
-  </div>
-  <div classe="body">
-    <header id="header"></header>
-      <nav class="w3-bar">
-        <a role="tab" href="../index.html" target="_self" class="tab">HOME</a>
-        <a role="tab" href="../features.html" target="_self" aria-label="Selected, Tools" class="tab w3-yellow">FEATURES </a>
-        <a role="tab" href="../education.html" target="_self" class="tab">EDUCATION</a>
-        <a role="tab" href="../articles.html" target="_self" class="tab">ARTICLES</a>
-        <a role="tab" href="../games.html" target="_self" class="tab">Games</a>
-      </nav>
-    <main id="main">
+<meta content="Explore the Todolist tool on Blind Tech Agent. We provide accessible utilities, educational resources, and games designed for visually impaired users." name="description"/><link href="https://blindtechagent.github.io/features/todolist.html" rel="canonical"/></head>
+<body><h1 class="sr-only">todo List</h1>
+<div aria-live="assertive" class="sr-only" id="sr-announcer">loading, please wait</div>
+<div class="preloader">
+<div class="index-loader"><div id="loaderInner"></div></div>
+<span aria-live="assertive" id="wt">Loading</span>
+<div aria-live="polite" id="wt-box"> <div id="welcomeBox"> <pre><span class="welcome">please wait...</span></pre></div></div>
+</div>
+<div classe="body">
+<header id="header"></header>
+<nav class="w3-bar">
+<a class="tab" href="../index.html" role="tab" target="_self">HOME</a>
+<a aria-label="Selected, Tools" class="tab w3-yellow" href="../features.html" role="tab" target="_self">FEATURES </a>
+<a class="tab" href="../education.html" role="tab" target="_self">EDUCATION</a>
+<a class="tab" href="../articles.html" role="tab" target="_self">ARTICLES</a>
+<a class="tab" href="../games.html" role="tab" target="_self">Games</a>
+</nav>
+<main id="main">
 <div id="non-loggedin-section"></div> <div id="loggedin-section">
-      <div class="container">
-        <div class="todo-input">
-            <h2>ToDoList</h2>
-          <p aria-live="assertive" class="show-input-action"></p>
-          <form class="todo-form" autocomplete="off">
-            <input type="text" id="input-todo" placeholder="Enter a todo here" autocomplete="off" />
-            <input id="todo-button" type="submit" value="Add" />
-          </form>
-        </div>
-        <div class="todo-lists">
-          <h2>todo list</h2>
-          <p aria-live="assertive" class="show-result-action">successfully deleted</p>
-
-          <ul class="ul-list">
-            <!--
+<div class="container">
+<div class="todo-input">
+<h2>ToDoList</h2>
+<p aria-live="assertive" class="show-input-action"></p>
+<form autocomplete="off" class="todo-form">
+<input autocomplete="off" id="input-todo" placeholder="Enter a todo here" type="text"/>
+<input id="todo-button" type="submit" value="Add"/>
+</form>
+</div>
+<div class="todo-lists">
+<h2>todo list</h2>
+<p aria-live="assertive" class="show-result-action">successfully deleted</p>
+<ul class="ul-list">
+<!--
           <li>
             <p>1 </p> <p>work hard</p>
             <p><img  src="./icon/icons8-trash-30.png" alt="Delete" /></p>
           </li>
          -->
-          </ul>
-
-          <button type="reset" id="reset-button" class="btn">clear all</button>
-        </div>
-      </div>
-      </div>
-    </main>
-    <footer id="footer"></footer>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="../others/firebase.js"></script>
-  <script src="../others/global.js"></script>
-  <script src="../others/auth.js"></script>
-  <script src="./tdl.js"></script>
-    <script src="../others/translate.js"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</ul>
+<button class="btn" id="reset-button" type="reset">clear all</button>
+</div>
+</div>
+</div>
+</main>
+<footer id="footer"></footer>
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="../others/firebase.js"></script>
+<script src="../others/global.js"></script>
+<script src="../others/auth.js"></script>
+<script src="./tdl.js"></script>
+<script src="../others/translate.js"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" type="text/javascript"></script>
 </body>
-
 </html>
